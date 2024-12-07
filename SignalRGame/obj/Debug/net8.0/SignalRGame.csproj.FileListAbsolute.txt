@@ -34,3 +34,4 @@ C:\Users\omarz\Documents\SignalDotnNet\SignalRGame\obj\Debug\net8.0\refint\Signa
 C:\Users\omarz\Documents\SignalDotnNet\SignalRGame\obj\Debug\net8.0\SignalRGame.pdb
 C:\Users\omarz\Documents\SignalDotnNet\SignalRGame\obj\Debug\net8.0\SignalRGame.genruntimeconfig.cache
 C:\Users\omarz\Documents\SignalDotnNet\SignalRGame\obj\Debug\net8.0\ref\SignalRGame.dll
+C:\Users\omarz\Documents\SignalDotnNet\SignalRGame\obj\Debug\net8.0\SignalRGame.sourcelink.json

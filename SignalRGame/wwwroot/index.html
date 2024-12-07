@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>SignalR Game</h1>
+    <input id="userId" placeholder="User ID" />
     <button id="createRoom">Create Room</button>
     <button id="joinRoom">Join Room</button>
     <input id="roomId" placeholder="Room ID" />
@@ -23,10 +24,12 @@
             .build();
 
         let isHost = false;
+        let currentRoomId = null;
 
         // SignalR event handlers
         connection.on("RoomCreated", (roomId) => {
             log(`Room created: ${roomId}`);
+            currentRoomId = roomId;
             document.getElementById("startGame").disabled = false; // Enable Start Game button for host
             isHost = true;
         });
@@ -57,32 +60,64 @@
             .catch(err => log(`Error: ${err}`));
 
         // Button click handlers
-        document.getElementById("createRoom").onclick = () => {
-            const roomId = prompt("Enter Room ID:");
-            connection.invoke("CreateRoom", roomId)
-                .catch(err => log(`Error: ${err}`));
+        document.getElementById("createRoom").onclick = async () => {
+            const userId = document.getElementById("userId").value.trim();
+            if (!userId) {
+                log("Please enter a User ID.");
+                return;
+            }
+
+            try {
+                const roomId = await connection.invoke("CreateRoom", userId);
+                if (roomId) {
+                    log(`Room created with ID: ${roomId}`);
+                    currentRoomId = roomId;
+                    document.getElementById("startGame").disabled = false; // Enable Start Game button for host
+                    isHost = true;
+                }
+            } catch (err) {
+                log(`Error: ${err}`);
+            }
         };
 
         document.getElementById("joinRoom").onclick = () => {
-            const roomId = document.getElementById("roomId").value;
-            connection.invoke("JoinRoom", roomId)
+            const userId = document.getElementById("userId").value.trim();
+            const roomId = document.getElementById("roomId").value.trim();
+
+            if (!userId || !roomId) {
+                log("Please enter both User ID and Room ID.");
+                return;
+            }
+
+            connection.invoke("JoinRoom", roomId, userId)
+                .then(() => {
+                    log(`Joined room: ${roomId}`);
+                    currentRoomId = roomId;
+                })
                 .catch(err => log(`Error: ${err}`));
         };
 
         document.getElementById("startGame").onclick = () => {
-            const roomId = document.getElementById("roomId").value;
-            if (isHost) {
-                connection.invoke("StartGame", roomId)
-                    .catch(err => log(`Error: ${err}`));
-            } else {
+            const userId = document.getElementById("userId").value.trim();
+            if (!isHost || !currentRoomId) {
                 log("Only the host can start the game.");
+                return;
             }
+
+            connection.invoke("StartGame", currentRoomId, userId)
+                .catch(err => log(`Error: ${err}`));
         };
 
         document.getElementById("sendMessage").onclick = () => {
-            const roomId = document.getElementById("roomId").value;
-            const message = document.getElementById("message").value;
-            connection.invoke("SendMessageToRoom", roomId, message)
+            const userId = document.getElementById("userId").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!currentRoomId || !userId || !message) {
+                log("Please ensure you're in a room and have entered a message.");
+                return;
+            }
+
+            connection.invoke("SendMessageToRoom", currentRoomId, userId, message)
                 .catch(err => log(`Error: ${err}`));
         };
 
@@ -98,6 +133,7 @@
         function disableGameControls() {
             document.getElementById("startGame").disabled = true;
             isHost = false;
+            currentRoomId = null;
         }
     </script>
 </body>
