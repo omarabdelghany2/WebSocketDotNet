@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj": {}
+    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj": {
+    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj",
-        "projectName": "SignalRGame",
-        "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj",
+        "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj",
+        "projectName": "BackEnd.middlewareService",
+        "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj",
         "packagesPath": "C:\\Users\\omarz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\obj\\",
+        "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\omarz\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -46,10 +46,6 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.11, )"
-            },
-            "Microsoft.AspNetCore.SignalR": {
-              "target": "Package",
-              "version": "[1.1.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
