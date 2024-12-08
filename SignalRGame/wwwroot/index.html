@@ -8,10 +8,15 @@
 </head>
 <body>
     <h1>SignalR Game</h1>
-    <input id="userId" placeholder="User ID" />
+    <input id="token" placeholder="Token" />
+    <button id="loginRoom">Login Room</button>
     <button id="createRoom">Create Room</button>
     <button id="joinRoom">Join Room</button>
     <input id="roomId" placeholder="Room ID" />
+    <button id="inviteToRoom">Invite to Room</button>
+    <input id="inviteUserId" placeholder="Invite User ID" />
+    <button id="acceptInvitation">Accept Invitation</button>
+    <input id="inviterId" placeholder="Inviter ID" />
     <button id="startGame" disabled>Start Game</button>
     <button id="sendMessage">Send Message</button>
     <input id="message" placeholder="Message" />
@@ -51,6 +56,19 @@
             disableGameControls();
         });
 
+        connection.on("LoginRoomUpdated", (roomId) => {
+            log(`Login room updated: ${roomId}`);
+        });
+
+        connection.on("LoginRoomCreated", (roomId) => {
+            log(`Login room created: ${roomId}`);
+        });
+
+        // Event handler for Room Invitation
+        connection.on("RoomInvitation", (roomId, inviterId) => {
+            log(`You have been invited to join Room: ${roomId} by ${inviterId}.`);
+        });
+
         connection.on("Error", (message) => {
             log(`Error: ${message}`);
         });
@@ -60,15 +78,32 @@
             .catch(err => log(`Error: ${err}`));
 
         // Button click handlers
-        document.getElementById("createRoom").onclick = async () => {
-            const userId = document.getElementById("userId").value.trim();
-            if (!userId) {
-                log("Please enter a User ID.");
+        document.getElementById("loginRoom").onclick = async () => {
+            const token = document.getElementById("token").value.trim();
+            if (!token) {
+                log("Please enter a token.");
                 return;
             }
 
             try {
-                const roomId = await connection.invoke("CreateRoom", userId);
+                const roomId = await connection.invoke("LoginRoom", token);
+                if (roomId) {
+                    log(`Login room created or updated: ${roomId}`);
+                }
+            } catch (err) {
+                log(`Error: ${err}`);
+            }
+        };
+
+        document.getElementById("createRoom").onclick = async () => {
+            const token = document.getElementById("token").value.trim();
+            if (!token) {
+                log("Please enter a token.");
+                return;
+            }
+
+            try {
+                const roomId = await connection.invoke("CreateRoom", token);
                 if (roomId) {
                     log(`Room created with ID: ${roomId}`);
                     currentRoomId = roomId;
@@ -81,15 +116,15 @@
         };
 
         document.getElementById("joinRoom").onclick = () => {
-            const userId = document.getElementById("userId").value.trim();
+            const token = document.getElementById("token").value.trim();
             const roomId = document.getElementById("roomId").value.trim();
 
-            if (!userId || !roomId) {
-                log("Please enter both User ID and Room ID.");
+            if (!token || !roomId) {
+                log("Please enter both token and room ID.");
                 return;
             }
 
-            connection.invoke("JoinRoom", roomId, userId)
+            connection.invoke("JoinRoom", token, roomId)
                 .then(() => {
                     log(`Joined room: ${roomId}`);
                     currentRoomId = roomId;
@@ -97,29 +132,65 @@
                 .catch(err => log(`Error: ${err}`));
         };
 
-        document.getElementById("startGame").onclick = () => {
-            const userId = document.getElementById("userId").value.trim();
-            if (!isHost || !currentRoomId) {
-                log("Only the host can start the game.");
+        document.getElementById("inviteToRoom").onclick = () => {
+            const token = document.getElementById("token").value.trim();
+            const roomId = document.getElementById("roomId").value.trim();
+            const inviteUserId = document.getElementById("inviteUserId").value.trim();
+
+            if (!token || !roomId || !inviteUserId) {
+                log("Please enter token, room ID, and user ID to invite.");
                 return;
             }
 
-            connection.invoke("StartGame", currentRoomId, userId)
+            connection.invoke("InviteToRoom", token, roomId, inviteUserId)
+                .then(() => {
+                    log(`Invitation sent to ${inviteUserId} for room ${roomId}`);
+                })
+                .catch(err => log(`Error: ${err}`));
+        };
+
+        document.getElementById("acceptInvitation").onclick = () => {
+            const token = document.getElementById("token").value.trim();
+            const roomId = document.getElementById("roomId").value.trim();
+            const inviterId = document.getElementById("inviterId").value.trim();
+
+            if (!token || !roomId || !inviterId) {
+                log("Please enter token, room ID, and inviter ID.");
+                return;
+            }
+
+            connection.invoke("AcceptInvitation", token, roomId, inviterId)
+                .then(() => {
+                    log(`Accepted invitation from ${inviterId} for room ${roomId}`);
+                })
+                .catch(err => log(`Error: ${err}`));
+        };
+
+        document.getElementById("startGame").onclick = () => {
+            const token = document.getElementById("token").value.trim();
+            if (!isHost || !currentRoomId || !token) {
+                log("Only the host with a valid token can start the game.");
+                return;
+            }
+
+            connection.invoke("StartGame", currentRoomId, token)
                 .catch(err => log(`Error: ${err}`));
         };
 
         document.getElementById("sendMessage").onclick = () => {
-            const userId = document.getElementById("userId").value.trim();
+            const token = document.getElementById("token").value.trim();
+            const roomId = document.getElementById("roomId").value.trim();  // Read roomId from the input box
             const message = document.getElementById("message").value.trim();
 
-            if (!currentRoomId || !userId || !message) {
-                log("Please ensure you're in a room and have entered a message.");
+            if (!roomId || !token || !message) {
+                log("Please ensure you've entered the room ID, have a valid token, and have typed a message.");
                 return;
             }
 
-            connection.invoke("SendMessageToRoom", currentRoomId, userId, message)
+            connection.invoke("SendMessageToRoom", roomId, token, message)
                 .catch(err => log(`Error: ${err}`));
         };
+
 
         // Utility function to log messages
         function log(message) {
