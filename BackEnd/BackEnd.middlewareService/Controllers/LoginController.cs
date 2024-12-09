@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace BackEnd.middlewareService.Controllers
 {
@@ -17,14 +20,25 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] UserLoginInput input)
+        public async Task<IActionResult> login([FromBody] UserLoginInput input)
         {
-            var databaseServerUrl = "http://your-database-server:port/login"; // Replace with your actual database server URL
+            // Database server URL
+            var databaseServerUrl = "http://192.168.1.74:8000/api/login/"; // Replace with your actual database server URL
 
             try
             {
+                // Log the received input
+                Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
+
+                // Serialize the input to JSON
+                var jsonInput = JsonSerializer.Serialize(input);
+                Console.WriteLine($"Sending to database: {jsonInput}");
+
+                // Manually create the content to ensure it's serialized correctly
+                var content = new StringContent(jsonInput, Encoding.UTF8, "application/json");
+
                 // Send login credentials to the database server
-                var response = await _httpClient.PostAsJsonAsync(databaseServerUrl, input);
+                var response = await _httpClient.PostAsync(databaseServerUrl, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -36,8 +50,8 @@ namespace BackEnd.middlewareService.Controllers
                     return Ok(new
                     {
                         Message = "Login successful",
-                        AccessToken = tokens.AccessToken,
-                        RefreshToken = tokens.RefreshToken
+                        AccessToken = tokens?.AccessToken,
+                        RefreshToken = tokens?.RefreshToken
                     });
                 }
                 else
@@ -55,17 +69,23 @@ namespace BackEnd.middlewareService.Controllers
         }
     }
 
-    // Input model for login
+    // Input model for login with JsonPropertyName attributes
     public class UserLoginInput
     {
+        [JsonPropertyName("email")]
         public string Email { get; set; }
+
+        [JsonPropertyName("password")]
         public string Password { get; set; }
     }
 
-    // Token response model
+        // Token response model
     public class TokenResponse
     {
+        [JsonPropertyName("access_token")]  // Mapping snake_case to PascalCase
         public string AccessToken { get; set; }
+
+        [JsonPropertyName("refresh_token")]  // Mapping snake_case to PascalCase
         public string RefreshToken { get; set; }
     }
 }

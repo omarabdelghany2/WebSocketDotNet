@@ -7,7 +7,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient(); // Register HttpClient
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Listen(System.Net.IPAddress.Any, 5038); // Port 5000 or any port of your choice
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalNetwork",
+        policy =>
+        {
+            policy.WithOrigins("*")  // Allows all origins
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
+app.UseCors("AllowLocalNetwork");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

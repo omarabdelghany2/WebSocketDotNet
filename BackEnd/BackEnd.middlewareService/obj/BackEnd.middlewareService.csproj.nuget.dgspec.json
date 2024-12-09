@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj": {}
+    "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj": {
+    "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj",
+        "projectUniqueName": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
         "projectName": "BackEnd.middlewareService",
-        "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\BackEnd.middlewareService.csproj",
-        "packagesPath": "C:\\Users\\omarz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\BackEnd\\BackEnd.middlewareService\\obj\\",
+        "projectPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
+        "packagesPath": "/Users/omarabdelghany/.nuget/packages/",
+        "outputPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\omarz\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/omarabdelghany/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
