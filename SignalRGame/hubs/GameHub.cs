@@ -35,29 +35,48 @@ public class GameHub : Hub
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
+        // Find the user based on the connection ID
         var userRoom = UserRoomMapping.FirstOrDefault(ur => ur.Value == Context.ConnectionId);
         if (userRoom.Key != null)
         {
             var roomId = userRoom.Value;
             if (Rooms.TryGetValue(roomId, out var room))
             {
-                room.Participants.Remove(userRoom.Key);
+                // Find the player in the participants list
+                var player = room.Participants.FirstOrDefault(p => p.UserId == userRoom.Key);
 
-                if (room.Host == userRoom.Key)
+                if (player != null)
                 {
-                    Rooms.Remove(roomId);
-                    await Clients.Group(roomId).SendAsync("RoomDeleted");
-                }
-                else
-                {
-                    await Clients.Group(roomId).SendAsync("PlayerLeft", userRoom.Key);
+                    // Remove the player from the room's participants list
+                    room.Participants.Remove(player);
+
+                    // Check if the player is the host
+                    if (room.Host.UserId == userRoom.Key)
+                    {
+                        // If the host leaves, remove the room and notify participants
+                        if (room.Participants.Count > 0)
+                        {
+                            room.Host = room.Participants.First(); // Assign the new host to the first participant
+                        }
+                        else
+                        {
+                            Rooms.Remove(roomId); // Remove the room if there are no participants left
+                            await Clients.Group(roomId).SendAsync("RoomDeleted");
+                        }
+                    }
+                    else
+                    {
+                        // Notify the room that a player left
+                        await Clients.Group(roomId).SendAsync("PlayerLeft", userRoom.Key);
+                    }
                 }
             }
 
+            // Remove the mapping for the user from the room
             UserRoomMapping.TryRemove(userRoom.Key, out _);
         }
 
-        // Remove from UserIdToConnectionId
+        // Remove from UserIdToConnectionId mapping
         string? userId = UserIdToConnectionId.FirstOrDefault(kvp => kvp.Value == Context.ConnectionId).Key;
         if (userId != null)
         {
@@ -66,6 +85,8 @@ public class GameHub : Hub
 
         await base.OnDisconnectedAsync(exception);
     }
+
+
 
     public async Task<string> CreateRoom(string token)
     {
@@ -86,12 +107,12 @@ public class GameHub : Hub
         // Generate a unique room ID
         var roomId = Guid.NewGuid().ToString();
 
-        // Create the room with the user as the host
+        // Create the room with the user as the host (assigned to blue team by default)
         var room = new Room
         {
             RoomId = roomId,
-            Host = userId,
-            Participants = new List<string> { userId } // Add the host as the first participant
+            Host = new Player { UserId = userId, Team = "Blue" },
+            Participants = new List<Player> { new Player { UserId = userId, Team = "Blue" } }
         };
 
         // Save the room
@@ -106,8 +127,6 @@ public class GameHub : Hub
 
         return roomId; // Return the room ID
     }
-
-
     public async Task<string> LoginRoom(string token)
     {
         // Retrieve the user ID from the token
@@ -140,10 +159,12 @@ public class GameHub : Hub
             roomId = $"login-{Guid.NewGuid()}";
 
             // Create the login room with only the host
+            Player host = new Player { UserId = userId };
+
             var room = new Room
             {
                 RoomId = roomId,
-                Host = userId
+                Host=host
             };
 
             LoginRooms[roomId] = room; // Save the room in the global Rooms dictionary
@@ -177,20 +198,24 @@ public class GameHub : Hub
         }
 
         // Check if the user is already in the room
-        if (room.Participants.Contains(userId))
+        if (room.Participants.Any(p => p.UserId == userId))
         {
             await Clients.Caller.SendAsync("Error", "User already in the room.");
             return "Error: User already in the room";
         }
 
+        // Assign the user to a team (blue if fewer blue players, red otherwise)
+        string team = room.Participants.Count(p => p.Team == "Blue") < room.Participants.Count(p => p.Team == "Red") ? "Blue" : "Red";
+        var newPlayer = new Player { UserId = userId, Team = team };
+
         // Add the user to the room
-        room.Participants.Add(userId);
+        room.Participants.Add(newPlayer);
 
         // Add the user to the SignalR group for the room
         await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
 
         // Notify the room that a new player joined
-        await Clients.Group(roomId).SendAsync("PlayerJoined", userId);
+        await Clients.Group(roomId).SendAsync("PlayerJoined", userId, team);
 
         return "OK";
     }
@@ -241,7 +266,7 @@ public class GameHub : Hub
         }
 
         // Ensure the inviter is the host or a participant of the room
-        if (room.Host != inviterUserId && !room.Participants.Contains(inviterUserId))
+        if (room.Host.UserId != inviterUserId && !room.Participants.Any(p => p.UserId == inviterUserId))
         {
             await Clients.Caller.SendAsync("Error", "You are not a participant of this room.");
             return;
@@ -251,9 +276,7 @@ public class GameHub : Hub
         if (LoginRoomMapping.TryGetValue(invitedUserId, out var loginRoomConnectionId))
         {
             // Send an invitation to the invited user's login room (using their user ID or token)
-            // await Clients.Group(invitedUserId).SendAsync("RoomInvitation", roomId, inviterUserId);
             await Clients.Group(loginRoomConnectionId).SendAsync("RoomInvitation", roomId, inviterUserId);
-
         }
         else
         {
@@ -264,7 +287,6 @@ public class GameHub : Hub
         // Notify the inviter that the invitation was sent successfully
         await Clients.Caller.SendAsync("InvitationSent", invitedUserId);
     }
-
 
 
 
@@ -286,39 +308,45 @@ public class GameHub : Hub
         }
 
         // Check if the inviter is a participant or the host of the room
-        if (room.Host != inviterId && !room.Participants.Contains(inviterId))
+        var inviterIsValid = room.Host.UserId == inviterId || room.Participants.Any(p => p.UserId == inviterId);
+        if (!inviterIsValid)
         {
             await Clients.Caller.SendAsync("Error", "Invalid inviter.");
             return "Error: Invalid inviter";
         }
 
         // Check if the user is already in the room
-        if (room.Participants.Contains(userId))
+        if (room.Participants.Any(p => p.UserId == userId))
         {
             await Clients.Caller.SendAsync("Error", "You are already in the room.");
             return "Error: Already in the room";
         }
 
+        // Assign the user to a team (blue if fewer blue players, red otherwise)
+        string team = room.Participants.Count(p => p.Team == "Blue") < room.Participants.Count(p => p.Team == "Red") ? "Blue" : "Red";
+        
         // Add the user to the room
-        room.Participants.Add(userId);
+        var newPlayer = new Player { UserId = userId, Team = team };
+        room.Participants.Add(newPlayer);
 
         // Add the user to the SignalR group for the room
         await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
 
         // Notify the room that a new player joined
-        await Clients.Group(roomId).SendAsync("PlayerJoined", userId);
+        await Clients.Group(roomId).SendAsync("PlayerJoined", userId, team);
 
         // Notify the inviter that the invitation was accepted
         if (UserIdToConnectionId.TryGetValue(inviterId, out var inviterConnectionId))
         {
-            await Clients.Group(roomId).SendAsync("InvitationAccepted", roomId, userId);
+            await Clients.Client(inviterConnectionId).SendAsync("InvitationAccepted", roomId, userId);
         }
 
         return "OK";
     }
 
 
-        public async Task StartGame(string token, string roomId)
+
+    public async Task StartGame(string token, string roomId)
     {
         // Retrieve the user ID from the token
         if (!TokenToUserId.TryGetValue(token, out var userId))
@@ -335,10 +363,16 @@ public class GameHub : Hub
         }
 
         // Verify the user is the host of the room
-        if (room.Host != userId)
+        if (room.Host.UserId != userId)
         {
             await Clients.Caller.SendAsync("Error", "Only the host can start the game.");
             return;
+        }
+
+        // Notify all participants of their teams
+        foreach (var player in room.Participants)
+        {
+            await Clients.Group(roomId).SendAsync("PlayerTeam", player.UserId, player.Team);
         }
 
         // Notify all participants that the game has started
@@ -347,6 +381,7 @@ public class GameHub : Hub
         // Start the countdown timer
         await RunCountdown(roomId); // Await the countdown task
     }
+
     private async Task RunCountdown(string roomId)
     {
         try
@@ -372,6 +407,63 @@ public class GameHub : Hub
         }
     }
 
+    public async Task NotifyPlayerTeam(string roomId)
+    {
+        var room = Rooms[roomId];
+        foreach (var player in room.Participants)
+        {
+            await Clients.Group(roomId).SendAsync("PlayerTeam", player.UserId, player.Team);
+        }
+    }
+
+    public async Task SwitchTeam(string token, string roomId)
+    {
+        // Retrieve the user ID from the token
+        if (!TokenToUserId.TryGetValue(token, out var userId))
+        {
+            await Clients.Caller.SendAsync("Error", "Invalid token.");
+            return;
+        }
+
+        // Check if the room exists
+        if (!Rooms.TryGetValue(roomId, out var room))
+        {
+            await Clients.Caller.SendAsync("Error", "Room does not exist.");
+            return;
+        }
+
+        // Find the player in the room's participants
+        var player = room.Participants.FirstOrDefault(p => p.UserId == userId);
+
+        if (player == null)
+        {
+            await Clients.Caller.SendAsync("Error", "Player not found in the room.");
+            return;
+        }
+
+        // Switch the player's team
+        if (player.Team == "Blue")
+        {
+            player.Team = "Red";
+        }
+        else if (player.Team == "Red")
+        {
+            player.Team = "Blue";
+        }
+        else
+        {
+            await Clients.Caller.SendAsync("Error", "Player is not assigned to a valid team.");
+            return;
+        }
+
+        // Notify the room that the player has switched teams
+        await Clients.Group(roomId).SendAsync("PlayerTeamChanged", userId, player.Team);
+
+        // Send the updated team back to the player
+        await Clients.Caller.SendAsync("TeamSwitched", player.Team);  // Inform the client about the team switch
+    }
+
+
 
 
 }
@@ -379,6 +471,13 @@ public class GameHub : Hub
 public class Room
 {
     public string RoomId { get; set; } = string.Empty;
-    public string Host { get; set; } = string.Empty;
-    public List<string> Participants { get; set; } = new();
+    public Player Host { get; set; } = new Player(); // Host is a Player with a team
+    public List<Player> Participants { get; set; } = new List<Player>(); // List of Players (each with a team)
+}
+
+
+public class Player
+{
+    public string UserId { get; set; } = string.Empty;
+    public string Team { get; set; } = "Unassigned"; // Team can be "Blue" or "Red"
 }

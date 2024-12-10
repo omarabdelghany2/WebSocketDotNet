@@ -20,6 +20,7 @@
     <button id="startGame" disabled>Start Game</button>
     <button id="sendMessage">Send Message</button>
     <input id="message" placeholder="Message" />
+    <button id="switchTeam" disabled>Switch Team</button> <!-- Added Switch Team Button -->
     <div id="log"></div>
 
     <script>
@@ -31,56 +32,33 @@
         let isHost = false;
         let currentRoomId = null;
 
-                // SignalR event handlers
         // SignalR event handlers
         connection.on("RoomCreated", (roomId) => {
             log(`Room created: ${roomId}`);
             currentRoomId = roomId;
             document.getElementById("startGame").disabled = false; // Enable Start Game button for host
+            document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
             isHost = true;
         });
 
         connection.on("PlayerJoined", (playerId) => {
             log(`Player joined: ${playerId}`);
-        });
-
-        connection.on("ReceiveMessage", (playerId, message) => {
-            log(`${playerId}: ${message}`);
-        });
-
-        connection.on("GameStarted", () => {
-            log("The game has started!");
-        });
-
-        connection.on("CountdownTick", (secondsLeft) => {
-            log(`Countdown: ${secondsLeft} seconds remaining`);
-        });
-
-        connection.on("CountdownComplete", () => {
-            log("Countdown is complete! The game will now start.");
-        });
-
-        connection.on("RoomDeleted", () => {
-            log("The room has been deleted as the host left.");
-            disableGameControls();
-        });
-
-        connection.on("LoginRoomUpdated", (roomId) => {
-            log(`Login room updated: ${roomId}`);
-        });
-
-        connection.on("LoginRoomCreated", (roomId) => {
-            log(`Login room created: ${roomId}`);
+            document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
         });
 
         connection.on("RoomInvitation", (roomId, inviterId) => {
             log(`You have been invited to join Room: ${roomId} by ${inviterId}.`);
+            document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
         });
 
+            connection.on("TeamSwitched", (newTeam) => {
+        log(`You are now on the ${newTeam} team!`);
+        // Update UI to show the new team
+        document.getElementById("teamStatus").textContent = `You are on the ${newTeam} team now!`;
+    });
         connection.on("Error", (message) => {
             log(`Error: ${message}`);
         });
-
 
         connection.start()
             .then(() => log("Connected to SignalR"))
@@ -98,6 +76,8 @@
                 const roomId = await connection.invoke("LoginRoom", token);
                 if (roomId) {
                     log(`Login room created or updated: ${roomId}`);
+                    currentRoomId = roomId;
+                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                 }
             } catch (err) {
                 log(`Error: ${err}`);
@@ -117,6 +97,7 @@
                     log(`Room created with ID: ${roomId}`);
                     currentRoomId = roomId;
                     document.getElementById("startGame").disabled = false; // Enable Start Game button for host
+                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                     isHost = true;
                 }
             } catch (err) {
@@ -137,6 +118,7 @@
                 .then(() => {
                     log(`Joined room: ${roomId}`);
                     currentRoomId = roomId;
+                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                 })
                 .catch(err => log(`Error: ${err}`));
         };
@@ -171,6 +153,7 @@
             connection.invoke("AcceptInvitation", token, roomId, inviterId)
                 .then(() => {
                     log(`Accepted invitation from ${inviterId} for room ${roomId}`);
+                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                 })
                 .catch(err => log(`Error: ${err}`));
         };
@@ -200,6 +183,30 @@
                 .catch(err => log(`Error: ${err}`));
         };
 
+    // Button click handler for switching teams
+    document.getElementById("switchTeam").onclick = () => {
+        const token = document.getElementById("token").value.trim();
+        const roomId = document.getElementById("roomId").value.trim(); // Get roomId from textbox
+
+        if (!token || !roomId) {
+            log("Please ensure you've entered a token and room ID.");
+            return;
+        }
+
+        connection.invoke("SwitchTeam", token, roomId)
+            .then(() => {
+                log(`Switched team in room: ${roomId}`);
+            })
+            .catch(err => log(`Error: ${err}`));
+    };
+
+    // Utility function to log messages
+    function log(message) {
+        const logDiv = document.getElementById("log");
+        const p = document.createElement("p");
+        p.textContent = message;
+        logDiv.appendChild(p);
+    }
 
         // Utility function to log messages
         function log(message) {
@@ -207,13 +214,6 @@
             const p = document.createElement("p");
             p.textContent = message;
             logDiv.appendChild(p);
-        }
-
-        // Disable controls if the host leaves
-        function disableGameControls() {
-            document.getElementById("startGame").disabled = true;
-            isHost = false;
-            currentRoomId = null;
         }
     </script>
 </body>

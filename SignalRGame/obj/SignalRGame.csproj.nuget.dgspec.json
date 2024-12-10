@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj": {}
+    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj": {
+    "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj",
+        "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj",
         "projectName": "SignalRGame",
-        "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\SignalRGame.csproj",
+        "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj",
         "packagesPath": "C:\\Users\\omarz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\obj\\",
+        "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\omarz\\AppData\\Roaming\\NuGet\\NuGet.Config"

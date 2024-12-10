@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JG0muNAMiWRZs2SfiSvZHQfYfPJE7w6RxesKNiBFsvc=",
+  "Hash": "Njca5TMcPapzFypitCF60TzRt2xlSN0xs7eOYb2EwHk=",
   "Source": "SignalRGame",
   "BasePath": "_content/SignalRGame",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "SignalRGame\\wwwroot",
       "Source": "SignalRGame",
-      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\wwwroot\\",
       "BasePath": "_content/SignalRGame",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\index.html",
+      "Identity": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\wwwroot\\index.html",
       "SourceId": "SignalRGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\SignalRGame\\wwwroot\\",
       "BasePath": "_content/SignalRGame",
       "RelativePath": "index.html",
       "AssetKind": "All",
