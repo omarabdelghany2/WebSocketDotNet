@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YIvZaDgjdPW0wfTg5mCKfmTYNGO7pMSbveKWZxuK6d0=",
+  "Hash": "JG0muNAMiWRZs2SfiSvZHQfYfPJE7w6RxesKNiBFsvc=",
   "Source": "SignalRGame",
   "BasePath": "_content/SignalRGame",
   "Mode": "Default",
@@ -8,19 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "SignalRGame/wwwroot",
+      "Name": "SignalRGame\\wwwroot",
       "Source": "SignalRGame",
-      "ContentRoot": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/wwwroot/",
+      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\",
       "BasePath": "_content/SignalRGame",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/wwwroot/index.html",
+      "Identity": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\index.html",
       "SourceId": "SignalRGame",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/wwwroot/",
+      "ContentRoot": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\SignalRGame\\wwwroot\\",
       "BasePath": "_content/SignalRGame",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -33,7 +33,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/index.html"
+      "OriginalItemSpec": "wwwroot\\index.html"
     }
   ]
 }

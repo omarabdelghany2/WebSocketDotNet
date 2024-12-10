@@ -1,3 +1,118 @@
+// using Microsoft.AspNetCore.SignalR;
+// using System.Collections.Concurrent;
+// using SignalRGame.Models;
+// using SignalRGame.Services;
+// namespace SignalRGame.Hubs
+// {
+// public class GameHub : Hub
+// {
+//     private static readonly Dictionary<string, Room> GameRoom = new();
+//     private static readonly Dictionary<string, Room> UserLoginRoom = new();
+//     private static readonly ConcurrentDictionary<string, string> UserRoomMapping = new();
+//     private static readonly Dictionary<string, string> TokenToUserId = new(); 
+//     private static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); 
+//     private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); 
+
+//     private readonly ITokenService _tokenService;
+//     private readonly IRoomService _roomService;
+//     private readonly IInvitationService _invitationService;
+//     private readonly IGameService _gameService;
+
+//     public GameHub(ITokenService tokenService, IRoomService roomService, IInvitationService invitationService, IGameService gameService)
+//     {
+//         _tokenService = tokenService;
+//         _roomService = roomService;
+//         _invitationService = invitationService;
+//         _gameService = gameService;
+//     }
+
+//     // OnConnectedAsync and OnDisconnectedAsync will remain the same
+//     public override async Task OnConnectedAsync()
+//     {
+//         // Retrieve the userId from the connection query string
+//         string? userId = Context.GetHttpContext()?.Request.Query["userId"];
+//         if (!string.IsNullOrEmpty(userId))
+//         {
+//             // Store the connectionId with the associated userId
+//             UserIdToConnectionId[userId] = Context.ConnectionId;
+//         }
+
+//         // Call the base method to handle the connection event
+//         await base.OnConnectedAsync();
+//     }
+
+    
+//     public override async Task OnDisconnectedAsync(Exception? exception)
+//     {
+//         // Find the room associated with this connectionId
+//         var userRoom = UserRoomMapping.FirstOrDefault(ur => ur.Value == Context.ConnectionId);
+//         if (userRoom.Key != null)
+//         {
+//             var roomId = userRoom.Value;
+//             if (GameRoom.TryGetValue(roomId, out var room))
+//             {
+//                 room.Participants.Remove(userRoom.Key);
+
+//                 // If the user was the host, remove the room
+//                 if (room.Host == userRoom.Key)
+//                 {
+//                     GameRoom.Remove(roomId);
+//                     await Clients.Group(roomId).SendAsync("RoomDeleted");
+//                 }
+//                 else
+//                 {
+//                     // Notify other participants that the user left the room
+//                     await Clients.Group(roomId).SendAsync("PlayerLeft", userRoom.Key);
+//                 }
+//             }
+
+//             // Remove user from the UserRoomMapping
+//             UserRoomMapping.TryRemove(userRoom.Key, out _);
+//         }
+
+//         // Remove the user from the UserIdToConnectionId mapping
+//         string? userId = UserIdToConnectionId.FirstOrDefault(kvp => kvp.Value == Context.ConnectionId).Key;
+//         if (userId != null)
+//         {
+//             UserIdToConnectionId.TryRemove(userId, out _);
+//         }
+
+//         // Call the base method to handle the disconnection event
+//         await base.OnDisconnectedAsync(exception);
+//     }
+
+
+//     public async Task<string> CreateRoom(string token)
+//     {
+//         return await _roomService.CreateRoom(token, Context);
+//     }
+
+//     public async Task<string> LoginRoom(string token)
+//     {
+//         return await _roomService.LoginRoom(token, Context);
+//     }
+
+//     public async Task<string> JoinRoom(string token, string roomId)
+//     {
+//         return await _roomService.JoinRoom(token, roomId, Context);
+//     }
+
+//     public async Task InviteToRoom(string token, string roomId, string invitedUserId)
+//     {
+//         await _invitationService.InviteToRoom(token, roomId, invitedUserId, Context);
+//     }
+
+//     public async Task<string> AcceptInvitation(string token, string roomId, string inviterId)
+//     {
+//         return await _invitationService.AcceptInvitation(token, roomId, inviterId, Context);
+//     }
+
+//     public async Task StartGame(string token, string roomId)
+//     {
+//         await _gameService.StartGame(token, roomId, Context);
+//     }
+// }
+// }
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 
@@ -205,17 +320,7 @@ public class GameHub : Hub
         await Clients.Group(roomId).SendAsync("ReceiveMessage", userId, message);
     }
 
-    public async Task StartGame(string roomId, string userId)
-    {
-        if (Rooms.TryGetValue(roomId, out var room) && room.Host == userId)
-        {
-            await Clients.Group(roomId).SendAsync("GameStarted");
-        }
-        else
-        {
-            await Clients.Caller.SendAsync("Error", "Only the host can start the game.");
-        }
-    }
+
 
     // Associate a token with a user ID
     public void RegisterToken(string token, string userId)
@@ -324,6 +429,62 @@ public class GameHub : Hub
 
         return "OK";
     }
+
+
+        public async Task StartGame(string token, string roomId)
+    {
+        // Retrieve the user ID from the token
+        if (!TokenToUserId.TryGetValue(token, out var userId))
+        {
+            await Clients.Caller.SendAsync("Error", "Invalid token.");
+            return;
+        }
+
+        // Check if the room exists
+        if (!Rooms.TryGetValue(roomId, out var room))
+        {
+            await Clients.Caller.SendAsync("Error", "Room does not exist.");
+            return;
+        }
+
+        // Verify the user is the host of the room
+        if (room.Host != userId)
+        {
+            await Clients.Caller.SendAsync("Error", "Only the host can start the game.");
+            return;
+        }
+
+        // Notify all participants that the game has started
+        await Clients.Group(roomId).SendAsync("GameStarted");
+
+        // Start the countdown timer
+        await RunCountdown(roomId); // Await the countdown task
+    }
+    private async Task RunCountdown(string roomId)
+    {
+        try
+        {
+            // Perform 5 countdown steps (10 seconds each)
+            for (int i = 5; i > 0; i--)
+            {
+                // Notify the room about the countdown
+                await Clients.Group(roomId).SendAsync("CountdownTick", i * 10);
+
+                // Wait for 10 seconds before the next tick
+                await Task.Delay(10000);
+            }
+
+            // Notify the room that the countdown is over
+            await Clients.Group(roomId).SendAsync("CountdownComplete");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in RunCountdown: {ex.Message}");
+            // Optionally notify the host or participants of the error
+            await Clients.Group(roomId).SendAsync("Error", "Countdown failed.");
+        }
+    }
+
 
 
 }

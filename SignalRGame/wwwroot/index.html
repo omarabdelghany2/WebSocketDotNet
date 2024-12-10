@@ -31,6 +31,7 @@
         let isHost = false;
         let currentRoomId = null;
 
+                // SignalR event handlers
         // SignalR event handlers
         connection.on("RoomCreated", (roomId) => {
             log(`Room created: ${roomId}`);
@@ -51,6 +52,14 @@
             log("The game has started!");
         });
 
+        connection.on("CountdownTick", (secondsLeft) => {
+            log(`Countdown: ${secondsLeft} seconds remaining`);
+        });
+
+        connection.on("CountdownComplete", () => {
+            log("Countdown is complete! The game will now start.");
+        });
+
         connection.on("RoomDeleted", () => {
             log("The room has been deleted as the host left.");
             disableGameControls();
@@ -64,7 +73,6 @@
             log(`Login room created: ${roomId}`);
         });
 
-        // Event handler for Room Invitation
         connection.on("RoomInvitation", (roomId, inviterId) => {
             log(`You have been invited to join Room: ${roomId} by ${inviterId}.`);
         });
@@ -72,6 +80,7 @@
         connection.on("Error", (message) => {
             log(`Error: ${message}`);
         });
+
 
         connection.start()
             .then(() => log("Connected to SignalR"))
@@ -173,7 +182,7 @@
                 return;
             }
 
-            connection.invoke("StartGame", currentRoomId, token)
+            connection.invoke("StartGame", token ,currentRoomId)
                 .catch(err => log(`Error: ${err}`));
         };
 

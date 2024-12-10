@@ -4,8 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add SignalR services
+// Register services (Replace ConfigureServices method with inline registrations)
 builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 
