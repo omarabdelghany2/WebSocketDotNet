@@ -51,7 +51,7 @@
             document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
         });
 
-            connection.on("TeamSwitched", (newTeam) => {
+        connection.on("TeamSwitched", (newTeam) => {
         log(`You are now on the ${newTeam} team!`);
         // Update UI to show the new team
         document.getElementById("teamStatus").textContent = `You are on the ${newTeam} team now!`;
@@ -59,6 +59,18 @@
         connection.on("Error", (message) => {
             log(`Error: ${message}`);
         });
+        connection.on("ReceiveQuestion", (question, answers) => {
+        // Display the question and answers to the user
+        log(`Question: ${question}`);
+        log(`Answers: ${answers.join(", ")}`);
+    });
+
+
+    connection.on("CountdownComplete", () => {
+        // Display the question and answers to the user
+        log("Questions End");
+    });
+
 
         connection.start()
             .then(() => log("Connected to SignalR"))

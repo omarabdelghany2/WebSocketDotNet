@@ -10,6 +10,8 @@ public class GameHub : Hub
     private static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
     private static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); // UserId to ConnectionId mapping
     private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
+    private static readonly ConcurrentDictionary<string,List<Question>> RoomToQuestions =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
+    private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
 
 
     //some intial data we can clear Then After connection with database
@@ -18,9 +20,40 @@ public class GameHub : Hub
         // Populate TokenToUserId with some sample data for testing
         TokenToUserId["token123"] = "user1";
         TokenToUserId["token456"] = "user2";
-        TokenToUserId["token789"] = "user3";
+        TokenToUserId["token789"] = "user3";     
+                // Add questions directly to the dictionary
+        AddRoomWithQuestions("room1");
+        AddRoomWithQuestions("room2");
+
     }
-    
+        private static void AddRoomWithQuestions(string roomId)
+    {
+        // Directly creating a list of questions for the room
+        var roomQuestions = new List<Question>
+        {
+            new Question
+            {
+                QuestionTitle = "What is the capital of France?",
+                Answers = new[] { "Paris", "London", "Berlin", "Madrid" },
+                CorrectAnswer = "Paris"
+            },
+            new Question
+            {
+                QuestionTitle = "What is 2 + 2?",
+                Answers = new[] { "3", "4", "5", "6" },
+                CorrectAnswer = "4"
+            },
+            new Question
+            {
+                QuestionTitle = "What is the largest planet in our Solar System?",
+                Answers = new[] { "Earth", "Mars", "Jupiter", "Venus" },
+                CorrectAnswer = "Jupiter"
+            }
+        };
+
+        // Add the questions list directly to the dictionary for the room
+        RoomToQuestions.TryAdd(roomId, roomQuestions);
+    }
 
     public override async Task OnConnectedAsync()
     {
@@ -348,6 +381,7 @@ public class GameHub : Hub
 
     public async Task StartGame(string token, string roomId)
     {
+        Console.WriteLine("StartGame method called.");
         // Retrieve the user ID from the token
         if (!TokenToUserId.TryGetValue(token, out var userId))
         {
@@ -379,24 +413,35 @@ public class GameHub : Hub
         await Clients.Group(roomId).SendAsync("GameStarted");
 
         // Start the countdown timer
-        await RunCountdown(roomId); // Await the countdown task
+        await SendingQuestions(roomId); // Await the countdown task
     }
 
-    private async Task RunCountdown(string roomId)
+    private async Task SendingQuestions(string roomId)
     {
         try
         {
+            Console.WriteLine("RunCountdown method started.");
+            var questions = new List<Question>(RoomToQuestions["room1"]); // Use double quotes for strings
+            
             // Perform 5 countdown steps (10 seconds each)
-            for (int i = 5; i > 0; i--)
+            for (int i =0 ; i<questions.Count ; i++)
             {
                 // Notify the room about the countdown
+                //Getting the current Question to Handle The answers
+                RoomToCurrentQuestion["room1"]=questions[i];
                 await Clients.Group(roomId).SendAsync("CountdownTick", i * 10);
+
+                // Send a question to the room
+                var question = questions[i];
+                await Clients.Group(roomId).SendAsync("ReceiveQuestion", question.QuestionTitle, question.Answers);
+
 
                 // Wait for 10 seconds before the next tick
                 await Task.Delay(10000);
             }
 
             // Notify the room that the countdown is over
+            RoomToCurrentQuestion["room1"] = null;
             await Clients.Group(roomId).SendAsync("CountdownComplete");
         }
         catch (Exception ex)
@@ -480,4 +525,12 @@ public class Player
 {
     public string UserId { get; set; } = string.Empty;
     public string Team { get; set; } = "Unassigned"; // Team can be "Blue" or "Red"
+}
+
+
+public class Question
+{
+    public string QuestionTitle { get; set; } = string.Empty; // The question text
+    public string[] Answers { get; set; } = Array.Empty<string>(); // Array of 4 possible answers
+    public string CorrectAnswer { get; set; } = string.Empty; // The correct answer
 }
