@@ -8,19 +8,29 @@
 </head>
 <body>
     <h1>SignalR Game</h1>
-    <input id="token" placeholder="Token" />
-    <button id="loginRoom">Login Room</button>
-    <button id="createRoom">Create Room</button>
-    <button id="joinRoom">Join Room</button>
-    <input id="roomId" placeholder="Room ID" />
-    <button id="inviteToRoom">Invite to Room</button>
-    <input id="inviteUserId" placeholder="Invite User ID" />
-    <button id="acceptInvitation">Accept Invitation</button>
-    <input id="inviterId" placeholder="Inviter ID" />
-    <button id="startGame" disabled>Start Game</button>
-    <button id="sendMessage">Send Message</button>
-    <input id="message" placeholder="Message" />
-    <button id="switchTeam" disabled>Switch Team</button> <!-- Added Switch Team Button -->
+
+    <div>
+        <input id="token" placeholder="Token" />
+        <button id="loginRoom">Login Room</button>
+        <button id="createRoom">Create Room</button>
+        <button id="joinRoom">Join Room</button>
+        <input id="roomId" placeholder="Room ID" />
+        <button id="inviteToRoom">Invite to Room</button>
+        <input id="inviteUserId" placeholder="Invite User ID" />
+        <button id="acceptInvitation">Accept Invitation</button>
+        <input id="inviterId" placeholder="Inviter ID" />
+        <button id="startGame">Start Game</button>
+        <button id="sendMessage">Send Message</button>
+        <input id="message" placeholder="Message" />
+        <button id="switchTeam" disabled>Switch Team</button>
+    </div>
+
+    <div>
+        <h2>Answer the Question</h2>
+        <input id="answerInput" placeholder="Your Answer" />
+        <button id="submitAnswer" >Submit Answer</button>
+    </div>
+
     <div id="log"></div>
 
     <script>
@@ -52,31 +62,27 @@
         });
 
         connection.on("TeamSwitched", (newTeam) => {
-        log(`You are now on the ${newTeam} team!`);
-        // Update UI to show the new team
-        document.getElementById("teamStatus").textContent = `You are on the ${newTeam} team now!`;
-    });
+            log(`You are now on the ${newTeam} team!`);
+        });
+
+        connection.on("ReceiveQuestion", (question, answers) => {
+            log(`Question: ${question}`);
+            log(`Answers: ${answers.join(", ")}`);
+            document.getElementById("submitAnswer"); // Enable answer submission
+        });
+
+        connection.on("SuccefullyAnswered", (userId) => {
+            log(`User ${userId} answered correctly!`);
+        });
+
+        connection.on("CountdownComplete", () => {
+            log("Questions End");
+            document.getElementById("submitAnswer").disabled = true; // Disable answer submission
+        });
+
         connection.on("Error", (message) => {
             log(`Error: ${message}`);
         });
-        connection.on("ReceiveQuestion", (question, answers) => {
-        // Display the question and answers to the user
-        log(`Question: ${question}`);
-        log(`Answers: ${answers.join(", ")}`);
-        
-
-        
-    });
-    connection.on("SuccefullyAnswered", (userId) => {
-        // Display the question and answers to the user
-        log(`UserId: ${userId}`);
-    });
-    
-    connection.on("CountdownComplete", () => {
-        // Display the question and answers to the user
-        log("Questions End");
-    });
-
 
         connection.start()
             .then(() => log("Connected to SignalR"))
@@ -95,7 +101,6 @@
                 if (roomId) {
                     log(`Login room created or updated: ${roomId}`);
                     currentRoomId = roomId;
-                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                 }
             } catch (err) {
                 log(`Error: ${err}`);
@@ -114,8 +119,7 @@
                 if (roomId) {
                     log(`Room created with ID: ${roomId}`);
                     currentRoomId = roomId;
-                    document.getElementById("startGame").disabled = false; // Enable Start Game button for host
-                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
+                    document.getElementById("startGame"); // Enable Start Game button for host
                     isHost = true;
                 }
             } catch (err) {
@@ -136,95 +140,42 @@
                 .then(() => {
                     log(`Joined room: ${roomId}`);
                     currentRoomId = roomId;
-                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
                 })
                 .catch(err => log(`Error: ${err}`));
         };
 
-        document.getElementById("inviteToRoom").onclick = () => {
+        document.getElementById("submitAnswer").onclick = () => {
             const token = document.getElementById("token").value.trim();
-            const roomId = document.getElementById("roomId").value.trim();
-            const inviteUserId = document.getElementById("inviteUserId").value.trim();
+            const answer = document.getElementById("answerInput").value.trim();
 
-            if (!token || !roomId || !inviteUserId) {
-                log("Please enter token, room ID, and user ID to invite.");
+            if (!token || !currentRoomId || !answer) {
+                log("Please provide a token, a room ID, and an answer.");
                 return;
             }
 
-            connection.invoke("InviteToRoom", token, roomId, inviteUserId)
+            connection.invoke("AnswerQuestion", token, currentRoomId, answer)
                 .then(() => {
-                    log(`Invitation sent to ${inviteUserId} for room ${roomId}`);
+                    log(`Answer submitted: ${answer}`);
                 })
                 .catch(err => log(`Error: ${err}`));
         };
 
-        document.getElementById("acceptInvitation").onclick = () => {
-            const token = document.getElementById("token").value.trim();
-            const roomId = document.getElementById("roomId").value.trim();
-            const inviterId = document.getElementById("inviterId").value.trim();
-
-            if (!token || !roomId || !inviterId) {
-                log("Please enter token, room ID, and inviter ID.");
-                return;
-            }
-
-            connection.invoke("AcceptInvitation", token, roomId, inviterId)
-                .then(() => {
-                    log(`Accepted invitation from ${inviterId} for room ${roomId}`);
-                    document.getElementById("switchTeam").disabled = false; // Enable Switch Team button
-                })
-                .catch(err => log(`Error: ${err}`));
-        };
-
-        document.getElementById("startGame").onclick = () => {
-            const token = document.getElementById("token").value.trim();
-            if (!isHost || !currentRoomId || !token) {
-                log("Only the host with a valid token can start the game.");
-                return;
-            }
-
-            connection.invoke("StartGame", token ,currentRoomId)
-                .catch(err => log(`Error: ${err}`));
-        };
-
-        document.getElementById("sendMessage").onclick = () => {
-            const token = document.getElementById("token").value.trim();
-            const roomId = document.getElementById("roomId").value.trim();  // Read roomId from the input box
-            const message = document.getElementById("message").value.trim();
-
-            if (!roomId || !token || !message) {
-                log("Please ensure you've entered the room ID, have a valid token, and have typed a message.");
-                return;
-            }
-
-            connection.invoke("SendMessageToRoom", roomId, token, message)
-                .catch(err => log(`Error: ${err}`));
-        };
-
-    // Button click handler for switching teams
-    document.getElementById("switchTeam").onclick = () => {
-        const token = document.getElementById("token").value.trim();
-        const roomId = document.getElementById("roomId").value.trim(); // Get roomId from textbox
-
-        if (!token || !roomId) {
-            log("Please ensure you've entered a token and room ID.");
-            return;
-        }
-
-        connection.invoke("SwitchTeam", token, roomId)
-            .then(() => {
-                log(`Switched team in room: ${roomId}`);
-            })
-            .catch(err => log(`Error: ${err}`));
-    };
-
-    // Utility function to log messages
-    function log(message) {
-        const logDiv = document.getElementById("log");
-        const p = document.createElement("p");
-        p.textContent = message;
-        logDiv.appendChild(p);
+        document.getElementById("startGame").onclick = async () => {
+    const token = document.getElementById("token").value.trim();
+    
+    if (!token || !currentRoomId) {
+        log("Please provide a token and ensure you're in a room.");
+        return;
     }
+
+    try {
+        // Assuming 'StartGame' is the method to start the game for all participants
+        await connection.invoke("StartGame", token, currentRoomId);
+        log("Game started successfully!");
+    } catch (err) {
+        log(`Error: ${err}`);
+    }
+};
 
         // Utility function to log messages
         function log(message) {
