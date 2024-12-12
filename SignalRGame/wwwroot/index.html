@@ -63,9 +63,15 @@
         // Display the question and answers to the user
         log(`Question: ${question}`);
         log(`Answers: ${answers.join(", ")}`);
+        
+
+        
     });
-
-
+    connection.on("SuccefullyAnswered", (userId) => {
+        // Display the question and answers to the user
+        log(`UserId: ${userId}`);
+    });
+    
     connection.on("CountdownComplete", () => {
         // Display the question and answers to the user
         log("Questions End");

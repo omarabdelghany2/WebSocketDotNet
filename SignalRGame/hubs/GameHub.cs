@@ -507,7 +507,45 @@ public class GameHub : Hub
         // Send the updated team back to the player
         await Clients.Caller.SendAsync("TeamSwitched", player.Team);  // Inform the client about the team switch
     }
+    public async Task AnswerQuestion(string token, string roomId ,string answer)
+    {
+        // Retrieve the  user ID of from the token
+        if (!TokenToUserId.TryGetValue(token, out var userId))
+        {
+            await Clients.Caller.SendAsync("Error", "Invalid token.");
+            return;
+        }
 
+        // Check if the room exists
+        if (!Rooms.TryGetValue(roomId, out var room))
+        {
+            await Clients.Caller.SendAsync("Error", "Room does not exist.");    
+            return;
+        }
+
+        //get the current question
+
+        if (!RoomToCurrentQuestion.TryGetValue(roomId, out var currentQuestion))
+        {
+            await Clients.Caller.SendAsync("Error", "Game Is End no Question to Answer.");
+            return;
+        }
+
+        //check is the answer is correct and add the score to him in the room
+        if(answer == currentQuestion.CorrectAnswer)
+        {
+
+            var participantIndex = room.Participants.FindIndex(p => p.UserId == userId);
+            if (participantIndex != -1)
+            {
+                room.Participants[participantIndex].Score+=1;
+            }
+
+        }
+
+        // Notify the Room that the UserId answered Succefully
+        await Clients.Group(roomId).SendAsync("SuccefullyAnswered", userId);
+    }
 
 
 
@@ -525,6 +563,7 @@ public class Player
 {
     public string UserId { get; set; } = string.Empty;
     public string Team { get; set; } = "Unassigned"; // Team can be "Blue" or "Red"
+    public int Score{ get; set;}= 0;
 }
 
 
