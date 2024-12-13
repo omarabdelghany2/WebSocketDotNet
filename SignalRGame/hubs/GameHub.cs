@@ -503,7 +503,16 @@ _gameService = gameService;
             if (participantIndex != -1)
             {
                 room.Participants[participantIndex].Score+=1;
-                await Clients.Group(roomId).SendAsync("correctAnswer", userId);
+                Console.WriteLine($"the score is  {room.Participants[participantIndex].Score}");
+                await Clients.Group(roomId).SendAsync("correctAnswer ", userId);
+                
+            }
+            else if(userId == room.Host.UserId) // so its the answer of the host
+            {
+                room.Host.Score+=1;
+                
+                Console.WriteLine($"The Score is {room.Host.Score}.");
+                await Clients.Group(roomId).SendAsync("correctAnswer ",userId);
             }
 
         }
@@ -529,8 +538,7 @@ public class GameService
         _hubContext = hubContext;
     }
 
-    public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,
-        ConcurrentDictionary<string, Question> roomToCurrentQuestion)
+    public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion)
     {
         var group = _hubContext.Clients.Group(roomId);
 
@@ -588,3 +596,6 @@ public class Question
     public string[] Answers { get; set; } = Array.Empty<string>(); // Array of 4 possible answers
     public string CorrectAnswer { get; set; } = string.Empty; // The correct answer
 }
+
+
+

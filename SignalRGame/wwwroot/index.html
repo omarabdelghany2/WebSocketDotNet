@@ -77,7 +77,6 @@
 
         connection.on("CountdownComplete", () => {
             log("Questions End");
-            document.getElementById("submitAnswer").disabled = true; // Disable answer submission
         });
 
         connection.on("Error", (message) => {

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SignalRGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa737d5cc9e881e50be7f562e299f5cbd1f9b833")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+248f7e9c29d747e38d6e43c34a9a750660d5e8cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("SignalRGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SignalRGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
