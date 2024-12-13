@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 
 public class GameHub : Hub
 {
-    private static readonly Dictionary<string, Room> Rooms = new();
+    private static readonly ConcurrentDictionary<string, Room> Rooms = new();
     private static readonly Dictionary <string ,Room>LoginRooms = new();
     private static readonly ConcurrentDictionary<string, string> UserRoomMapping = new();
     private static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
@@ -12,10 +12,11 @@ public class GameHub : Hub
     private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
     private static readonly ConcurrentDictionary<string,List<Question>> RoomToQuestions =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
     private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
+    private readonly GameService _gameService;
 
 
     //some intial data we can clear Then After connection with database
-    public GameHub()
+    public GameHub(GameService gameService)
     {
         // Populate TokenToUserId with some sample data for testing
         TokenToUserId["token123"] = "user1";
@@ -24,7 +25,7 @@ public class GameHub : Hub
                 // Add questions directly to the dictionary
         AddRoomWithQuestions("room1");
         AddRoomWithQuestions("room2");
-
+_gameService = gameService;
     }
         private static void AddRoomWithQuestions(string roomId)
     {
@@ -93,7 +94,7 @@ public class GameHub : Hub
                         }
                         else
                         {
-                            Rooms.Remove(roomId); // Remove the room if there are no participants left
+                            Rooms[roomId]=null; // Remove the room if there are no participants left
                             await Clients.Group(roomId).SendAsync("RoomDeleted");
                         }
                     }
@@ -380,77 +381,40 @@ public class GameHub : Hub
 
 
     public async Task StartGame(string token, string roomId)
+{
+    Console.WriteLine("StartGame method called.");
+    
+    if (!TokenToUserId.TryGetValue(token, out var userId))
     {
-        Console.WriteLine("StartGame method called.");
-        // Retrieve the user ID from the token
-        if (!TokenToUserId.TryGetValue(token, out var userId))
-        {
-            await Clients.Caller.SendAsync("Error", "Invalid token.");
-            return;
-        }
-
-        // Check if the room exists
-        if (!Rooms.TryGetValue(roomId, out var room))
-        {
-            await Clients.Caller.SendAsync("Error", "Room does not exist.");
-            return;
-        }
-
-        // Verify the user is the host of the room
-        if (room.Host.UserId != userId)
-        {
-            await Clients.Caller.SendAsync("Error", "Only the host can start the game.");
-            return;
-        }
-
-        // Notify all participants of their teams
-        foreach (var player in room.Participants)
-        {
-            await Clients.Group(roomId).SendAsync("PlayerTeam", player.UserId, player.Team);
-        }
-
-        // Notify all participants that the game has started
-        await Clients.Group(roomId).SendAsync("GameStarted");
-
-        // Start the countdown timer
-        await SendingQuestions(roomId); // Await the countdown task
+        await Clients.Caller.SendAsync("Error", "Invalid token.");
+        return;
     }
 
-    private async Task SendingQuestions(string roomId)
+    if (!Rooms.TryGetValue(roomId, out var room))
     {
-        try
-        {
-            Console.WriteLine("RunCountdown method started.");
-            var questions = new List<Question>(RoomToQuestions["room1"]); // Use double quotes for strings
-            
-            // Perform 5 countdown steps (10 seconds each)
-            for (int i =0 ; i<questions.Count ; i++)
-            {
-                // Notify the room about the countdown
-                //Getting the current Question to Handle The answers
-                RoomToCurrentQuestion["room1"]=questions[i];
-                await Clients.Group(roomId).SendAsync("CountdownTick", i * 10);
-
-                // Send a question to the room
-                var question = questions[i];
-                await Clients.Group(roomId).SendAsync("ReceiveQuestion", question.QuestionTitle, question.Answers);
-
-
-                // Wait for 10 seconds before the next tick
-                await Task.Delay(10000);
-            }
-
-            // Notify the room that the countdown is over
-            RoomToCurrentQuestion["room1"] = null;
-            await Clients.Group(roomId).SendAsync("CountdownComplete");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error in RunCountdown: {ex.Message}");
-            // Optionally notify the host or participants of the error
-            await Clients.Group(roomId).SendAsync("Error", "Countdown failed.");
-        }
+        await Clients.Caller.SendAsync("Error", "Room does not exist.");
+        return;
     }
+
+    if (room.Host.UserId != userId)
+    {
+        await Clients.Caller.SendAsync("Error", "Only the host can start the game.");
+        return;
+    }
+
+    // Notify participants about their teams
+    foreach (var player in room.Participants)
+    {
+        await Clients.Group(roomId).SendAsync("PlayerTeam", player.UserId, player.Team);
+    }
+
+    // Notify participants that the game has started
+    await Clients.Group(roomId).SendAsync("GameStarted");
+
+    // Run the question-sending process in the background
+            _ = Task.Run(() =>
+            _gameService.SendingQuestions(roomId, RoomToQuestions, RoomToCurrentQuestion));
+}
 
     public async Task NotifyPlayerTeam(string roomId)
     {
@@ -539,6 +503,7 @@ public class GameHub : Hub
             if (participantIndex != -1)
             {
                 room.Participants[participantIndex].Score+=1;
+                await Clients.Group(roomId).SendAsync("correctAnswer", userId);
             }
 
         }
@@ -550,6 +515,56 @@ public class GameHub : Hub
 
 
 }
+
+
+
+
+
+public class GameService
+{
+    private readonly IHubContext<GameHub> _hubContext;
+
+    public GameService(IHubContext<GameHub> hubContext)
+    {
+        _hubContext = hubContext;
+    }
+
+    public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,
+        ConcurrentDictionary<string, Question> roomToCurrentQuestion)
+    {
+        var group = _hubContext.Clients.Group(roomId);
+
+        try
+        {
+            Console.WriteLine($"SendingQuestions started for room {roomId}.");
+
+            if (!roomToQuestions.TryGetValue("room1", out var questions) || questions == null || questions.Count == 0)
+            {
+                await group.SendAsync("Error", "No questions available for this room.");
+                return;
+            }
+
+            for (int i = 0; i < questions.Count; i++)
+            {
+                var currentQuestion = questions[i];
+                roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+                await group.SendAsync("ReceiveQuestion", currentQuestion.QuestionTitle, currentQuestion.Answers);
+
+                await Task.Delay(10000);
+            }
+
+            roomToCurrentQuestion.TryRemove(roomId, out _);
+            await group.SendAsync("CountdownComplete");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in SendingQuestions: {ex.Message}");
+            await group.SendAsync("Error", "An error occurred during the game.");
+        }
+    }
+}
+
 
 public class Room
 {

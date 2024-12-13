@@ -71,8 +71,8 @@
             document.getElementById("submitAnswer"); // Enable answer submission
         });
 
-        connection.on("SuccefullyAnswered", (userId) => {
-            log(`User ${userId} answered correctly!`);
+        connection.on("correctAnswer", (userId) => {
+            log(`User ${userId} answered correct!`);
         });
 
         connection.on("CountdownComplete", () => {
