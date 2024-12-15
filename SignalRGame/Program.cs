@@ -1,4 +1,5 @@
 
+using SignalRGame.Services;
 
 
 using SignalRGame.Hubs;    // Add the correct namespace for GameHub
@@ -14,7 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<GameService>();  // Register GameService
 builder.Services.AddSingleton<GameHub>();      // Register GameHub
-
+builder.Services.AddHttpClient(); // Register HttpClient
+builder.Services.AddHttpClient<getQuestionsService>();
 var app = builder.Build();
 
 // Enable serving static files (HTML, CSS, JS, images, etc.)

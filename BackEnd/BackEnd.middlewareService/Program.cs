@@ -1,3 +1,6 @@
+using BackEnd.middlewareService.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient(); // Register HttpClient
+builder.Services.AddHttpClient<TokenValidator>();
+builder.Services.AddHttpClient<FriendsService>();
+builder.Services.AddHttpClient<leaderBoardSerivce>();
+builder.Services.AddHttpClient<userProfileService>();
+builder.Services.AddHttpClient<userScoreService>();
+builder.Services.AddHttpClient<userIdFromTokenService>();
+
+
+
+
+
+
 
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -14,7 +29,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalNetwork",
+    options.AddPolicy("AllowAll",
         policy =>
         {
             policy.WithOrigins("*")  // Allows all origins
@@ -24,7 +39,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-app.UseCors("AllowLocalNetwork");
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

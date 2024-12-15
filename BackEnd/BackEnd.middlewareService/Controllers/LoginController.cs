@@ -5,18 +5,31 @@ using System.Text;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
+using BackEnd.middlewareService.Services;
+
+
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text;
+using System.Net.Http.Headers;
+using System.Text.Json.Serialization;
+using BackEnd.middlewareService.Services;
 
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController : ControllerBase
+    public class loginController : ControllerBase
     {
         private readonly HttpClient _httpClient;
+        private readonly TokenValidator _tokenValidator;  //this is how we use TokenValidator 
 
-        public LoginController(HttpClient httpClient)
+        public loginController(HttpClient httpClient,   TokenValidator tokenValidator)
         {
             _httpClient = httpClient;
+            _tokenValidator = tokenValidator;             //this is how we use TokenValidator 
         }
 
         [HttpPost]
@@ -67,6 +80,7 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
             }
         }
+
     }
 
     // Input model for login with JsonPropertyName attributes

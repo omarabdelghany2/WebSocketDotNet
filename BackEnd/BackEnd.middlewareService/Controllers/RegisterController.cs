@@ -5,19 +5,23 @@ using System.Text.Json;
 using System.Text;
 using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
+using BackEnd.middlewareService.Services;
 
 
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RegisterController : ControllerBase
+    public class registerController : ControllerBase
     {
         private readonly HttpClient _httpClient;
+        // private readonly TokenValidator _tokenValidator;
 
-        public RegisterController(HttpClient httpClient)
+        public registerController(HttpClient httpClient,TokenValidator tokenValidator)
         {
             _httpClient = httpClient;
+            // _tokenValidator = tokenValidator;
+            
         }
 
         [HttpPost]
@@ -64,6 +68,34 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
             }
         }
+
+        // [HttpPost("validate")]
+        // public async Task<IActionResult> ValidateToken([FromBody] TokenRequest tokenRequest)
+        // {
+        //     // Check if token is provided in the body
+        //     if (tokenRequest == null || string.IsNullOrEmpty(tokenRequest.Token))
+        //     {
+        //         return BadRequest("Token is required.");
+        //     }
+
+        //     // Get the token from the body
+        //     var token = tokenRequest.Token;
+
+        //     // Send the token in the header to the ValidateTokenAsync method
+        //     string result = await _tokenValidator.ValidateTokenAsync(token);
+
+        //     if (result == "error")
+        //     {
+        //         return Unauthorized("Invalid token.");
+        //     }
+
+        //     return Ok(result);
+        // }
+
+
+
+
+
     }
 
     public class UserRegistrationInput
@@ -87,3 +119,8 @@ namespace BackEnd.middlewareService.Controllers
         public string Country { get; set; }
     }
 }
+    // Token request class
+    // public class TokenRequest
+    // {
+    //     public string Token { get; set; }
+    // }

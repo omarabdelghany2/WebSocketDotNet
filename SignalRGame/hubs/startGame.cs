@@ -1,5 +1,6 @@
 using SignalRGame.Models;  // Import the namespace where Room and Player are defined
 using Microsoft.AspNetCore.SignalR;
+using SignalRGame.Services;
 
 
 namespace SignalRGame.Hubs
@@ -8,9 +9,11 @@ namespace SignalRGame.Hubs
     {
     
     
-        public async Task StartGame(string token, string roomId)
+        public async Task StartGame(string token, string roomId, List<string> questionsCategories)
         {
             Console.WriteLine("StartGame method called.");
+            Console.WriteLine(questionsCategories);
+            await _GetQuestions.GetQuestionsResponseAsync("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MjA0NjU4LCJpYXQiOjE3MzQyMDEwNTgsImp0aSI6ImFjYjAzOWM4MWYwNDRkMGFiZWRkMzJjMWNlOWM1NmRkIiwidXNlcl9pZCI6NCwiZW1haWwiOiJzc0BnbWFpbC5jb20ifQ.a__QQouAHFjm6bA8f3CaPjWB9l65b1T8Svso4TvtUyg", questionsCategories);
             
             if (!TokenToUserId.TryGetValue(token, out var userId))
             {

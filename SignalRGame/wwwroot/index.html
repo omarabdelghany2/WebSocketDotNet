@@ -28,7 +28,12 @@
     <div>
         <h2>Answer the Question</h2>
         <input id="answerInput" placeholder="Your Answer" />
-        <button id="submitAnswer" >Submit Answer</button>
+        <button id="submitAnswer">Submit Answer</button>
+    </div>
+
+    <div>
+        <h2>Game Categories</h2>
+        <input id="categoriesInput" placeholder="Enter comma-separated categories (e.g., 'Math, Science, History')" />
     </div>
 
     <div id="log"></div>
@@ -160,21 +165,25 @@
         };
 
         document.getElementById("startGame").onclick = async () => {
-    const token = document.getElementById("token").value.trim();
-    
-    if (!token || !currentRoomId) {
-        log("Please provide a token and ensure you're in a room.");
-        return;
-    }
+            const token = document.getElementById("token").value.trim();
+            const categoriesInput = document.getElementById("categoriesInput").value.trim();
 
-    try {
-        // Assuming 'StartGame' is the method to start the game for all participants
-        await connection.invoke("StartGame", token, currentRoomId);
-        log("Game started successfully!");
-    } catch (err) {
-        log(`Error: ${err}`);
-    }
-};
+            if (!token || !currentRoomId || !categoriesInput) {
+                log("Please provide a token, ensure you're in a room, and enter categories.");
+                return;
+            }
+
+            // Convert the categories input into a list
+            const categoriesList = categoriesInput.split(",").map(category => category.trim());
+
+            try {
+                // Assuming 'StartGame' is the method to start the game for all participants
+                await connection.invoke("StartGame", token, currentRoomId, categoriesList);
+                log("Game started successfully!");
+            } catch (err) {
+                log(`Error: ${err}`);
+            }
+        };
 
         // Utility function to log messages
         function log(message) {

@@ -2509,19 +2509,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\omarz\\.nuget\\packages\\": {}
+    "/Users/omarabdelghany/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj",
+      "projectUniqueName": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/SignalRGame.csproj",
       "projectName": "SignalRGame",
-      "projectPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\WebSocketDotNet\\SignalRGame\\SignalRGame.csproj",
-      "packagesPath": "C:\\Users\\omarz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\omarz\\Documents\\SignalDotnNet\\WebSocketDotNet\\WebSocketDotNet\\SignalRGame\\obj\\",
+      "projectPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/SignalRGame.csproj",
+      "packagesPath": "/Users/omarabdelghany/.nuget/packages/",
+      "outputPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/SignalRGame/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\omarz\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/omarabdelghany/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2582,7 +2582,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

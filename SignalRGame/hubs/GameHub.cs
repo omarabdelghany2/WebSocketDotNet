@@ -17,9 +17,11 @@ namespace SignalRGame.Hubs
         private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
         private static readonly ConcurrentDictionary<string,List<Question>> RoomToQuestions =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
         private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
+        private readonly getQuestionsService _GetQuestions;
         private readonly GameService _gameService;
-
-        public GameHub(GameService gameService)
+        //add the variables of questions
+        private readonly HttpClient _httpClient;
+        public GameHub(GameService gameService ,getQuestionsService getQuestions)
         {
             // Populate TokenToUserId with some sample data for testing
             TokenToUserId["token123"] = "user1";
@@ -29,6 +31,7 @@ namespace SignalRGame.Hubs
             selectQuestionsCategory("room1");
             selectQuestionsCategory("room2");
             _gameService = gameService;
+            _GetQuestions =getQuestions;
         }
 
 
