@@ -11,7 +11,7 @@ using BackEnd.middlewareService.Services;
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/register")]
     public class registerController : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -31,7 +31,7 @@ namespace BackEnd.middlewareService.Controllers
             Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
 
             // Database server URL
-            var databaseServerUrl = "http://192.168.1.74:8000/api/register/";
+            var databaseServerUrl = "http://192.168.1.74:8000/api/user/register/";
 
             try
             {

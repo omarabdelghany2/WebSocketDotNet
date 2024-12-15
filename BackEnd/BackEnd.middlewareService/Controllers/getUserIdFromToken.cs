@@ -9,7 +9,7 @@ using System.Net.Http.Headers; // Added for MediaTypeHeaderValue
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/")]
+    [Route("api/get-id")]
     public class getUserIdFromToken : ControllerBase
     {
         private readonly userIdFromTokenService _userIdFromTokenService;
@@ -18,7 +18,7 @@ namespace BackEnd.middlewareService.Controllers
         {
             _userIdFromTokenService = userid;
         }
-        [HttpGet("user-id")]
+        [HttpGet]
         public async Task<IActionResult> GetUserIdFromToken([FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))

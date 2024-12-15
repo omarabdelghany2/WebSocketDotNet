@@ -15,23 +15,15 @@ namespace BackEnd.middlewareService.Services
         }
 
 
-    public async Task<string> GetUserScoreAsync(string token, int userId)
+    public async Task<string> GetUserScoreAsync(string token)
     {
-        var databaseServerUrl = "http://41.40.138.255:8000/api/user/home/";
+        var databaseServerUrl = "http://192.168.1.74:8000/api/user/home/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
 
         // Set the Authorization header to include the Bearer token
         requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-        // Prepare the body content (user_id in JSON format)
-        var jsonPayload = JsonSerializer.Serialize(new { user_id = userId });
-        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-        // Set the content of the request (send the user_id in the body)
-        requestMessage.Content = content;
-
         try
         {
             // Send the request

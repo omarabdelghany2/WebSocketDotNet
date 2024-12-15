@@ -20,7 +20,7 @@ using BackEnd.middlewareService.Services;
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/login")]
     public class loginController : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -36,7 +36,7 @@ namespace BackEnd.middlewareService.Controllers
         public async Task<IActionResult> login([FromBody] UserLoginInput input)
         {
             // Database server URL
-            var databaseServerUrl = "http://192.168.1.74:8000/api/login/"; // Replace with your actual database server URL
+            var databaseServerUrl = "http://192.168.1.74:8000/api/user/login/"; // Replace with your actual database server URL
 
             try
             {

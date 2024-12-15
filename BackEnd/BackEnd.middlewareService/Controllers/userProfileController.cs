@@ -9,7 +9,7 @@ using System.Net.Http.Headers; // Added for MediaTypeHeaderValue
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user-profile")]
     public class userProfileController : ControllerBase
     {
         private readonly userProfileService _userProfileService;
@@ -19,21 +19,17 @@ namespace BackEnd.middlewareService.Controllers
             _userProfileService = userprofile;
         }
 
-        [HttpGet("userProfile")]
-        public async Task<IActionResult> GetUserProfile([FromHeader] string Authorization, [FromQuery] int userId)
+        [HttpGet]
+        public async Task<IActionResult> GetUserProfile([FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
                 return BadRequest("Token is required.");
             }
-
-            if (userId <= 0)
-            {
-                return BadRequest("Invalid userId.");
-            }
+            var token = Authorization.Substring("Bearer ".Length).Trim();
 
             // Call the GetUserProfileAsync function to fetch the friends list
-            string result = await _userProfileService.GetUserProfileAsync(Authorization, userId);
+            string result = await _userProfileService.GetUserProfileAsync(token);
 
             if (result == "error")
             {

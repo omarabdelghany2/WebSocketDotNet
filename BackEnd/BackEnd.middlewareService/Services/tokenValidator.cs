@@ -14,7 +14,7 @@ namespace BackEnd.middlewareService.Services{
         }
         public async Task<string> ValidateTokenAsync(string token)
         {
-            var databaseServerUrl = "http://41.40.138.255:8000/api/user/auth/";
+            var databaseServerUrl = "http://192.168.1.74:8000/api/user/auth/";
 
             // Prepare the GET request
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

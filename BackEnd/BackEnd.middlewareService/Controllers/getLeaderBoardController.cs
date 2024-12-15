@@ -9,7 +9,7 @@ using System.Net.Http.Headers; // Added for MediaTypeHeaderValue
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/leaderboard")]
     public class leaderBoardController : ControllerBase
     {
         private readonly leaderBoardSerivce _leaderBoardService;

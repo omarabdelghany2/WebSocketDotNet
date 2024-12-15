@@ -9,7 +9,7 @@ using System.Net.Http.Headers; // Added for MediaTypeHeaderValue
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user-score")]
     public class userScoreController : ControllerBase
     {
         private readonly userScoreService _userScoreService;
@@ -20,7 +20,7 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetUserScore([FromHeader] string Authorization, [FromBody] int userId)
+        public async Task<IActionResult> GetUserScore([FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
@@ -31,13 +31,9 @@ namespace BackEnd.middlewareService.Controllers
                 ? Authorization.Substring("Bearer ".Length).Trim()
                 : Authorization;
 
-            if (userId <= 0)
-            {
-                return BadRequest("Invalid userId.");
-            }
 
             // Call the GetUserProfileAsync function to fetch the friends list
-            string result = await _userScoreService.GetUserScoreAsync(token, userId);
+            string result = await _userScoreService.GetUserScoreAsync(token);
 
             if (result == "error")
             {

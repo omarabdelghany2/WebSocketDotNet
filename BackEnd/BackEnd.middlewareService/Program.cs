@@ -15,6 +15,8 @@ builder.Services.AddHttpClient<leaderBoardSerivce>();
 builder.Services.AddHttpClient<userProfileService>();
 builder.Services.AddHttpClient<userScoreService>();
 builder.Services.AddHttpClient<userIdFromTokenService>();
+builder.Services.AddHttpClient<ForgetPsswordService>();
+
 
 
 

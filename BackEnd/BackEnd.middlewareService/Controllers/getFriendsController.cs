@@ -6,31 +6,28 @@ using System.Text.Json;
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class FriendsController : ControllerBase
+    [Route("api/friends")]
+    public class friendsController : ControllerBase
     {
         private readonly FriendsService _friendsService;
 
-        public FriendsController(FriendsService friendsService)
+        public friendsController(FriendsService friendsService)
         {
             _friendsService = friendsService;
         }
 
-        [HttpPost] // No need to specify "friends" here
-        public async Task<IActionResult> GetFriendsList([FromHeader] string Authorization, [FromBody] int userId)
+        [HttpGet] // No need to specify "friends" here
+        public async Task<IActionResult> GetFriendsList([FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
                 return BadRequest("Token is required.");
             }
 
-            if (userId <= 0)
-            {
-                return BadRequest("Invalid userId.");
-            }
+            var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Call the GetFriendsListAsync function to fetch the friends list
-            string result = await _friendsService.GetFriendsListAsync(Authorization, userId);
+            // Call the GetFriendsListAsync function with the userId from the request
+            string result = await _friendsService.GetFriendsListAsync(token);
 
             if (result == "error")
             {
@@ -39,13 +36,12 @@ namespace BackEnd.middlewareService.Controllers
 
             try
             {
-                // Parse the JSON response into a more readable format
                 var friendsList = JsonSerializer.Deserialize<object>(result);
 
                 return Ok(new
                 {
                     Message = "Friends list fetched successfully",
-                    Data = friendsList // Return the friends list as parsed JSON
+                    Data = friendsList
                 });
             }
             catch (JsonException ex)
@@ -53,5 +49,11 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Error parsing friends list JSON", Exception = ex.Message });
             }
         }
-    }
+
+
+        public class UserRequest
+        {
+            public int UserId { get; set; }
+        }
+}
 }
