@@ -36,7 +36,7 @@ namespace BackEnd.middlewareService.Controllers
         public async Task<IActionResult> login([FromBody] UserLoginInput input)
         {
             // Database server URL
-            var databaseServerUrl = "http://192.168.1.74:8000/api/user/login/"; // Replace with your actual database server URL
+            var databaseServerUrl = "http://localhost:8000/api/user/login/"; // Replace with your actual database server URL
 
             try
             {

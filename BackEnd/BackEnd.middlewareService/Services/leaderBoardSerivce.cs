@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetLeaderBoardAsync(string token)
     {
-        var databaseServerUrl = "http://192.168.1.74:8000/api/leaderboard/";
+        var databaseServerUrl = "http://localhost:8000/api/leaderboard/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

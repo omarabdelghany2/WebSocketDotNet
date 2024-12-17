@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetUserProfileAsync(string token)
     {
-        var databaseServerUrl = "http://192.168.1.74:8000/api/user/profile/";
+        var databaseServerUrl = "http://localhost:8000/api/user/profile/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

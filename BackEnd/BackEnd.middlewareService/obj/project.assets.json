@@ -482,19 +482,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/omarabdelghany/.nuget/packages/": {}
+    "/root/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
+      "projectUniqueName": "/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
       "projectName": "BackEnd.middlewareService",
-      "projectPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
-      "packagesPath": "/Users/omarabdelghany/.nuget/packages/",
-      "outputPath": "/Users/omarabdelghany/Documents/webscoketDotnet/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/",
+      "projectPath": "/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
+      "packagesPath": "/root/.nuget/packages/",
+      "outputPath": "/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/omarabdelghany/.nuget/NuGet/NuGet.Config"
+        "/root/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -551,7 +551,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

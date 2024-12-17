@@ -26,8 +26,9 @@ builder.Services.AddHttpClient<ForgetPsswordService>();
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Listen(System.Net.IPAddress.Any, 5038); // Port 5000 or any port of your choice
+    options.Listen(System.Net.IPAddress.Any, 5038);
 });
+
 
 builder.Services.AddCors(options =>
 {
