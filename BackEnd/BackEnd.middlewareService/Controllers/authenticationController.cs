@@ -49,28 +49,26 @@ namespace BackEnd.middlewareService.Controllers
             {
                 return BadRequest(" refresh Token is required.");
             }
-            var token = request.refreshToken.Substring("Bearer ".Length).Trim();
-            Console.WriteLine(request.refreshToken);
 
-            //checkvalidity first
-            string result = await _TokenValidator.ValidateTokenAsync(token);
+            string result = await _TokenValidator.ValidateTokenAsync(request.refreshToken);
 
             if (result == "error")
             {
                  return Unauthorized("You are not authorized to get the accessToken list.");
             }
 
-            string resultFrom=await _TokenValidator.GetAccessTokenByRefresh(token);
+            string resultFrom=await _TokenValidator.GetAccessTokenByRefresh(request.refreshToken);
 
             try
             {
-                var tokens = JsonSerializer.Deserialize<object>(resultFrom);
+                var tokens = JsonSerializer.Deserialize<TokenResponse>(resultFrom);
                 
 
                 return Ok(new
                 {
                     Message = "Tokens Are Got Succefully",
-                    Data = tokens
+                    AccessToken = tokens?.access,
+                    RefreshToken = tokens?.refresh
                 });
             }
             catch (JsonException ex)
@@ -91,11 +89,10 @@ namespace BackEnd.middlewareService.Controllers
 
         private class TokenResponse
         {
-            [JsonPropertyName("access_token")]  // Mapping snake_case to PascalCase
-            public string AccessToken { get; set; }
+            
+            public string access { get; set; }
 
-            [JsonPropertyName("refresh_token")]  // Mapping snake_case to PascalCase
-            public string RefreshToken { get; set; }
+            public string refresh { get; set; }
         }
 
     }

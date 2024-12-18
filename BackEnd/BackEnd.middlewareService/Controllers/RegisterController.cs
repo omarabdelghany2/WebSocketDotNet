@@ -31,7 +31,7 @@ namespace BackEnd.middlewareService.Controllers
             Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
 
             // Database server URL
-            var databaseServerUrl = "http://localhost:8000/api/user/register/";
+            var databaseServerUrl = "http://localhost:8000/api/user/auth/register/";
 
             try
             {

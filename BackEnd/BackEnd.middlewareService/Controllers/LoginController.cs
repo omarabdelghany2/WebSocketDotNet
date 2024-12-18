@@ -36,7 +36,7 @@ namespace BackEnd.middlewareService.Controllers
         public async Task<IActionResult> login([FromBody] UserLoginInput input)
         {
             // Database server URL
-            var databaseServerUrl = "http://localhost:8000/api/user/login/"; // Replace with your actual database server URL
+            var databaseServerUrl = "http://localhost:8000/api/user/auth/login/"; // Replace with your actual database server URL
 
             try
             {
@@ -64,7 +64,8 @@ namespace BackEnd.middlewareService.Controllers
                     {
                         Message = "Login successful",
                         AccessToken = tokens?.AccessToken,
-                        RefreshToken = tokens?.RefreshToken
+                        RefreshToken = tokens?.RefreshToken,
+                        ExpirationDate=tokens?.ExpirationDate
                     });
                 }
                 else
@@ -101,5 +102,8 @@ namespace BackEnd.middlewareService.Controllers
 
         [JsonPropertyName("refresh_token")]  // Mapping snake_case to PascalCase
         public string RefreshToken { get; set; }
+
+        [JsonPropertyName("expiration_date")]  // Mapping snake_case to PascalCase
+        public string ExpirationDate { get; set; }
     }
 }

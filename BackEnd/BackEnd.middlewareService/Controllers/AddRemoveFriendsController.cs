@@ -50,7 +50,7 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
-        [HttpDelete("remove-friend")]
+        [HttpPost("remove-friend")]
         public async Task<IActionResult> removeFriend([FromHeader] string Authorization, [FromBody] friendDATA user )
         {
             if (string.IsNullOrEmpty(Authorization))
@@ -74,6 +74,33 @@ namespace BackEnd.middlewareService.Controllers
                 return NoContent();
             }
             return NotFound(new { Message = "Friendship not found or could not be removed." });
+
+        }
+
+        [HttpPost("decline-Pending-friend")]
+        public async Task<IActionResult> declinePendingRequest([FromHeader] string Authorization, [FromBody] friendDATA user )
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return BadRequest(" refresh Token is required.");
+            }
+            var token = Authorization.Substring("Bearer ".Length).Trim();
+
+            int? user_ID = await _userIdFromTokenService.GetUserIdFromProfileNameAsync(token, user.profile_name);
+            if (!user_ID.HasValue)
+            {
+                return BadRequest(new { Message = "Invalid profile name or user not found." });
+            }
+
+            bool result = await _friendsService.declinePendingRequestAsync(token, user_ID.Value);
+
+
+            if (result)
+            {
+                // Return 204 No Content for successful deletion
+                return NoContent();
+            }
+            return NotFound(new { Message = "Pending Request not found or could not be removed." });
 
         }
 
