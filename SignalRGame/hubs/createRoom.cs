@@ -6,20 +6,20 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task<string> CreateRoom(string token)
+        public async Task createRoom(string Authorization)
         {
-            // Retrieve the user ID from the token
-            if (!TokenToUserId.TryGetValue(token, out var userId))
+            string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+            if (userId == "error")
             {
-                await Clients.Caller.SendAsync("Error", "Invalid token.");
-                return null;
+                await Clients.Caller.SendAsync("roomCreated", new{roomId="",team ="" ,error =true ,errorMessage="Error retrieving userId; something went wrong with the Token."});
+                
             }
 
             // Check if the user already has a room
             if (UserRoomMapping.ContainsKey(userId))
             {
-                await Clients.Caller.SendAsync("Error", "User already has a room.");
-                return null;
+                await Clients.Caller.SendAsync("roomCreated", new{roomId="",team ="" ,error =true ,errorMessage="the Host is already has a Room"});
+                
             }
 
             // Generate a unique room ID
@@ -41,9 +41,9 @@ namespace SignalRGame.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
 
             // Notify the caller that the room has been created
-            await Clients.Caller.SendAsync("RoomCreated", roomId);
+            Console.WriteLine(roomId);
+            await Clients.Caller.SendAsync("roomCreated", new{roomId=roomId,team ="Blue" ,error =false ,errorMessage=""});
 
-            return roomId; // Return the room ID
         }
 
     }

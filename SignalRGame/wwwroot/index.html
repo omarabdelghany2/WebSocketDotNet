@@ -40,7 +40,7 @@
 
     <script>
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:5274/gamehub") // Update with your server's address
+            .withUrl("http://104.248.35.179:5274/gamehub") // Update with your server's address
             .withAutomaticReconnect()
             .build();
 
@@ -78,6 +78,13 @@
 
         connection.on("correctAnswer", (userId) => {
             log(`User ${userId} answered correct!`);
+        });
+
+        connection.on("LoginRoomUpdated", (roomId) => {
+            log(`Room for Login Updated ${roomId} !`);
+        });
+        connection.on("LoginRoomCreated", (roomId) => {
+            log(`Room for Login Created ${roomId} !`);
         });
 
         connection.on("CountdownComplete", () => {

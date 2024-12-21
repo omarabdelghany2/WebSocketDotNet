@@ -12,6 +12,7 @@ namespace SignalRGame.Hubs
         private static readonly ConcurrentDictionary<string, Room> Rooms = new();
         private static readonly Dictionary <string ,Room>LoginRooms = new();
         private static readonly ConcurrentDictionary<string, string> UserRoomMapping = new();
+        private static readonly ConcurrentDictionary<string, string> ParticipantRoomMapping = new();
         private static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
         private static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); // UserId to ConnectionId mapping
         private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
@@ -19,19 +20,20 @@ namespace SignalRGame.Hubs
         private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
         private readonly getQuestionsService _GetQuestions;
         private readonly GameService _gameService;
+        private readonly userIdFromTokenService _userIdFromTokenService;
+        private readonly FriendsService _FriendsService;
+        private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService)
         {
-            // Populate TokenToUserId with some sample data for testing
-            TokenToUserId["token123"] = "user1";
-            TokenToUserId["token456"] = "user2";
-            TokenToUserId["token789"] = "user3";     
                     // Add questions directly to the dictionary
             selectQuestionsCategory("room1");
             selectQuestionsCategory("room2");
             _gameService = gameService;
             _GetQuestions =getQuestions;
+            _userIdFromTokenService=userIdFromToken;
+            _FriendsService=friendsService;
         }
 
 
@@ -44,59 +46,6 @@ namespace SignalRGame.Hubs
             }
 
             await base.OnConnectedAsync();
-        }
-
-        public override async Task OnDisconnectedAsync(Exception? exception)
-        {
-            // Find the user based on the connection ID
-            var userRoom = UserRoomMapping.FirstOrDefault(ur => ur.Value == Context.ConnectionId);
-            if (userRoom.Key != null)
-            {
-                var roomId = userRoom.Value;
-                if (Rooms.TryGetValue(roomId, out var room))
-                {
-                    // Find the player in the participants list
-                    var player = room.Participants.FirstOrDefault(p => p.UserId == userRoom.Key);
-
-                    if (player != null)
-                    {
-                        // Remove the player from the room's participants list
-                        room.Participants.Remove(player);
-
-                        // Check if the player is the host
-                        if (room.Host.UserId == userRoom.Key)
-                        {
-                            // If the host leaves, remove the room and notify participants
-                            if (room.Participants.Count > 0)
-                            {
-                                room.Host = room.Participants.First(); // Assign the new host to the first participant
-                            }
-                            else
-                            {
-                                Rooms[roomId]=null; // Remove the room if there are no participants left
-                                await Clients.Group(roomId).SendAsync("RoomDeleted");
-                            }
-                        }
-                        else
-                        {
-                            // Notify the room that a player left
-                            await Clients.Group(roomId).SendAsync("PlayerLeft", userRoom.Key);
-                        }
-                    }
-                }
-
-                // Remove the mapping for the user from the room
-                UserRoomMapping.TryRemove(userRoom.Key, out _);
-            }
-
-            // Remove from UserIdToConnectionId mapping
-            string? userId = UserIdToConnectionId.FirstOrDefault(kvp => kvp.Value == Context.ConnectionId).Key;
-            if (userId != null)
-            {
-                UserIdToConnectionId.TryRemove(userId, out _);
-            }
-
-            await base.OnDisconnectedAsync(exception);
         }
 
         public async Task SendMessageToRoom(string roomId, string userId, string message)
@@ -121,7 +70,141 @@ namespace SignalRGame.Hubs
         }
 
 
-        
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            // Find the user based on the connection ID
+            string? userId = UserIdToConnectionId.FirstOrDefault(kvp => kvp.Value == Context.ConnectionId).Key;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Step 1: Handle disconnection from UserIdToConnectionId map
+                HandleUserDisconnection(userId);
+
+                // Step 2: Handle disconnection from login room
+                await HandleLoginRoomDisconnection(userId);
+
+                // Step 3: Handle disconnection from created or joined room
+                bool isHost= await HandleRoomDisconnection(userId);
+                if(!isHost){
+                        await HandleParticipantRoomDisconnection(userId);
+                }
+            }
+
+            await base.OnDisconnectedAsync(exception);
+        }
+
+        private void HandleUserDisconnection(string userId)
+        {
+            // Remove the user from the UserIdToConnectionId map
+            if (UserIdToConnectionId.TryRemove(userId, out _))
+            {
+                Console.WriteLine($"Removed user {userId} from UserIdToConnectionId map successfully.");
+            }
+        }
+
+        private async Task HandleLoginRoomDisconnection(string userId)
+        {
+            if (LoginRoomMapping.TryGetValue(userId, out var userLoginRoom) && !string.IsNullOrEmpty(userLoginRoom))
+            {
+                // Set the login room to null and remove from the mapping
+                LoginRooms[userLoginRoom] = null;
+                LoginRoomMapping.TryRemove(userId, out _);
+                Console.WriteLine($"Removed user {userId} from their login room successfully.");
+            }
+
+            await Task.CompletedTask;
+        }
+
+        private async Task<bool> HandleRoomDisconnection(string userId)
+        {
+            // Check if the user is associated with a room
+            if (UserRoomMapping.TryGetValue(userId, out var roomId) && !string.IsNullOrEmpty(roomId))
+            {
+                // Check if the room exists
+                if (Rooms.TryGetValue(roomId, out var room))
+                {
+                    bool isHost = room.Host.UserId == userId;
+
+                    // Remove the user from the participants list
+                    var player = room.Participants.FirstOrDefault(p => p.UserId == userId);
+                    if (player != null)
+                    {
+                        room.Participants.Remove(player);
+                    }
+
+                    // Handle host-specific logic
+                    if (isHost)
+                    {
+                        room.Host = null; // Remove host
+                        if (room.Participants.Count > 0)
+                        {
+                            // Assign a new host from participants
+                            room.Host = room.Participants.First();
+                            UserRoomMapping[room.Host.UserId] = roomId;
+                            Console.WriteLine($"Host left; reassigned new host: {room.Host.UserId}");
+                            await Clients.Group(roomId).SendAsync("hostLeft", new { newHost = room.Host.UserId });
+                        }
+                        else
+                        {
+                            // No participants left, delete the room
+                            Rooms.TryRemove(roomId, out _);
+                            Console.WriteLine("Room deleted as the host and participants left.");
+                            await Clients.Group(roomId).SendAsync("roomDeleted");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Participant {userId} left room {roomId}.");
+                    }
+
+                    // Remove the mapping for the user
+                    UserRoomMapping.TryRemove(userId, out _);
+
+                    // Successfully disconnected
+                    return true;
+                }
+            }
+
+            // If userId is not part of any room, return false
+            Console.WriteLine($"User {userId} was not Host of any room.");
+            return false;
+        }
+
+        private async Task HandleParticipantRoomDisconnection(string userId)
+        {
+            // Check if the user is associated with a room
+            if (ParticipantRoomMapping.TryGetValue(userId, out var roomId) && !string.IsNullOrEmpty(roomId))
+            {
+                // Check if the room exists
+                if (Rooms.TryGetValue(roomId, out var room))
+                {
+
+                    // Remove the user from the participants list
+                    var player = room.Participants.FirstOrDefault(p => p.UserId == userId);
+                    if (player != null)
+                    {
+                        room.Participants.Remove(player);
+                    }
+
+                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=userId});                       
+                    Console.WriteLine($"Participant {userId} left room {roomId}.");
+                
+
+                    // Remove the mapping for the user
+                    ParticipantRoomMapping.TryRemove(userId, out _);
+
+                    // Successfully disconnected
+                    
+                }
+            }
+
+            // If userId is not part of any room, return false
+            Console.WriteLine($"User {userId} was not particpant of any room.");
+            
+        }
+
+
+
 
     }
 }

@@ -6,13 +6,13 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task<string> JoinRoom(string token, string roomId)
+        public async Task<string> joinRoom(string Authorization, string roomId)
         {
-            // Retrieve the user ID from the token
-            if (!TokenToUserId.TryGetValue(token, out var userId))
+            string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+            if (userId == "error")
             {
-                await Clients.Caller.SendAsync("Error", "Invalid token.");
-                return "Error: Invalid token";
+                await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
+                return null;
             }
 
             // Check if the room exists
@@ -32,6 +32,7 @@ namespace SignalRGame.Hubs
             // Assign the user to a team (blue if fewer blue players, red otherwise)
             string team = room.Participants.Count(p => p.Team == "Blue") < room.Participants.Count(p => p.Team == "Red") ? "Blue" : "Red";
             var newPlayer = new Player { UserId = userId, Team = team };
+            ParticipantRoomMapping[userId]=roomId;
 
             // Add the user to the room
             room.Participants.Add(newPlayer);

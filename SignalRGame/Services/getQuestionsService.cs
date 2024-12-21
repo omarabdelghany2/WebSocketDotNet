@@ -19,7 +19,7 @@ namespace SignalRGame.Services
                     // Function to send token and list of questions
         public async Task<string> GetQuestionsResponseAsync(string token, List<string> categories)
         {
-            var databaseServerUrl = "http://192.168.1.64:8000/api/questions/";
+            var databaseServerUrl = "http://localhost:8000/api/questions/";
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

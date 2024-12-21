@@ -1,9 +1,8 @@
 
 using SignalRGame.Services;
 
-
 using SignalRGame.Hubs;    // Add the correct namespace for GameHub
-using SignalRGame.Services; // Add the correct namespace for GameService
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,33 @@ builder.Services.AddSwaggerGen();
 
 // Register services (Replace ConfigureServices method with inline registrations)
 builder.Services.AddSignalR();
-builder.Services.AddSingleton<GameService>();  // Register GameService
+ // Register GameService
 builder.Services.AddSingleton<GameHub>();      // Register GameHub
+builder.Services.AddSingleton<getQuestionsService>();
+builder.Services.AddSingleton<userIdFromTokenService>();
+builder.Services.AddSingleton<GameService>(); 
+builder.Services.AddSingleton<FriendsService>(); 
 builder.Services.AddHttpClient(); // Register HttpClient
-builder.Services.AddHttpClient<getQuestionsService>();
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.SetIsOriginAllowed(_ => true) // Allow any origin
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Required for SignalR
+        });
+});
+
+
 var app = builder.Build();
+app.UseCors("AllowAll");
+app.Urls.Add("http://0.0.0.0:5274");
+
 
 // Enable serving static files (HTML, CSS, JS, images, etc.)
 app.UseStaticFiles();
