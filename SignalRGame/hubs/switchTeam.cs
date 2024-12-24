@@ -6,19 +6,21 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task SwitchTeam(string token, string roomId)
+        public async Task switchTeam(SwitchTeamRequest request )
         {
-            // Retrieve the user ID from the token
-            if (!TokenToUserId.TryGetValue(token, out var userId))
+            string token = request.token;
+            string roomId = request.roomId;
+            string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
+            if (userId == "error")
             {
-                await Clients.Caller.SendAsync("Error", "Invalid token.");
+                await Clients.Caller.SendAsync("playerTeamChanged", new{team ="" , userId=0, error =true ,errorMessage="Error retrieving userId; something went wrong with the Token."});
                 return;
             }
 
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await Clients.Caller.SendAsync("Error", "Room does not exist.");
+                await Clients.Caller.SendAsync("playerTeamChanged", new{team ="" , userId=0 ,error =true ,errorMessage="Room does not exist."});
                 return;
             }
 
@@ -27,7 +29,7 @@ namespace SignalRGame.Hubs
 
             if (player == null)
             {
-                await Clients.Caller.SendAsync("Error", "Player not found in the room.");
+                await Clients.Caller.SendAsync("playerTeamChanged", new{team ="" , userId=0 , error =true ,errorMessage="Player not found in the room."});
                 return;
             }
 
@@ -42,16 +44,25 @@ namespace SignalRGame.Hubs
             }
             else
             {
-                await Clients.Caller.SendAsync("Error", "Player is not assigned to a valid team.");
+                await Clients.Caller.SendAsync("playerTeamChanged", new{team ="" ,userId=0 , error =true ,errorMessage="Player is not assigned to a valid team"});
                 return;
             }
 
             // Notify the room that the player has switched teams
-            await Clients.Group(roomId).SendAsync("PlayerTeamChanged", userId, player.Team);
+            await Clients.Group(roomId).SendAsync("playerTeamChanged", new{team = player.Team , userId = Convert.ToInt32(userId) ,error = false ,errorMessage=""});
 
-            // Send the updated team back to the player
-            await Clients.Caller.SendAsync("TeamSwitched", player.Team);  // Inform the client about the team switch
         }
+
     }
+
+
+
+
+    public class SwitchTeamRequest
+    {
+        public string token { get; set; }
+        public string roomId { get; set; }
+    }
+
 }
         

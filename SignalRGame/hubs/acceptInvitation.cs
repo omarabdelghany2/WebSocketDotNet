@@ -1,39 +1,76 @@
 using SignalRGame.Models;  // Import the namespace where Room and Player are defined
 using Microsoft.AspNetCore.SignalR;
-
+using System.Text.Json.Serialization;
+using SignalRGame.Services;
+using System.Text.Json;
 
 namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task<string> AcceptInvitation(string token, string roomId, string inviterId)
+        public async Task<string> acceptInvitation(acceptInvitationRequest request)
         {
-            // Retrieve the user ID from the token
-            if (!TokenToUserId.TryGetValue(token, out var userId))
+            string token = request.token;
+            string roomId = request.roomId;
+            int inviterUserId = request.inviterUserId;
+
+            string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(token);
+            var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
+            int userId = profile?.id ?? 0;
+
+            if (serverResponse == "error")
             {
-                await Clients.Caller.SendAsync("Error", "Invalid token.");
-                return "Error: Invalid token";
+                await Clients.Caller.SendAsync("invitationAccepted", new
+                {
+                    inviterUserId = inviterUserId,
+                    roomId = roomId,
+                    error = true,
+                    errorMessage = "Error retrieving userId; something went wrong with the Token."
+                });
+                return "Error: Invalid Token";
             }
 
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await Clients.Caller.SendAsync("Error", "Room does not exist.");
+                await Clients.Caller.SendAsync("invitationAccepted", new
+                {
+                    inviterUserId = inviterUserId,
+                    roomId = roomId,
+                    room = (dynamic)null,
+                    error = true,
+                    errorMessage = "Room does not exist."
+                });
                 return "Error: Room does not exist";
             }
 
             // Check if the inviter is a participant or the host of the room
-            var inviterIsValid = room.Host.UserId == inviterId || room.Participants.Any(p => p.UserId == inviterId);
+            var inviterIsValid = room.Host.UserId == inviterUserId.ToString() || room.Participants.Any(p => p.UserId == inviterUserId.ToString());
             if (!inviterIsValid)
             {
                 await Clients.Caller.SendAsync("Error", "Invalid inviter.");
+                await Clients.Caller.SendAsync("invitationAccepted", new
+                {
+                    inviterUserId = inviterUserId,
+                    roomId = roomId,
+                    room = (dynamic)null,
+                    error = true,
+                    errorMessage = "Invalid inviter"
+                });
                 return "Error: Invalid inviter";
             }
 
             // Check if the user is already in the room
-            if (room.Participants.Any(p => p.UserId == userId))
+            if (room.Participants.Any(p => p.UserId == userId.ToString()))
             {
-                await Clients.Caller.SendAsync("Error", "You are already in the room.");
+                await Clients.Caller.SendAsync("invitationAccepted", new
+                {
+                    inviterUserId = inviterUserId,
+                    roomId = roomId,
+                    room = (dynamic)null,
+                    error = true,
+                    errorMessage = "You are already in the room."
+                });
                 return "Error: Already in the room";
             }
 
@@ -41,23 +78,63 @@ namespace SignalRGame.Hubs
             string team = room.Participants.Count(p => p.Team == "Blue") < room.Participants.Count(p => p.Team == "Red") ? "Blue" : "Red";
             
             // Add the user to the room
-            var newPlayer = new Player { UserId = userId, Team = team };
+            var newPlayer = new Player { UserId = userId.ToString(), Team = team,ProfileName=profile?.profileName,Score=profile?.score ?? 0 };
             room.Participants.Add(newPlayer);
+
+            ParticipantRoomMapping[userId.ToString()] = roomId;
+
+            // Send to all group members except the caller
+            await Clients.GroupExcept(roomId, Context.ConnectionId).SendAsync("playerJoined", new 
+            {
+                userId = Convert.ToInt32(userId),
+                team = team,
+                profileName = profile?.profileName,
+                score = profile?.score
+            });
+
 
             // Add the user to the SignalR group for the room
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
 
-            // Notify the room that a new player joined
-            await Clients.Group(roomId).SendAsync("PlayerJoined", userId, team);
-
-            // Notify the inviter that the invitation was accepted
-            if (UserIdToConnectionId.TryGetValue(inviterId, out var inviterConnectionId))
+            // Send response with the blue and red teams
+            await Clients.Caller.SendAsync("invitationAccepted", new
             {
-                await Clients.Client(inviterConnectionId).SendAsync("InvitationAccepted", roomId, userId);
-            }
+                red = room.Participants
+                    .Where(p => p.Team == "Red")
+                    .ToDictionary(p => Convert.ToInt32(p.UserId), p => new
+                    {
+                        userId = Convert.ToInt32(p.UserId),
+                        profileName = p.ProfileName,  // Assuming `p.Score` exists for the player's score
+                        isHost = p.UserId == room.Host.UserId,// Checking if the participant is the host
+                        score=p.profileScore,
+                        isMe = p.UserId == userId.ToString() // Check if this player is the caller
+                    }),
+                blue = room.Participants
+                    .Where(p => p.Team == "Blue")
+                    .ToDictionary(p => Convert.ToInt32(p.UserId), p => new
+                    {
+                        userId = Convert.ToInt32(p.UserId),
+                        profileName = p.ProfileName,  // Assuming `p.Score` exists for the player's score
+                        isHost = p.UserId == room.Host.UserId,// Checking if the participant is the host
+                        score=p.profileScore,
+                        isMe = p.UserId == userId.ToString() // Check if this player is the caller
+                    }),
+                roomId=roomId,    
+                error = false,
+                errorMessage = ""
+            });
+
+            
 
             return "OK";
         }
     }
-}
 
+    // Accept invitation request model
+    public class acceptInvitationRequest
+    {
+        public string token { get; set; }
+        public string roomId { get; set; }
+        public int inviterUserId { get; set; }
+    }
+}

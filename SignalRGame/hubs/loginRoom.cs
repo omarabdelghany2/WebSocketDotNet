@@ -43,7 +43,7 @@ namespace SignalRGame.Hubs
 
                 // Notify the caller that the room was updated
                 await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
-                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter" });
+                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter recentNewsLetter recentNewsLetter recentNewsLetter" });
                 List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
                 if (onlineFriends != null && onlineFriends.Any())
                 {
@@ -78,7 +78,7 @@ namespace SignalRGame.Hubs
 
                 // Notify the caller that the room was created
                 await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
-                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter" });
+                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter recentNewsLetter recentNewsLetter recentNewsLetter" });
 
                 // Fetch the online friends
                 List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);

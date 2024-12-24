@@ -16,6 +16,7 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<GameHub>();      // Register GameHub
 builder.Services.AddSingleton<getQuestionsService>();
 builder.Services.AddSingleton<userIdFromTokenService>();
+builder.Services.AddSingleton<userProfileFromTokenService>();
 builder.Services.AddSingleton<GameService>(); 
 builder.Services.AddSingleton<FriendsService>(); 
 builder.Services.AddHttpClient(); // Register HttpClient

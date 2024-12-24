@@ -22,10 +22,11 @@ namespace SignalRGame.Hubs
         private readonly GameService _gameService;
         private readonly userIdFromTokenService _userIdFromTokenService;
         private readonly FriendsService _FriendsService;
+        private readonly userProfileFromTokenService _userProfileFromTokenService;
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile)
         {
                     // Add questions directly to the dictionary
             selectQuestionsCategory("room1");
@@ -34,6 +35,7 @@ namespace SignalRGame.Hubs
             _GetQuestions =getQuestions;
             _userIdFromTokenService=userIdFromToken;
             _FriendsService=friendsService;
+            _userProfileFromTokenService=userProfile;
         }
 
 
@@ -142,7 +144,7 @@ namespace SignalRGame.Hubs
                             room.Host = room.Participants.First();
                             UserRoomMapping[room.Host.UserId] = roomId;
                             Console.WriteLine($"Host left; reassigned new host: {room.Host.UserId}");
-                            await Clients.Group(roomId).SendAsync("hostLeft", new { newHost = room.Host.UserId });
+                            await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.UserId),team=player.Team,newHostId = Convert.ToInt32(room.Host.UserId)});
                         }
                         else
                         {
@@ -186,7 +188,7 @@ namespace SignalRGame.Hubs
                         room.Participants.Remove(player);
                     }
 
-                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=userId});                       
+                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=Convert.ToInt32(userId),team=player.Team});                       
                     Console.WriteLine($"Participant {userId} left room {roomId}.");
                 
 
