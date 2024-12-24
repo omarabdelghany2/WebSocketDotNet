@@ -5,6 +5,9 @@ using SignalRGame.Models;
 using System.Threading.Tasks;
 using SignalRGame.Hubs;
 using SignalRGame.Services;
+using System.Text.Json;
+
+using System.Text.Json.Serialization;
 namespace SignalRGame.Hubs
 {
     public partial  class GameHub : Hub
@@ -23,10 +26,11 @@ namespace SignalRGame.Hubs
         private readonly userIdFromTokenService _userIdFromTokenService;
         private readonly FriendsService _FriendsService;
         private readonly userProfileFromTokenService _userProfileFromTokenService;
+        private readonly GetFriendsByIdService  _GetFriendsByIdService;
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById)
         {
                     // Add questions directly to the dictionary
             selectQuestionsCategory("room1");
@@ -36,6 +40,8 @@ namespace SignalRGame.Hubs
             _userIdFromTokenService=userIdFromToken;
             _FriendsService=friendsService;
             _userProfileFromTokenService=userProfile;
+
+            _GetFriendsByIdService=userFriendsById;
         }
 
 
@@ -90,6 +96,7 @@ namespace SignalRGame.Hubs
                 if(!isHost){
                         await HandleParticipantRoomDisconnection(userId);
                 }
+                string error = await HandleNotfiyFriendsOfDisconnection(userId);
             }
 
             await base.OnDisconnectedAsync(exception);
@@ -206,8 +213,80 @@ namespace SignalRGame.Hubs
         }
 
 
+        private async Task<string> HandleNotfiyFriendsOfDisconnection(string userId){
+                        // Fetch the friends list from the service
+            var friendsListJson = await _GetFriendsByIdService.GetFriendsByIdAsync(Convert.ToInt32(userId));
+
+            if (!string.IsNullOrEmpty(friendsListJson))
+            {
 
 
+                // Log the raw response for debugging purposes
+                Console.WriteLine($"Received friendsListJson: {friendsListJson}");
+
+                // Deserialize the JSON response into a list of Friend objects
+                try
+                {
+                    List<Friend> friendsList = JsonSerializer.Deserialize<List<Friend>>(friendsListJson);
+                    
+                    if (friendsList == null || !friendsList.Any())
+                    {
+                        Console.WriteLine($"No friends found");
+                        return"didntFindAnyFriendsAfterSerialization";
+                    }
+
+                    // Loop through each friend in the list
+                    foreach (var friend in friendsList)
+                    {
+                        int friendId = friend.friendId;  // Now friendId is an int
+                        string profileName = friend.profileName;  // Get the profile name
+                        int friendScore = friend.friendScore;  // Parse friendScore if it's a string
+
+                        Console.WriteLine($"Friend ID: {friendId}, Profile Name: {profileName}, Score: {friendScore}");
+
+                        // Check if the friend is logged in (by checking LoginRoomMapping)
+                        if (LoginRoomMapping.ContainsKey(friendId.ToString()))
+                        {
+                            // Get the roomId from the LoginRoomMapping using the friend's ID
+                            string roomId = LoginRoomMapping[friendId.ToString()];
+                            Console.WriteLine($"Friend {profileName} is online, roomId: {roomId}");
+
+                            // Send a message to the room (you can customize the message)
+                            await Clients.Group(roomId).SendAsync("connectionStatus", new { userId = userId, status = false });
+                            return"sent The Status";
+                        }
+                    }
+                    return"sent The Status";
+
+
+                }
+                catch (JsonException ex)
+                {
+                    // Handle JSON deserialization error
+                    Console.WriteLine($"Error deserializing friends list: {ex.Message}");
+                    return"asd";
+
+                }
+                
+            }
+            else{
+                return"didnt receive any Friends From Database";
+            }
+        }
+
+    }
+
+
+        public class Friend
+    {
+        [JsonPropertyName("friend_id")]  // Mapping snake_case to PascalCase
+        public int friendId { get; set; }  // Ensure this is an int for numeric friend_id
+
+        [JsonPropertyName("profile_name")]  // Mapping snake_case to PascalCase
+        public string profileName { get; set; }
+
+        [JsonPropertyName("friend_score")]  // Mapping snake_case to PascalCase
+        public int friendScore { get; set; }  // Change this from string to int
     }
 }
 
