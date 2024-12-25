@@ -19,6 +19,8 @@ builder.Services.AddSingleton<userIdFromTokenService>();
 builder.Services.AddSingleton<userProfileFromTokenService>();
 builder.Services.AddSingleton<GameService>(); 
 builder.Services.AddSingleton<FriendsService>(); 
+builder.Services.AddSingleton<GetFriendsByIdService>(); 
+
 builder.Services.AddHttpClient(); // Register HttpClient
 
 
