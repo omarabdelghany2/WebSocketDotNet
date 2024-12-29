@@ -43,18 +43,18 @@ namespace SignalRGame.Hubs
             RoomId = roomId,
             Host = new Player
             {
-                UserId = userId.ToString(),  // Use userId as string directly
-                Team = "Blue",
-                ProfileName = profile?.profileName,
+                userId = userId.ToString(),  // Use userId as string directly
+                team = "Blue",
+                profileName = profile?.profileName,
                 profileScore = profile?.score ?? 0  // Default to 0 if profileScore is null
             },
             Participants = new List<Player>
             {
                 new Player
                 {
-                    UserId = userId.ToString(),  // Use userId as string directly
-                    Team = "Blue",
-                    ProfileName = profile?.profileName,
+                    userId = userId.ToString(),  // Use userId as string directly
+                    team = "Blue",
+                    profileName = profile?.profileName,
                     profileScore = profile?.score ?? 0  // Default to 0 if profileScore is null
                 }
             }

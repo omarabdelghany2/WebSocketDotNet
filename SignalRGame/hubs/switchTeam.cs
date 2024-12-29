@@ -25,7 +25,7 @@ namespace SignalRGame.Hubs
             }
 
             // Find the player in the room's participants
-            var player = room.Participants.FirstOrDefault(p => p.UserId == userId);
+            var player = room.Participants.FirstOrDefault(p => p.userId == userId);
 
             if (player == null)
             {
@@ -34,13 +34,13 @@ namespace SignalRGame.Hubs
             }
 
             // Switch the player's team
-            if (player.Team == "Blue")
+            if (player.team == "Blue")
             {
-                player.Team = "Red";
+                player.team = "Red";
             }
-            else if (player.Team == "Red")
+            else if (player.team == "Red")
             {
-                player.Team = "Blue";
+                player.team = "Blue";
             }
             else
             {
@@ -49,7 +49,7 @@ namespace SignalRGame.Hubs
             }
 
             // Notify the room that the player has switched teams
-            await Clients.Group(roomId).SendAsync("playerTeamChanged", new{team = player.Team , userId = Convert.ToInt32(userId) ,error = false ,errorMessage=""});
+            await Clients.Group(roomId).SendAsync("playerTeamChanged", new{team = player.team , userId = Convert.ToInt32(userId) ,error = false ,errorMessage=""});
 
         }
 

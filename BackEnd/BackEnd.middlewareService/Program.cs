@@ -16,6 +16,8 @@ builder.Services.AddHttpClient<userProfileService>();
 builder.Services.AddHttpClient<userScoreService>();
 builder.Services.AddHttpClient<userIdFromTokenService>();
 builder.Services.AddHttpClient<ForgetPsswordService>();
+builder.Services.AddHttpClient<getSubCategoriesService>();
+
 
 
 

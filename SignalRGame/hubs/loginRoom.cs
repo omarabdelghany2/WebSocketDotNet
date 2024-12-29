@@ -62,7 +62,7 @@ namespace SignalRGame.Hubs
                 roomId = $"login-{Guid.NewGuid()}";
 
                 // Create the login room with only the host
-                Player host = new Player { UserId = userId };
+                Player host = new Player { userId = userId };
 
                 var room = new Room
                 {

@@ -45,7 +45,7 @@ namespace SignalRGame.Hubs
             }
 
             // Check if the inviter is a participant or the host of the room
-            var inviterIsValid = room.Host.UserId == inviterUserId.ToString() || room.Participants.Any(p => p.UserId == inviterUserId.ToString());
+            var inviterIsValid = room.Host.userId == inviterUserId.ToString() || room.Participants.Any(p => p.userId == inviterUserId.ToString());
             if (!inviterIsValid)
             {
                 await Clients.Caller.SendAsync("Error", "Invalid inviter.");
@@ -61,7 +61,7 @@ namespace SignalRGame.Hubs
             }
 
             // Check if the user is already in the room
-            if (room.Participants.Any(p => p.UserId == userId.ToString()))
+            if (room.Participants.Any(p => p.userId == userId.ToString()))
             {
                 await Clients.Caller.SendAsync("invitationAccepted", new
                 {
@@ -75,10 +75,10 @@ namespace SignalRGame.Hubs
             }
 
             // Assign the user to a team (blue if fewer blue players, red otherwise)
-            string team = room.Participants.Count(p => p.Team == "Blue") < room.Participants.Count(p => p.Team == "Red") ? "Blue" : "Red";
+            string team = room.Participants.Count(p => p.team == "Blue") < room.Participants.Count(p => p.team == "Red") ? "Blue" : "Red";
             
             // Add the user to the room
-            var newPlayer = new Player { UserId = userId.ToString(), Team = team,ProfileName=profile?.profileName,Score=profile?.score ?? 0 };
+            var newPlayer = new Player { userId = userId.ToString(), team = team,profileName=profile?.profileName,score=profile?.score ?? 0 };
             room.Participants.Add(newPlayer);
 
             ParticipantRoomMapping[userId.ToString()] = roomId;
@@ -100,24 +100,24 @@ namespace SignalRGame.Hubs
             await Clients.Caller.SendAsync("invitationAccepted", new
             {
                 red = room.Participants
-                    .Where(p => p.Team == "Red")
-                    .ToDictionary(p => Convert.ToInt32(p.UserId), p => new
+                    .Where(p => p.team == "Red")
+                    .ToDictionary(p => Convert.ToInt32(p.userId), p => new
                     {
-                        userId = Convert.ToInt32(p.UserId),
-                        profileName = p.ProfileName,  // Assuming `p.Score` exists for the player's score
-                        isHost = p.UserId == room.Host.UserId,// Checking if the participant is the host
+                        userId = Convert.ToInt32(p.userId),
+                        profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
+                        isHost = p.userId == room.Host.userId,// Checking if the participant is the host
                         score=p.profileScore,
-                        isMe = p.UserId == userId.ToString() // Check if this player is the caller
+                        isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 blue = room.Participants
-                    .Where(p => p.Team == "Blue")
-                    .ToDictionary(p => Convert.ToInt32(p.UserId), p => new
+                    .Where(p => p.team == "Blue")
+                    .ToDictionary(p => Convert.ToInt32(p.userId), p => new
                     {
-                        userId = Convert.ToInt32(p.UserId),
-                        profileName = p.ProfileName,  // Assuming `p.Score` exists for the player's score
-                        isHost = p.UserId == room.Host.UserId,// Checking if the participant is the host
+                        userId = Convert.ToInt32(p.userId),
+                        profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
+                        isHost = p.userId == room.Host.userId,// Checking if the participant is the host
                         score=p.profileScore,
-                        isMe = p.UserId == userId.ToString() // Check if this player is the caller
+                        isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 roomId=roomId,    
                 error = false,

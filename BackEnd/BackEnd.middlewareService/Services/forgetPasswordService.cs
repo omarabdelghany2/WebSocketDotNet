@@ -96,7 +96,7 @@ namespace BackEnd.middlewareService.Services
         public async Task<string> GetCode(string Email)
         {
             // Prepare the database server URL with the email as a query parameter
-            var databaseServerUrl = $"http://localhost:8000/api/user/password/verification/?email={Uri.EscapeDataString(Email)}";
+            var databaseServerUrl = $"http://localhost:8000/api/user/password/verification/{Uri.EscapeDataString(Email)}";
 
             try
             {

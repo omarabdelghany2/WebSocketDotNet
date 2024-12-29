@@ -97,7 +97,6 @@ namespace BackEnd.middlewareService.Services
     {
         var databaseServerUrl = $"http://localhost:8000/api/user/friends/remove/?friend_id={friend_id}";
 
-        //TODO EDIT THE API OF REMOVE
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Delete, databaseServerUrl);

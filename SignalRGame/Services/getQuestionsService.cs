@@ -17,50 +17,50 @@ namespace SignalRGame.Services
         }
 
                     // Function to send token and list of questions
-        public async Task<string> GetQuestionsResponseAsync(string token, List<string> categories)
+    public async Task<string> GetQuestionsResponseAsync(string token, List<string> subCategories)
+    {
+        var databaseServerUrl = "http://127.0.0.1:8000/api/questions/";
+
+        // Construct the query string with multiple `subcategory` parameters
+        var queryString = string.Join("&", subCategories.Select(sub => $"subcategory={Uri.EscapeDataString(sub)}"));
+
+        // Append the query string to the base URL
+        var fullUrl = $"{databaseServerUrl}?{queryString}";
+        Console.WriteLine($"Request URL: {fullUrl}"); // Log the request URL for debugging
+
+        // Prepare the request message with GET
+        var requestMessage = new HttpRequestMessage(HttpMethod.Get, fullUrl);
+
+        // Set the Authorization header to include the Bearer token
+        requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+        try
         {
-            var databaseServerUrl = "http://localhost:8000/api/questions/";
+            // Send the GET request
+            var databaseResponse = await _httpClient.SendAsync(requestMessage);
 
-            // Prepare the request message with GET
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
-
-            // Set the Authorization header to include the Bearer token
-            requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-            // Prepare the body content (send categories as JSON)
-            var jsonPayload = JsonSerializer.Serialize(new { categories = categories });
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-            // Set the content of the request (send categories in the body)
-            requestMessage.Content = content;
-
-            try
+            if (databaseResponse.IsSuccessStatusCode)
             {
-                // Send the GET request
-                var databaseResponse = await _httpClient.SendAsync(requestMessage);
-
-                if (databaseResponse.IsSuccessStatusCode)
-                {
-                    // If the response is successful, read and return the response content (JSON)
-                    var responseContent = await databaseResponse.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Response from database: {responseContent}");
-                    return responseContent;
-                }
-                else
-                {
-                    // If the response is not successful, capture and print the error response
-                    var errorContent = await databaseResponse.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Error from database: {errorContent}");
-                    return $"Error: {errorContent}";
-                }
+                // If the response is successful, read and return the response content (JSON)
+                var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response from database: {responseContent}");
+                return responseContent;
             }
-            catch (Exception ex)
+            else
             {
-                // Log any exceptions that occurred during the HTTP request
-                Console.WriteLine($"Exception occurred: {ex.Message}");
-                return $"Exception: {ex.Message}";
+                // If the response is not successful, capture and print the error response
+                var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error from database: {errorContent}");
+                return $"Error: {errorContent}";
             }
         }
+        catch (Exception ex)
+        {
+            // Log any exceptions that occurred during the HTTP request
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            return $"Exception: {ex.Message}";
+        }
+    }
 
 
 

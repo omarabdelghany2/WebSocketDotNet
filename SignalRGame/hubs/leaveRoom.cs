@@ -49,7 +49,7 @@ namespace SignalRGame.Hubs
 
 
             // Check if the user  in the room
-            if (!room.Participants.Any(p => p.UserId == userId.ToString()))
+            if (!room.Participants.Any(p => p.userId == userId.ToString()))
             {
                 await Clients.Caller.SendAsync("playerLeft", new
                 {
@@ -63,14 +63,14 @@ namespace SignalRGame.Hubs
                 return "Error: not in the room";
             }
             //get the player
-            var player = room.Participants.FirstOrDefault(p => p.UserId == userId.ToString());
+            var player = room.Participants.FirstOrDefault(p => p.userId == userId.ToString());
             if (player != null)
             {
                 room.Participants.Remove(player);
             }
 
             //check if the user is the Host of the Room
-            bool isHost = room.Host.UserId == userId.ToString();
+            bool isHost = room.Host.userId == userId.ToString();
 
 
             if (isHost){
@@ -80,9 +80,9 @@ namespace SignalRGame.Hubs
                 {
                     // Assign a new host from participants
                     room.Host = room.Participants.First();
-                    UserRoomMapping[room.Host.UserId] = roomId;
-                    Console.WriteLine($"Host left; reassigned new host: {room.Host.UserId}");
-                    await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.UserId),team=player.Team,newHostId = Convert.ToInt32(room.Host.UserId)});
+                    UserRoomMapping[room.Host.userId] = roomId;
+                    Console.WriteLine($"Host left; reassigned new host: {room.Host.userId}");
+                    await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.userId),team=player.team,newHostId = Convert.ToInt32(room.Host.userId)});
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace SignalRGame.Hubs
 
             else{
 
-                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=Convert.ToInt32(userId),team=player.Team}); 
+                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=Convert.ToInt32(userId),team=player.team}); 
                     ParticipantRoomMapping.TryRemove(userId.ToString(), out _);
 
 

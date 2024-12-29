@@ -28,7 +28,7 @@ namespace SignalRGame.Hubs
             }
 
             // Ensure the inviter is the host or a participant of the room
-            if (room.Host.UserId != userId && !room.Participants.Any(p => p.UserId == userId))
+            if (room.Host.userId != userId && !room.Participants.Any(p => p.userId == userId))
             {
                 await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=true,errorMessage="You are not a participant of this room."});
                 return;
