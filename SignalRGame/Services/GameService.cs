@@ -19,8 +19,9 @@ namespace SignalRGame.Services
             _hubContext = hubContext;
         }
 
-        public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms)
+        public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,ConcurrentDictionary<string, string> LoginRoomMapping)
         {
+            string winner="";
             var group = _hubContext.Clients.Group(roomId);
 
             //get the room object
@@ -105,8 +106,40 @@ namespace SignalRGame.Services
                     roomToCurrentQuestion.TryRemove(roomId, out _);
                     }
 
-                    //game END HERE
+                    if(room.blueTeamScore>room.redTeamScore){
+                        winner="Blue";
+                    }
+                    else if(room.blueTeamScore<room.redTeamScore){
+                        winner="Red";
+                    }
+                    else{
+                        winner="Draw";
+                    }
+
+                    //gameEnd 
+                    foreach (var participant in room.Participants)
+                    {
+                        var userId = participant.userId; // Assuming participant.userId represents the friendId
+
+                        if (LoginRoomMapping.TryGetValue(userId, out var loginRoomConnectionId))
+                        {
+                            await _hubContext.Clients.Group(loginRoomConnectionId).SendAsync("gameEnd", 
+                                new 
+                                { 
+                                    userId = participant.userId, 
+                                    gameScore = participant.gameScore, 
+                                    score = participant.score, // Assuming 'score' is the same as 'gameScore'
+                                    team = participant.team,
+                                    winner = winner
+                                });
+                        }
+                    }
+
+                    //game END HERE in database
                     //TODO HERE
+
+                    roomToQuestions.TryRemove(roomId, out _);
+
 
             }
 

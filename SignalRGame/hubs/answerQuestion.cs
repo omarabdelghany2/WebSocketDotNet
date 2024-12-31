@@ -78,7 +78,10 @@ namespace SignalRGame.Hubs
             }
 
             // Notify the Room that the UserId answered Succefully
-            await Clients.Group(roomId).SendAsync("succefullyAnswered ", new{profileName=room.Participants[participantIndex].profileName});
+            Console.WriteLine("the roomID of the answer is");
+            Console.WriteLine(roomId);
+            Console.WriteLine(room.Participants[participantIndex].profileName);
+            await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=room.Participants[participantIndex].userId});
         }
     }
 
