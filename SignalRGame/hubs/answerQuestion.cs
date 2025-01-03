@@ -10,6 +10,8 @@ namespace SignalRGame.Hubs
         
         {
 
+
+
             Console.WriteLine("entered answer ");
             string token= request.token;
             string roomId=request.roomId;
@@ -44,6 +46,15 @@ namespace SignalRGame.Hubs
 
             //check is the answer is correct and add the score to him in the room
             var participantIndex = room.Participants.FindIndex(p => p.userId == userId);
+
+
+            if(room.Participants[participantIndex].answered==true){
+                Console.WriteLine("answered before ");
+                
+                return;
+            }
+             room.Participants[participantIndex].answered=true;
+
             Console.WriteLine(currentQuestion.correctAnswer);
             if(answer == currentQuestion.correctAnswer)
             {
@@ -52,6 +63,9 @@ namespace SignalRGame.Hubs
 
                 if (participantIndex != -1)
                 {
+                    //check if he answered before
+                   
+                        
                     Console.WriteLine("entered the increase of score");
                     room.Participants[participantIndex].gameScore+=timer;
                     Console.WriteLine(room.Participants[participantIndex].gameScore);
@@ -81,7 +95,9 @@ namespace SignalRGame.Hubs
             Console.WriteLine("the roomID of the answer is");
             Console.WriteLine(roomId);
             Console.WriteLine(room.Participants[participantIndex].profileName);
-            await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=room.Participants[participantIndex].userId});
+            
+            await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=Convert.ToInt32(room.Participants[participantIndex].userId) ,team =room.Participants[participantIndex].team});
+
         }
     }
 

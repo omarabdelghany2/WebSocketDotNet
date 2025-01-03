@@ -17,6 +17,7 @@ builder.Services.AddHttpClient<userScoreService>();
 builder.Services.AddHttpClient<userIdFromTokenService>();
 builder.Services.AddHttpClient<ForgetPsswordService>();
 builder.Services.AddHttpClient<getSubCategoriesService>();
+builder.Services.AddHttpClient<numberOfUsersFromTokenService>();
 
 
 
@@ -37,11 +38,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("*")  // Allows all origins
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            policy.AllowAnyOrigin()  // Allows all origins
+                  .AllowAnyHeader()  // Allows all headers
+                  .AllowAnyMethod(); // Allows all HTTP methods (GET, POST, PUT, DELETE, etc.)
         });
 });
+
 
 var app = builder.Build();
 app.UseCors("AllowAll");
@@ -52,11 +54,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// app.UseHttpsRedirection();
+// app.UseAuthorization();
+// app.MapControllers();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

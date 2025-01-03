@@ -1,16 +1,32 @@
 {
   "version": 2,
-  "dgSpecHash": "sdSloMjn0R4=",
+  "dgSpecHash": "NMtrQmF1hGQ=",
   "success": true,
   "projectFilePath": "/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
   "expectedPackageFiles": [
+    "/root/.nuget/packages/microsoft.aspnetcore.connections.abstractions/5.0.11/microsoft.aspnetcore.connections.abstractions.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.http.connections.client/5.0.11/microsoft.aspnetcore.http.connections.client.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.http.connections.common/5.0.11/microsoft.aspnetcore.http.connections.common.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.http.features/5.0.11/microsoft.aspnetcore.http.features.5.0.11.nupkg.sha512",
     "/root/.nuget/packages/microsoft.aspnetcore.openapi/8.0.11/microsoft.aspnetcore.openapi.8.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.signalr.client/5.0.11/microsoft.aspnetcore.signalr.client.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.signalr.client.core/5.0.11/microsoft.aspnetcore.signalr.client.core.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.signalr.common/5.0.11/microsoft.aspnetcore.signalr.common.5.0.11.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.signalr.protocols.json/5.0.11/microsoft.aspnetcore.signalr.protocols.json.5.0.11.nupkg.sha512",
     "/root/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.dependencyinjection/5.0.2/microsoft.extensions.dependencyinjection.5.0.2.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.logging/5.0.0/microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.extensions.primitives/5.0.1/microsoft.extensions.primitives.5.0.1.nupkg.sha512",
     "/root/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
     "/root/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "/root/.nuget/packages/swashbuckle.aspnetcore.swagger/6.6.2/swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "/root/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.6.2/swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
-    "/root/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
+    "/root/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
+    "/root/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512",
+    "/root/.nuget/packages/system.threading.channels/5.0.0/system.threading.channels.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

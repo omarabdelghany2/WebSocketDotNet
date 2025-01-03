@@ -7,19 +7,24 @@ using System.Threading.Tasks;
 using SignalRGame.Models;
 using SignalRGame.Hubs;
 
+using System.Text.Json;
+using System.Text;
+
 
 namespace SignalRGame.Services
 {
     public class GameService
     {
         private readonly IHubContext<GameHub> _hubContext;
-
-        public GameService(IHubContext<GameHub> hubContext)
+        private readonly HttpClient _httpClient;
+        public GameService(IHubContext<GameHub> hubContext,HttpClient httpClient)
         {
             _hubContext = hubContext;
+
+            _httpClient = httpClient;
         }
 
-        public async Task SendingQuestions(string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,ConcurrentDictionary<string, string> LoginRoomMapping)
+        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,ConcurrentDictionary<string, string> LoginRoomMapping,List<string>subCategories)
         {
             string winner="";
             var group = _hubContext.Clients.Group(roomId);
@@ -45,6 +50,18 @@ namespace SignalRGame.Services
                 // for (int i = 0; i < questions.Count; i++)
                 for (int i = 0; i < 3; i++)
                 {
+
+
+
+                    //make the answered variable by falase
+
+
+                    foreach (var participant in room.Participants)
+                    {
+                        participant.answered=false;
+                    }
+
+                    //get the current question
                     var currentQuestion = questions[i];
                     roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
 
@@ -117,6 +134,57 @@ namespace SignalRGame.Services
                     }
 
                     //gameEnd 
+
+
+                    
+
+
+
+
+
+
+                    //ADD THE SCORES OF THE WINNERS AND MINUS THE SCORES OF THE LOSERS
+
+                    if(winner=="Red"){
+
+                        foreach (var participant in room.Participants)
+                        {
+                            if (participant.team == "Red")
+                            {
+                                participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
+                            }
+                            else if (participant.team == "Blue")
+                            {
+                                participant.score -= 100; // Decrease score by 1 for Red team
+                                if(participant.score<0){
+                                    participant.score=0;
+                                }
+                            }
+                        }
+
+                    }
+
+                    else if(winner=="Blue"){
+
+                        foreach (var participant in room.Participants)
+                        {
+                            if (participant.team == "Blue")
+                            {
+                                participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
+                            }
+                            else if (participant.team == "Red")
+                            {
+                                participant.score -= 100; // Decrease score by 1 for Red team
+                                if(participant.score<0){
+                                    participant.score=0;
+                                }
+                            }
+                        }
+
+                    }
+
+
+
                     foreach (var participant in room.Participants)
                     {
                         var userId = participant.userId; // Assuming participant.userId represents the friendId
@@ -126,7 +194,7 @@ namespace SignalRGame.Services
                             await _hubContext.Clients.Group(loginRoomConnectionId).SendAsync("gameEnd", 
                                 new 
                                 { 
-                                    userId = participant.userId, 
+                                    userId =Convert.ToInt32(participant.userId), 
                                     gameScore = participant.gameScore, 
                                     score = participant.score, // Assuming 'score' is the same as 'gameScore'
                                     team = participant.team,
@@ -135,8 +203,71 @@ namespace SignalRGame.Services
                         }
                     }
 
-                    //game END HERE in database
-                    //TODO HERE
+
+                //MAKING THE TEAM INFO TO SEND IT TO DATABASE
+
+                var teamsInfo = new List<object>
+                {
+                    new
+                    {
+                        Red = new List<object>
+                        {
+                            new
+                            {
+                                users = room.Participants
+                                    .Where(player => player.team == "Red")
+                                    .Select(player => new
+                                    {
+                                        user_id = player.userId,
+                                        user_score = player.score
+                                    }).ToList()
+                            },
+                            new
+                            {
+                                team_score = room.redTeamScore
+                            }
+                        }
+                    },
+                    new
+                    {
+                        Blue = new List<object>
+                        {
+                            new
+                            {
+                                users = room.Participants
+                                    .Where(player => player.team == "Blue")
+                                    .Select(player => new
+                                    {
+                                        user_id = player.userId,
+                                        user_score = player.score+player.score
+                                    }).ToList()
+                            },
+                            new
+                            {
+                                team_score = room.blueTeamScore
+                            }
+                        }
+                    }
+                };
+
+
+                TimeZoneInfo kuwaitTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Arab Standard Time");
+                DateTime kuwaitTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kuwaitTimeZone);
+                string createdAt = kuwaitTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+
+                bool saveResult = await saveGame(
+                    token=token,
+                    isPublic: "True",
+                    createdAt: createdAt,
+                    categories: subCategories,
+                    mood: "mood1",
+                    hostId: room.Host.userId,
+                    teamInfo: teamsInfo,
+                    subCategories: subCategories
+                );
+
+                Console.WriteLine("entered save game");
 
                     roomToQuestions.TryRemove(roomId, out _);
 
@@ -149,6 +280,46 @@ namespace SignalRGame.Services
                 Console.WriteLine($"Error in SendingQuestions: {ex.Message}");
                 await group.SendAsync("Error", "An error occurred during the game.");
             }
+        }
+
+
+        public async Task<bool> saveGame(string token,string isPublic,string createdAt,List<string>categories,string mood ,string hostId,List<object> teamInfo,List<string>subCategories){
+
+            var databaseServerUrl = $"http://localhost:8000/api/game/save/";
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
+
+            var jsonPayload = JsonSerializer.Serialize(new { is_public = isPublic ,created_at = createdAt,sub_categories= subCategories,mood=mood,host_id=hostId,teams_info=teamInfo});
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Send the request
+                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                requestMessage.Content = content;
+                var databaseResponse = await _httpClient.SendAsync(requestMessage);
+
+                if (databaseResponse.IsSuccessStatusCode)
+                {
+                    // Read the response content as a string
+                    var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+                    return true;
+                }
+                else
+                {
+                    // Log the error response
+                    var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error from database: {errorContent}");
+                    return false; // Return false for non-success status codes
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any exceptions that occurred during the HTTP request
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return false; // Return false if an exception occurs
+            }
+
         }
     }
 }

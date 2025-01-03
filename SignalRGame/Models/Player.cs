@@ -8,5 +8,6 @@ namespace SignalRGame.Models
         public int score{ get; set;}= 0;
         public int gameScore{get;set;}=0;
         public int profileScore{get;set;}=0;
+        public bool answered{get;set;}=false;
     }
 }

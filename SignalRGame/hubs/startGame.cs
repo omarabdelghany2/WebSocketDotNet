@@ -85,7 +85,7 @@ namespace SignalRGame.Hubs
 
             // Run the question-sending process in the background
             _ = Task.Run(() =>
-                _gameService.SendingQuestions(roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,LoginRoomMapping));
+                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,LoginRoomMapping,request.subCategories));
         }
     }
 

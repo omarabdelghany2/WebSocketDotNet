@@ -24,6 +24,9 @@ builder.Services.AddSingleton<userIdFromProfileNameService>();
 
 
 
+
+
+
 builder.Services.AddHttpClient(); // Register HttpClient
 
 

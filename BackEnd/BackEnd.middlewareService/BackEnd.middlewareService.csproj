@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- OpenAPI for API documentation -->
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
+    
+    <!-- SignalR Client for SignalR Client-Side Connection -->
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.11" />
+    
+    <!-- Swagger for API Documentation -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
