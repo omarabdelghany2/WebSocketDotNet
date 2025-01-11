@@ -24,7 +24,7 @@ namespace SignalRGame.Services
             _httpClient = httpClient;
         }
 
-        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,ConcurrentDictionary<string, string> LoginRoomMapping,List<string>subCategories)
+        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories)
         {
             string winner="";
             var group = _hubContext.Clients.Group(roomId);
@@ -119,7 +119,10 @@ namespace SignalRGame.Services
                         blueTeamScore=room.blueTeamScore,
                         redTeamScore=room.redTeamScore,
                         roundWinner=roundWinner
+
+                        
                     });
+                    await Task.Delay(1000); // Wait for 1 second
                     roomToCurrentQuestion.TryRemove(roomId, out _);
                     }
 
@@ -185,23 +188,19 @@ namespace SignalRGame.Services
 
 
 
-                    foreach (var participant in room.Participants)
-                    {
-                        var userId = participant.userId; // Assuming participant.userId represents the friendId
+                    var participantsData = room.Participants
+                        .ToDictionary(
+                            participant => Convert.ToInt32(participant.userId), // Key: userId as integer
+                            participant => new // Value: The rest of the participant's data
+                            {
+                                gameScore = participant.gameScore,
+                                score = participant.score, // Assuming 'score' is the same as 'gameScore'
+                                team = participant.team,
+                            });
 
-                        if (LoginRoomMapping.TryGetValue(userId, out var loginRoomConnectionId))
-                        {
-                            await _hubContext.Clients.Group(loginRoomConnectionId).SendAsync("gameEnd", 
-                                new 
-                                { 
-                                    userId =Convert.ToInt32(participant.userId), 
-                                    gameScore = participant.gameScore, 
-                                    score = participant.score, // Assuming 'score' is the same as 'gameScore'
-                                    team = participant.team,
-                                    winner = winner
-                                });
-                        }
-                    }
+                    await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new {winner = winner,stats = participantsData });
+
+
 
 
                 //MAKING THE TEAM INFO TO SEND IT TO DATABASE
@@ -239,7 +238,7 @@ namespace SignalRGame.Services
                                     .Select(player => new
                                     {
                                         user_id = player.userId,
-                                        user_score = player.score+player.score
+                                        user_score = player.score
                                     }).ToList()
                             },
                             new

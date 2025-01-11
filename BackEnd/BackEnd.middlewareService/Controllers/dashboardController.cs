@@ -1,14 +1,14 @@
-
-// using Microsoft.AspNetCore.SignalR;
+// Import necessary namespaces
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using BackEnd.middlewareService.Services;
 using System.Text.Json;
-using System.Text;
-using System.Net.Http.Headers; // Added for MediaTypeHeaderValue
+using System.Linq;
+using System.Net.Http.Headers; // For MediaTypeHeaderValue
 using System.Text.Json.Serialization;
+
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
@@ -20,14 +20,16 @@ namespace BackEnd.middlewareService.Controllers
         private readonly ILogger<DashboardController> _logger;
         private TaskCompletionSource<object> _messageCompletionSource; // TaskCompletionSource to hold the response
 
-
         private readonly numberOfUsersFromTokenService _numberOfUsersFromTokenService;
+        private readonly getMonthsSubscriptionsService _getMonthsSubscriptionsService;
 
-        public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger ,numberOfUsersFromTokenService numberOfUsers)
+        public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger,
+            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe)
         {
             _TokenValidator = tokenValidator;
             _logger = logger;
-            _numberOfUsersFromTokenService=numberOfUsers;
+            _numberOfUsersFromTokenService = numberOfUsers;
+            _getMonthsSubscriptionsService = monthlySubscribe;
             InitializeSignalRConnection(); // Initialize SignalR connection on controller creation
         }
 
@@ -110,17 +112,27 @@ namespace BackEnd.middlewareService.Controllers
                     {
                         int numberOfOnlineUsers = numberOfUsersProperty.GetInt32();
 
+                        // Get the users from the database (serializedResponce)
+                        string serverResponse = await _numberOfUsersFromTokenService.GetNumberUsersAsync(token);
+                        string secondServerResponse = await _getMonthsSubscriptionsService.getMonthlySubscription(token);
 
-                        //get the users here from database
-
-                        string serverResponse =await _numberOfUsersFromTokenService.GetNumberUsersAsync(token);
-
+                        // Deserialize the server response for the total number of users
                         var serializedResponce = JsonSerializer.Deserialize<UsersDashboardResponce>(serverResponse);
 
+                        // Deserialize the second server response for monthly subscription data
+                        var secondSerializedResponce = JsonSerializer.Deserialize<List<monthlySubscriptionResponce>>(secondServerResponse);
 
-
-
-                        return Ok(new { numberOfOnlineUsers=numberOfOnlineUsers ,totalUsers=serializedResponce.totalUsers ,numberOfOfflineUsers=serializedResponce.totalUsers-numberOfOnlineUsers});
+                        return Ok(new
+                        {
+                            numberOfOnlineUsers = numberOfOnlineUsers,
+                            totalUsers = serializedResponce.totalUsers,
+                            numberOfOfflineUsers = serializedResponce.totalUsers - numberOfOnlineUsers,
+                            monthlySubscriptions = secondSerializedResponce?.Select(subscription => new
+                            {
+                                month = subscription.month,
+                                totalAmount = subscription.totalAmount
+                            }).ToList()
+                        });
                     }
                     else
                     {
@@ -138,16 +150,21 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, "An error occurred while waiting for the response.");
             }
         }
-
-   
     }
 
+    // Response models
+    public class UsersDashboardResponce
+    {
+        [JsonPropertyName("total_users")]  // Mapping snake_case to PascalCase
+        public int totalUsers { get; set; }
+    }
 
-            public class UsersDashboardResponce
-        {
-                [JsonPropertyName("total_users")]  // Mapping snake_case to PascalCase
-                public int totalUsers { get; set; }
-        }
+    public class monthlySubscriptionResponce
+    {
+        [JsonPropertyName("month")]  // Mapping snake_case to PascalCase
+        public string month { get; set; }
 
-
+        [JsonPropertyName("total_amount")]  // Mapping snake_case to PascalCase
+        public double totalAmount { get; set; }  // Use double to match the response value type (e.g., 3523.0)
+    }
 }

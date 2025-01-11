@@ -67,8 +67,7 @@ namespace SignalRGame.Hubs
                    
                         
                     Console.WriteLine("entered the increase of score");
-                    room.Participants[participantIndex].gameScore+=timer;
-                    Console.WriteLine(room.Participants[participantIndex].gameScore);
+                    room.Participants[participantIndex].gameScore+=(int)Math.Ceiling(timer * 15.0 / room.questionTime);
 
                     //add the teamRoundScore here
 
@@ -84,17 +83,10 @@ namespace SignalRGame.Hubs
                 }
                 if(userId == room.Host.userId) // so its the answer of the host
                 {
-                    room.Host.gameScore+=timer;
-                    
-                    Console.WriteLine($"The Score is {room.Host.gameScore}.");
+                    room.Host.gameScore+=(int)Math.Ceiling(timer * 15.0 / room.questionTime);
                 }
 
             }
-
-            // Notify the Room that the UserId answered Succefully
-            Console.WriteLine("the roomID of the answer is");
-            Console.WriteLine(roomId);
-            Console.WriteLine(room.Participants[participantIndex].profileName);
             
             await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=Convert.ToInt32(room.Participants[participantIndex].userId) ,team =room.Participants[participantIndex].team});
 

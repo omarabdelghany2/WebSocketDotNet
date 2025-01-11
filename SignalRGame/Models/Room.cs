@@ -9,5 +9,7 @@ namespace SignalRGame.Models
         public int redTeamScore=0;
         public int blueTeamRoundScore=0;
         public int redTeamRoundScore=0;
+
+        public int questionTime=0;
     }
 }

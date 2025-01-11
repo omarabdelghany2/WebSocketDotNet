@@ -69,6 +69,7 @@ namespace SignalRGame.Hubs
             }
             var blueTeamCount = room.Participants.Count(player => player.team == "Blue");
             var redTeamCount = room.Participants.Count(player => player.team == "Red");
+            room.questionTime=request.questionTime;
             
 
             // if (blueTeamCount != redTeamCount)
@@ -85,7 +86,7 @@ namespace SignalRGame.Hubs
 
             // Run the question-sending process in the background
             _ = Task.Run(() =>
-                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,LoginRoomMapping,request.subCategories));
+                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,request.subCategories));
         }
     }
 
@@ -96,12 +97,15 @@ namespace SignalRGame.Hubs
         public string roomId { get; set; }
         public List<string> subCategories { get; set; }
 
+        public int questionTime{get;set;}
+
         // Constructor to initialize the properties
-        public startGameRequest(string token, string roomId, List<string> subCategories)
+        public startGameRequest(string token, string roomId, List<string> subCategories,int questionTime)
         {
             this.token = token;
             this.roomId = roomId;
             this.subCategories = subCategories;
+            this.questionTime=questionTime;
         }
     }
 }

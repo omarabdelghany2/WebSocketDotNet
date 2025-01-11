@@ -102,6 +102,30 @@ namespace SignalRGame.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
+
+
+
+        public async Task logOut(logoutRequest request){
+            string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(request.token);
+            var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
+            int userId = profile?.id ?? 0; // Default to 0 if profile.id is null
+
+
+                    // Step 1: Handle disconnection from UserIdToConnectionId map
+            HandleUserDisconnection(userId.ToString());
+
+            // Step 2: Handle disconnection from login room
+            await HandleLoginRoomDisconnection(userId.ToString());
+
+            // Step 3: Handle disconnection from created or joined room
+            bool isHost= await HandleRoomDisconnection(userId.ToString());
+            if(!isHost){
+                    await HandleParticipantRoomDisconnection(userId.ToString());
+            }
+            string error = await HandleNotfiyFriendsOfDisconnection(userId.ToString());
+        }
+
+
         private void HandleUserDisconnection(string userId)
         {
             // Remove the user from the UserIdToConnectionId map
@@ -222,6 +246,8 @@ namespace SignalRGame.Hubs
 
 
                 // Log the raw response for debugging purposes
+
+                Console.WriteLine("entered HandleNotifyofDiscnnection");
                 Console.WriteLine($"Received friendsListJson: {friendsListJson}");
 
                 // Deserialize the JSON response into a list of Friend objects
@@ -287,6 +313,14 @@ namespace SignalRGame.Hubs
 
         [JsonPropertyName("friend_score")]  // Mapping snake_case to PascalCase
         public int friendScore { get; set; }  // Change this from string to int
+    }
+
+
+
+
+        public class logoutRequest
+    {
+        public string token { get; set; }
     }
 }
 

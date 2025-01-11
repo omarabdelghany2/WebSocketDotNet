@@ -1,5 +1,7 @@
 using SignalRGame.Models;  // Import the namespace where Room and Player are defined
 using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
+
 
 
 namespace SignalRGame.Hubs
@@ -12,10 +14,15 @@ namespace SignalRGame.Hubs
             string roomId=request.roomId;
             int invitedUserId=request.invitedUserId;
 
-            string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
-            if (userId == "error")
+   
+            string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(Authorization);
+            var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
+            int userId = profile?.id ?? 0;
+            string profileName=profile?.profileName;
+
+            if (serverResponse == "error")
             {
-                await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=true,errorMessage="Error retrieving userId; something went wrong with the Token."});
+                await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=true,errorMessage="Error retrieving profile; something went wrong with the Token."});
                 
             }
 
@@ -28,7 +35,7 @@ namespace SignalRGame.Hubs
             }
 
             // Ensure the inviter is the host or a participant of the room
-            if (room.Host.userId != userId && !room.Participants.Any(p => p.userId == userId))
+            if (Convert.ToInt32(room.Host.userId) != userId && !room.Participants.Any(p => Convert.ToInt32(p.userId) == userId))
             {
                 await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=true,errorMessage="You are not a participant of this room."});
                 return;
@@ -38,7 +45,7 @@ namespace SignalRGame.Hubs
             if (LoginRoomMapping.TryGetValue(invitedUserId.ToString(), out var loginRoomConnectionId))
             {
                 // Send an invitation to the invited user's login room (using their user ID or token)
-                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new{roomId=roomId, inviterUserId=Convert.ToInt32(userId)});
+                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new{roomId=roomId, userId,profileName});
             }
             else
             {
@@ -47,8 +54,8 @@ namespace SignalRGame.Hubs
                 return;
             }
 
-            // Notify the inviter that the invitation was sent successfully
-            await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=false,errorMessage=""});
+                // Notify the inviter that the invitation was sent successfully
+                await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId, error=false,errorMessage=""});
         }
     }
 

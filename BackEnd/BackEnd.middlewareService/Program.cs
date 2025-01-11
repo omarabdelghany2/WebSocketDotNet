@@ -18,6 +18,8 @@ builder.Services.AddHttpClient<userIdFromTokenService>();
 builder.Services.AddHttpClient<ForgetPsswordService>();
 builder.Services.AddHttpClient<getSubCategoriesService>();
 builder.Services.AddHttpClient<numberOfUsersFromTokenService>();
+builder.Services.AddHttpClient<getMonthsSubscriptionsService>();
+
 
 
 

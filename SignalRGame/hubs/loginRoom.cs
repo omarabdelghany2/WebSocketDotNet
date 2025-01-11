@@ -28,7 +28,7 @@ namespace SignalRGame.Hubs
 
             // Update or add the user to UserIdToConnectionId map
             UserIdToConnectionId[userId] = Context.ConnectionId;
-            Console.WriteLine(Context.ConnectionId);
+            // Console.WriteLine(Context.ConnectionId);
 
             string roomId;
 
@@ -49,11 +49,13 @@ namespace SignalRGame.Hubs
                 {
                     // If there are online friends, send the list to the caller
                     await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = onlineFriends });
+                    Console.WriteLine("sent online friends");
                 }
                 else
                 {
                     // If there are no online friends or the list is null, send an empty list
                     await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = new List<FriendStatus>() });
+                    Console.WriteLine("sent empty online friends");
                 }
             }
             else
@@ -86,14 +88,41 @@ namespace SignalRGame.Hubs
                 {
                     // If there are online friends, send the list to the caller
                     await Clients.Caller.SendAsync("onlineFriends", onlineFriends );
+                    Console.WriteLine("sent online friends");
                 }
                 else
                 {
                     // If there are no online friends or the list is null, send an empty list
                     await Clients.Caller.SendAsync("onlineFriends", "" );
+                    Console.WriteLine("sent empty online friends");
                 }
             }
         }
+
+
+
+        public async Task getOnlineFriends(string Authorization){
+                
+                string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+
+                List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
+                if (onlineFriends != null && onlineFriends.Any())
+                {
+
+
+                    
+                    // If there are online friends, send the list to the caller
+                    await Clients.Caller.SendAsync("onlineFriends", onlineFriends );
+                }
+                else
+                {
+                    // If there are no online friends or the list is null, send an empty list
+                    
+                    await Clients.Caller.SendAsync("onlineFriends", "" );
+                }
+        }
+
+
 
         private async Task<List<FriendStatus>> fetchOnlineFriends(string Authorization, string userId)
         {

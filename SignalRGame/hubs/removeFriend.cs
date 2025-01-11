@@ -42,7 +42,7 @@ namespace SignalRGame.Hubs
             {
                 // Send a message  to the delted user's login room
                 await Clients.Group(loginRoomConnectionId).SendAsync("receivedRemoveFriendRequest", 
-                    new { userId = userId, profileName = profile?.profileName, score = score });
+                    new { userId = userId});
             }
 
 
