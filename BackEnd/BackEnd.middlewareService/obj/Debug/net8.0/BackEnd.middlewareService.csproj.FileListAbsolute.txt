@@ -52,6 +52,8 @@
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.dll
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.Core.dll
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Newtonsoft.Json.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/PayPal.dll
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -69,3 +71,9 @@
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/Debug/net8.0/BackEnd.middlewareService.pdb
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/Debug/net8.0/BackEnd.middlewareService.genruntimeconfig.cache
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/obj/Debug/net8.0/ref/BackEnd.middlewareService.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/i18n/ar.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/i18n/en.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/loading.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/notFound.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/winner.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/winners.json

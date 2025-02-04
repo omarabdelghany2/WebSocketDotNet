@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<bool> ValidateEmail(string Email)
         {
-            var databaseServerUrl = $"http://localhost:8000/api/user/password/reset/?email={Uri.EscapeDataString(Email)}";
+            var databaseServerUrl = $"http://localhost:8000/api/user/password/reset/{Uri.EscapeDataString(Email)}";
             
 
             // Prepare the request message with POST
@@ -141,7 +141,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> ResetPassword(string Email, string newPassword, string verifyCode)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/password/reset/confirm/";
+        var databaseServerUrl = "http://localhost:8000/api/user/password/confirm/reset/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Patch, databaseServerUrl);

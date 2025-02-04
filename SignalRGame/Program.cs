@@ -21,6 +21,7 @@ builder.Services.AddSingleton<GameService>();
 builder.Services.AddSingleton<FriendsService>(); 
 builder.Services.AddSingleton<GetFriendsByIdService>(); 
 builder.Services.AddSingleton<userIdFromProfileNameService>(); 
+builder.Services.AddSingleton<isSubscribedService>(); 
 
 
 
@@ -46,7 +47,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseCors("AllowAll");
-app.Urls.Add("http://0.0.0.0:5274");
+// app.Urls.Add("http://0.0.0.0:5274");
 
 
 // Enable serving static files (HTML, CSS, JS, images, etc.)
@@ -66,4 +67,3 @@ app.UseHttpsRedirection();
 
 
 app.Run();
-

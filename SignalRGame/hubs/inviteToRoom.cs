@@ -26,6 +26,15 @@ namespace SignalRGame.Hubs
                 
             }
 
+            //check if the user is Subscribed first
+            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(Authorization);
+
+            if(subscriptionResponce!=true){
+            // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            return;
+            }
+
+            
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room)) 
             {
@@ -45,7 +54,7 @@ namespace SignalRGame.Hubs
             if (LoginRoomMapping.TryGetValue(invitedUserId.ToString(), out var loginRoomConnectionId))
             {
                 // Send an invitation to the invited user's login room (using their user ID or token)
-                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new{roomId=roomId, userId,profileName});
+                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new{roomId=roomId, inviterUserId=userId,profileName=profileName});
             }
             else
             {

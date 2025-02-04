@@ -11,5 +11,7 @@ namespace SignalRGame.Models
         public int redTeamRoundScore=0;
 
         public int questionTime=0;
+
+        public int answersCount=0;
     }
 }

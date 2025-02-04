@@ -8,6 +8,12 @@ using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
 using BackEnd.middlewareService.Services;
 
+using System;
+using System.Net;
+using System.Net.Mail;
+
+
+
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
@@ -22,6 +28,39 @@ namespace BackEnd.middlewareService.Controllers
             _httpClient = httpClient;
             _ForgetPsswordService = forgetPassword;             //this is how we use TokenValidator 
         }
+        public void SendEmail(string subject, string body, string senderEmail, string senderPassword, string receiverEmail)
+            {
+                try
+                {
+                    // Configure the SMTP client
+                    SmtpClient smtpClient = new SmtpClient("mail.privateemail.com", 587)
+                    {
+                        Credentials = new NetworkCredential(senderEmail, senderPassword),
+                        EnableSsl = true // Ensure SSL is enabled
+                    };
+
+                    // Create the email message
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail),
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = false // Set to true if using HTML in the email
+                    };
+
+                    // Add the receiver email
+                    mailMessage.To.Add(receiverEmail);
+
+                    // Send the email
+                    smtpClient.Send(mailMessage);
+                    Console.WriteLine("Email sent successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending email: {ex.Message}");
+                    throw; // Re-throw the exception to be handled by the caller
+                }
+            }
 
         [HttpPost("forget-password")]
         public async Task<IActionResult> forgetPassword([FromBody] ForgetRequest request)
@@ -45,7 +84,25 @@ namespace BackEnd.middlewareService.Controllers
             }
             Console.WriteLine(randomCode);
 
-            //send the email with code
+            //send the email with code heree
+            try
+            {
+            // Email configuration
+            string senderEmail = "support@t3arff.com"; // Your business email address
+            string senderPassword = "T3arff@1ASF";     // Your business email password
+            string subject = "Your Password Reset Code";
+            string body = $"Your password reset code is: {randomCode}";
+
+
+                // Call the method to send email
+            SendEmail(subject, body, senderEmail, senderPassword, request.Email);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Failed to send email: {ex.Message}" });
+            }
+
+            //send the email with code heree
             return Ok(new { message = "Password reset code sent." });
 
         }

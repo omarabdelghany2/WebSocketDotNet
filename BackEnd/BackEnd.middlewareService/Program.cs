@@ -1,5 +1,7 @@
 using BackEnd.middlewareService.Services;
 
+using Microsoft.Extensions.FileProviders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,11 @@ builder.Services.AddHttpClient<ForgetPsswordService>();
 builder.Services.AddHttpClient<getSubCategoriesService>();
 builder.Services.AddHttpClient<numberOfUsersFromTokenService>();
 builder.Services.AddHttpClient<getMonthsSubscriptionsService>();
+builder.Services.AddHttpClient<paypalDatabaseServices>();
+
+
+
+
 
 
 
@@ -34,6 +41,10 @@ builder.WebHost.ConfigureKestrel(options =>
     options.Listen(System.Net.IPAddress.Any, 5038);
 });
 
+// builder.WebHost.ConfigureKestrel(options =>
+// {
+//     options.ListenAnyIP(443, o => o.UseHttps()); // This configures HTTPS on port 5050
+// });
 
 builder.Services.AddCors(options =>
 {
@@ -48,6 +59,63 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+
+// Enable serving static files
+app.UseStaticFiles();
+
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Unhandled Exception: {ex.Message}");
+        throw;
+    }
+});
+// app.Use(async (context, next) =>
+// {
+//     // Log incoming request headers and body
+//     context.Request.EnableBuffering(); // Allow re-reading the request body
+//     using (var reader = new StreamReader(context.Request.Body, leaveOpen: true))
+//     {
+//         var body = await reader.ReadToEndAsync();
+//         Console.WriteLine($"Incoming Request: {context.Request.Method} {context.Request.Path}");
+//         Console.WriteLine($"Headers: {string.Join(", ", context.Request.Headers.Select(h => $"{h.Key}: {h.Value}"))}");
+//         Console.WriteLine($"Body: {body}");
+//         context.Request.Body.Position = 0; // Reset stream position for next middleware
+//     }
+
+//     await next();
+// });
+
+
+// app.Use(async (context, next) =>
+// {
+//     context.Request.EnableBuffering(); // Enable rewinding the request body
+//     await next();
+// });
+
+
+// Serve the "Images" folder
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
+});
+
+// Serve the "Avatars" folder
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Avatars")),
+    RequestPath = "/Avatars"
+});
+
 app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.

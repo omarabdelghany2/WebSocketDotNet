@@ -18,9 +18,20 @@ namespace SignalRGame.Hubs
             string result = await _GetQuestions.GetQuestionsResponseAsync(token, subCategories);
 
 
+
+
             //serilaize the questions here then add it to RoomToQuestions Dictionary
 
             List<Question> questions = JsonSerializer.Deserialize<List<Question>>(result);
+
+
+            //check if the user is Subscribed first
+            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(token);
+
+            if(subscriptionResponce!=true){
+            // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            return;
+            }
 
             if (questions != null)
             {
@@ -72,21 +83,30 @@ namespace SignalRGame.Hubs
             room.questionTime=request.questionTime;
             
 
-            // if (blueTeamCount != redTeamCount)
-            // {
-            //     await Clients.Caller.SendAsync("gameStarted", new{error =true,errorMessage="Teams must have an equal number of players to start the game."});
+            if (blueTeamCount != redTeamCount)
+            {
+                await Clients.Caller.SendAsync("gameStarted", new{error =true,errorMessage="Teams must have an equal number of players to start the game."});
                 
-            //     return;
-            // }
+                return;
+            }
 
 
+
+            //sending the countdown Timer in the loading page
+            for (int j = 5; j >= 0; j--)
+            {
+                await Clients.Group(roomId).SendAsync("loadingPage",new{timer=j});
+                await Task.Delay(1000); // Wait for 1 second
+            }
             // Notify participants that the game has started
             await Clients.Group(roomId).SendAsync("gameStarted",new{error =false,errorMessage="",questionsCount=questions.Count});
-            
+
+
+    
 
             // Run the question-sending process in the background
             _ = Task.Run(() =>
-                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,request.subCategories));
+                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,request.subCategories,request.questionTime));
         }
     }
 

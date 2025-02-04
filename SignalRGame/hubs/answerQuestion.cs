@@ -18,6 +18,7 @@ namespace SignalRGame.Hubs
             int timer=request.timer;
             string answer=request.answer;
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
+            Console.WriteLine(userId);
             if (userId == "error")
             {
                 await Clients.Caller.SendAsync("Error", "Invalid token.");
@@ -34,6 +35,7 @@ namespace SignalRGame.Hubs
                 Console.WriteLine("room invalid ");
                 return;
             }
+            Console.WriteLine(roomId);
 
             //get the current question
 
@@ -55,6 +57,8 @@ namespace SignalRGame.Hubs
             }
              room.Participants[participantIndex].answered=true;
 
+                //increasing the room anseerscount
+            room.answersCount+=1;   
             Console.WriteLine(currentQuestion.correctAnswer);
             if(answer == currentQuestion.correctAnswer)
             {
@@ -67,7 +71,8 @@ namespace SignalRGame.Hubs
                    
                         
                     Console.WriteLine("entered the increase of score");
-                    room.Participants[participantIndex].gameScore+=(int)Math.Ceiling(timer * 15.0 / room.questionTime);
+                    room.Participants[participantIndex].gameScore+=(int)Math.Ceiling(timer * 10.0 / room.questionTime);
+                    Console.WriteLine($"added the score {room.Participants[participantIndex].profileName}");
 
                     //add the teamRoundScore here
 
@@ -81,10 +86,42 @@ namespace SignalRGame.Hubs
                     
                     
                 }
-                if(userId == room.Host.userId) // so its the answer of the host
+                // if(userId == room.Host.userId) // so its the answer of the host
+                // {
+                //     room.Host.gameScore+=(int)Math.Ceiling(timer * 10.0 / room.questionTime);
+                //     Console.WriteLine($"added the score again{room.Participants[participantIndex].profileName} because its a host");
+                // }
+
+            }
+            else
+            {
+
+                Console.WriteLine("entered wrong answer ");
+
+                if (participantIndex != -1)
                 {
-                    room.Host.gameScore+=(int)Math.Ceiling(timer * 15.0 / room.questionTime);
+                    //check if he answered before
+                   
+                        
+                    Console.WriteLine("entered the decrease of score");
+                    room.Participants[participantIndex].gameScore-=(int)Math.Ceiling(timer * 10.0 / room.questionTime);
+
+                    //add the teamRoundScore here
+
+                    // if(room.Participants[participantIndex].team=="Blue"){
+                    //     room.blueTeamRoundScore+=1;
+                    // }
+                    // else{
+                    //     room.redTeamRoundScore+=1;
+                    // }
+                    Console.WriteLine($"the score is  {room.Participants[participantIndex].gameScore}");
+                    
+                    
                 }
+                // if(userId == room.Host.userId) // so its the answer of the host
+                // {
+                //     room.Host.gameScore-=(int)Math.Ceiling(timer * 10.0 / room.questionTime);
+                // }
 
             }
             

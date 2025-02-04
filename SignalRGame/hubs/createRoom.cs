@@ -28,6 +28,22 @@ namespace SignalRGame.Hubs
             await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "Error retrieving userId; something went wrong with the Token." });
         }
 
+
+
+        //check if the user is Subscribed first
+
+
+            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(Authorization);
+
+            if(subscriptionResponce!=true){
+            // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            return;
+            }
+
+
+
+
+
         // Check if the user already has a room
         if (UserRoomMapping.ContainsKey(userId.ToString()))
         {
@@ -46,7 +62,7 @@ namespace SignalRGame.Hubs
                 userId = userId.ToString(),  // Use userId as string directly
                 team = "Blue",
                 profileName = profile?.profileName,
-                profileScore = profile?.score ?? 0  // Default to 0 if profileScore is null
+                score = profile?.score ?? 0  // Default to 0 if profileScore is null
             },
             Participants = new List<Player>
             {
@@ -55,10 +71,17 @@ namespace SignalRGame.Hubs
                     userId = userId.ToString(),  // Use userId as string directly
                     team = "Blue",
                     profileName = profile?.profileName,
-                    profileScore = profile?.score ?? 0  // Default to 0 if profileScore is null
+                    score = profile?.score ?? 0  // Default to 0 if profileScore is null
                 }
             }
         };
+
+        // Console.WriteLine("here i want to detectttttttttttttttttttttttttt");
+        // Console.WriteLine(profile.score);
+            foreach (var participant in room.Participants)
+            {
+                Console.WriteLine($"UserId: {participant.userId}, Team: {participant.team}, Score: {participant.score}");
+            }
 
         // Save the room
         Rooms[roomId] = room;

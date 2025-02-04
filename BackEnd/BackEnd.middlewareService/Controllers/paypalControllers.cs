@@ -2,42 +2,120 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-
-
+using System.Text;
+using Microsoft.Extensions.Logging;
+using BackEnd.middlewareService.Services;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace BackEnd.middlewareService.Controllers
 {
-
     [ApiController]
     [Route("api/")]
     public class SubscriptionWebhookController : ControllerBase
     {
+        private readonly ILogger<SubscriptionWebhookController> _logger;
+        private readonly paypalDatabaseServices _paypalDatabaseServices;
 
-        [HttpPost]
-        [Route("subscribe")]
-        public async Task<IActionResult> subscription([FromHeader] string Authorization, [FromBody] subscribeRequest input)
+        public SubscriptionWebhookController(ILogger<SubscriptionWebhookController> logger, paypalDatabaseServices paypalDatabaseServices)
+        {
+            _logger = logger;
+            _paypalDatabaseServices = paypalDatabaseServices;
+        }
+
+
+        [HttpPost("subscribe")]
+        public async Task<IActionResult> Subscription()
         {
             try
             {
-                // Log the Authorization header
-                Console.WriteLine("Authorization Header:");
-                Console.WriteLine(Authorization);
+                // Read the request body
+                using var reader = new StreamReader(Request.Body);
+                var requestBody = await reader.ReadToEndAsync();
+                // Parse the JSON body
+                var requestData = JsonDocument.Parse(requestBody);
+                _logger.LogInformation("Incoming JSON: {RequestBody}", requestBody);
+                // Extract the required fields
+                var resource = requestData.RootElement.GetProperty("resource");
 
-                // Log the body data
-                Console.WriteLine("Received Body Data:");
-                Console.WriteLine($"subscriptionToken: {input.subscriptionToken}");
-                Console.WriteLine($"subscriptionId: {input.subscriptionId}");
+                // Check if 'custom_id' exists and extract it
+                var userId = resource.TryGetProperty("custom_id", out var customIdElement)
+                    ? customIdElement.GetString()
+                    : null; // Handle the case where 'custom_id' is missing
 
-                // Acknowledge receipt of the data
-                return Ok(new { message = "Data received successfully" });
+                var startTime=resource.GetProperty("create_time").GetString();
+                var planId=resource.GetProperty("plan_id").GetString();
+                var subscriptionId = resource.GetProperty("id").GetString();
+                var status = resource.GetProperty("status").GetString();
+
+                // Log the data
+                _logger.LogInformation("User ID: {UserId}", userId);
+                _logger.LogInformation("Subscription ID: {SubscriptionId}", subscriptionId);
+                // _logger.LogInformation("Status: {Status}", status);
+
+                // Database call (if needed)
+                // Note: Since 'payerId' is not available in the JSON, you may need to adjust your database logic
+                bool result = await _paypalDatabaseServices.subscribeAsync(userId=userId, planId=planId, startTime=startTime,subscriptionId=subscriptionId);
+
+                return Ok(new
+                {
+                    message = "Subscription created",
+                    subscription_id = subscriptionId,
+                    custom_id = userId
+                });
             }
             catch (Exception ex)
             {
-                // Log any errors
-                Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
+                // Log any errors that occur
+                _logger.LogError(ex, "Error processing subscription request");
+
+                return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+
+ [HttpPost("billing")]
+public async Task<IActionResult> payments()
+{
+    try
+    {
+        // Read the request body
+        using var reader = new StreamReader(Request.Body);
+        var requestBody = await reader.ReadToEndAsync();
+        
+        // Parse the JSON body
+        var requestData = JsonDocument.Parse(requestBody);
+        _logger.LogInformation("Incoming JSON: {RequestBody}", requestBody);
+        
+        // Extract the required fields
+        var resource = requestData.RootElement.GetProperty("resource");
+
+        // Correct the key for PayPal payment ID, it should be 'id' instead of 'xfx'
+        string paypalPaymentId = resource.GetProperty("id").GetString(); // <-- fixed key here
+        string amount = resource.GetProperty("amount").GetProperty("total").GetString();
+        var subscriptionId = resource.GetProperty("billing_agreement_id").GetString(); // Use correct field for subscription ID
+
+        // Log the data
+        _logger.LogInformation("Subscription ID: {SubscriptionId}", subscriptionId);
+        
+        // Database call (if needed)
+        bool result = await _paypalDatabaseServices.billingAsync(subscriptionId = subscriptionId, amount = amount, paypalPaymentId = paypalPaymentId);
+
+        return Ok(new
+        {
+            message = "payment success"
+        });
+    }
+    catch (Exception ex)
+    {
+        // Log any errors that occur
+        _logger.LogError(ex, "Error processing subscription request");
+
+        return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+    }
+}
+
 
 
         [HttpPost]
@@ -46,30 +124,48 @@ namespace BackEnd.middlewareService.Controllers
         {
             try
             {
+                // Read the request body
                 using var reader = new StreamReader(Request.Body);
                 var requestBody = await reader.ReadToEndAsync();
 
-                var data = JsonSerializer.Deserialize<JsonElement>(requestBody);
+                // Parse the JSON body
+                var requestData = JsonDocument.Parse(requestBody);
+                _logger.LogInformation("Incoming JSON: {RequestBody}", requestBody);
 
-                var subscriptionId = data.GetProperty("subscription_id").GetString();
-                var customerId = data.GetProperty("customer_id").GetString();
+                // Extract the required fields
+                var resource = requestData.RootElement.GetProperty("resource");
+                var payerId = resource.GetProperty("subscriber").GetProperty("payer_id").GetString();
+                var userId = resource.GetProperty("custom_id").GetString();
+                var subscriptionId = resource.GetProperty("id").GetString();
+                var status = resource.GetProperty("status").GetString();
 
-                Console.WriteLine($"Activating subscription {subscriptionId} for customer {customerId}");
+                // Log the data
+                _logger.LogInformation("Payer ID: {PayerId}", payerId);
+                _logger.LogInformation("User ID: {UserId}", userId);
+                _logger.LogInformation("Subscription ID: {SubscriptionId}", subscriptionId);
+                _logger.LogInformation("Status: {Status}", status);
 
-                // Simulate activation logic
-                await Task.CompletedTask;
 
-                return Ok(new { message = "Subscription activated successfully" });
-            }
-            catch (JsonException jsonEx)
-            {
-                Console.WriteLine($"Error: Invalid JSON payload. {jsonEx.Message}");
-                return BadRequest(new { error = "Invalid JSON payload" });
+
+                //call the database to make the edits there
+
+                bool result = await _paypalDatabaseServices.activateAsync(subscriptionId);
+                // Return success response
+                return Ok(new
+                {
+                    Message = "Subscription activated",
+                    payerId=payerId,
+                    UserId = userId,
+                    Status = status
+                });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected Error: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
+                // Log the error
+                _logger.LogError(ex, "Error processing activateSubscription request");
+
+                // Return error response
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
             }
         }
 
@@ -79,29 +175,41 @@ namespace BackEnd.middlewareService.Controllers
         {
             try
             {
+                // Read the request body
                 using var reader = new StreamReader(Request.Body);
                 var requestBody = await reader.ReadToEndAsync();
 
-                var data = JsonSerializer.Deserialize<JsonElement>(requestBody);
+                // Parse the JSON body
+                var requestData = JsonDocument.Parse(requestBody);
 
-                var subscriptionId = data.GetProperty("subscription_id").GetString();
+                // Extract the required fields
+                var resource = requestData.RootElement.GetProperty("resource");
 
-                Console.WriteLine($"Expiring subscription {subscriptionId}");
+                // Custom ID might be available in 'custom_id', if present
+                var subscriptionId = resource.GetProperty("id").GetString();
+                // var userId = resource.TryGetProperty("custom_id", out var customId) ? customId.GetString() : "N/A"; // Handle absence
+                // var status = resource.GetProperty("status").GetString();
 
-                // Simulate expiration logic
-                await Task.CompletedTask;
+                // // Log the data
+                // _logger.LogInformation("User ID: {UserId}", userId);
+                // _logger.LogInformation("Status: {Status}", status);
 
-                return Ok(new { message = "Subscription expired successfully" });
-            }
-            catch (JsonException jsonEx)
-            {
-                Console.WriteLine($"Error: Invalid JSON payload. {jsonEx.Message}");
-                return BadRequest(new { error = "Invalid JSON payload" });
+                // Call the database to make the edits there
+                bool result = await _paypalDatabaseServices.expireAsync(subscriptionId=subscriptionId);
+
+                // Return success response
+                return Ok(new
+                {
+                    Message = "Subscription expired"
+                });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected Error: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
+                // Log the error
+                _logger.LogError(ex, "Error processing expiredSubscription request");
+
+                // Return error response
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
             }
         }
 
@@ -111,71 +219,44 @@ namespace BackEnd.middlewareService.Controllers
         {
             try
             {
+                // Read the request body
                 using var reader = new StreamReader(Request.Body);
                 var requestBody = await reader.ReadToEndAsync();
 
-                var data = JsonSerializer.Deserialize<JsonElement>(requestBody);
+                // Parse the JSON body
+                var requestData = JsonDocument.Parse(requestBody);
 
-                var subscriptionId = data.GetProperty("subscription_id").GetString();
+                // Extract the required fields
+                var resource = requestData.RootElement.GetProperty("resource");
+                var subscriptionId = resource.GetProperty("id").GetString();
+                // var userId = resource.GetProperty("custom_id").GetString();
+                // var status = resource.GetProperty("status").GetString();
 
-                Console.WriteLine($"Cancelling subscription {subscriptionId}");
+                // // Log the data
+                // _logger.LogInformation("User ID: {UserId}", userId);
+                // _logger.LogInformation("Status: {Status}", status);
+                _logger.LogInformation("subscriptionId: {subscriptionId}", subscriptionId);
+                // Call the database to make the edits there
+                bool result = await _paypalDatabaseServices.cancelAsync(subscriptionId);
 
-                // Simulate cancellation logic
-                await Task.CompletedTask;
-
-                return Ok(new { message = "Subscription cancelled successfully" });
-            }
-            catch (JsonException jsonEx)
-            {
-                Console.WriteLine($"Error: Invalid JSON payload. {jsonEx.Message}");
-                return BadRequest(new { error = "Invalid JSON payload" });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Unexpected Error: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        [Route("renewal")]
-        public async Task<IActionResult> renewSubscription()
-        {
-            try
-            {
-                using var reader = new StreamReader(Request.Body);
-                var requestBody = await reader.ReadToEndAsync();
-
-                var data = JsonSerializer.Deserialize<JsonElement>(requestBody);
-
-                var subscriptionId = data.GetProperty("subscription_id").GetString();
-
-                Console.WriteLine($"Renewing subscription {subscriptionId}");
-
-                // Simulate renewal logic
-                await Task.CompletedTask;
-
-                return Ok(new { message = "Subscription renewed successfully" });
-            }
-            catch (JsonException jsonEx)
-            {
-                Console.WriteLine($"Error: Invalid JSON payload. {jsonEx.Message}");
-                return BadRequest(new { error = "Invalid JSON payload" });
+                // Return success response
+                return Ok(new
+                {
+                    Message = "Subscription cancelled"
+                    // UserId = userId,
+                    // Status = status
+                });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unexpected Error: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
+                // Log the error
+                _logger.LogError(ex, "Error processing cancelSubscription request");
+
+                // Return error response
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
             }
         }
-    }
-
-
-    public class subscribeRequest{
-
-        public string subscriptionToken{get;set;}
-
-        public string subscriptionId{get;set;}
     }
 
 }
+

@@ -13,6 +13,7 @@ namespace BackEnd.middlewareService.Controllers
     public class leaderBoardController : ControllerBase
     {
         private readonly leaderBoardSerivce _leaderBoardService;
+        
 
         public leaderBoardController(leaderBoardSerivce leaderBoard)
         {

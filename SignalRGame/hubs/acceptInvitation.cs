@@ -30,6 +30,14 @@ namespace SignalRGame.Hubs
                 return "Error: Invalid Token";
             }
 
+            //check if the user is Subscribed first
+            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(token);
+
+            if (subscriptionResponce != true)
+            {
+                return "User is not subscribed";  // Return a meaningful string here.
+            }
+
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
@@ -106,7 +114,7 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.profileScore,
+                        score=p.score,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 blue = room.Participants
@@ -116,7 +124,7 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.profileScore,
+                        score=p.score,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 roomId=roomId,    

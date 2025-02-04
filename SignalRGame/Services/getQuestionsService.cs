@@ -43,7 +43,6 @@ namespace SignalRGame.Services
             {
                 // If the response is successful, read and return the response content (JSON)
                 var responseContent = await databaseResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Response from database: {responseContent}");
                 return responseContent;
             }
             else

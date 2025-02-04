@@ -24,7 +24,7 @@ namespace SignalRGame.Services
             _httpClient = httpClient;
         }
 
-        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories)
+        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories,int questionTime)
         {
             string winner="";
             var group = _hubContext.Clients.Group(roomId);
@@ -38,7 +38,7 @@ namespace SignalRGame.Services
 
             try
             {
-                Console.WriteLine($"SendingQuestions started for room {roomId}.");
+                
 
                 if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
                 {
@@ -50,6 +50,7 @@ namespace SignalRGame.Services
                 // for (int i = 0; i < questions.Count; i++)
                 for (int i = 0; i < 3; i++)
                 {
+                    room.answersCount=0;
 
 
 
@@ -73,9 +74,13 @@ namespace SignalRGame.Services
 
                     await group.SendAsync("receiveQuestion", new{subCategory=currentQuestion.subCategory,questionTitle=currentQuestion.questionTitle,answers = answers});
                     //sendin the Timer Here 1 after every second
-                    for (int j = 15; j >= 0; j--)
+                    for (int j = questionTime; j >= 0; j--)
                     {
                         await group.SendAsync("timer",new{timer=j}); // Send the current time on the "timer" channel
+                        if (room.answersCount == room.Participants.Count)
+                        {
+                            break; // Break the loop if all participants have answered
+                        }
                         await Task.Delay(1000); // Wait for 1 second
                     }
 
@@ -102,10 +107,16 @@ namespace SignalRGame.Services
                         room.redTeamScore+=100;
                         roundWinner="red";
                     }
+                    else if (room.blueTeamRoundScore == 0 && room.redTeamRoundScore == 0)
+                    {
+                        roundWinner = "NegativeDraw";
+                    }
+
+
                     else{
                         room.redTeamScore+=100;
                         room.blueTeamScore+=100;
-                        roundWinner="draw";
+                        roundWinner="PositiveDraw";
                     }
                     room.blueTeamRoundScore=0;
                     room.redTeamRoundScore=0;
@@ -155,10 +166,12 @@ namespace SignalRGame.Services
                             if (participant.team == "Red")
                             {
                                 participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
+                                participant.gameScore+=100;
                             }
                             else if (participant.team == "Blue")
                             {
-                                participant.score -= 100; // Decrease score by 1 for Red team
+                                participant.score -= (100+participant.gameScore); // Decrease score by 1 for Red team
+                                participant.gameScore-=100;
                                 if(participant.score<0){
                                     participant.score=0;
                                 }
@@ -174,14 +187,28 @@ namespace SignalRGame.Services
                             if (participant.team == "Blue")
                             {
                                 participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
+                                participant.gameScore+=100;
                             }
                             else if (participant.team == "Red")
                             {
-                                participant.score -= 100; // Decrease score by 1 for Red team
+                                 participant.score -= (100+participant.gameScore); // Decrease score by 1 for Red team
+                                 participant.gameScore-=100;
                                 if(participant.score<0){
                                     participant.score=0;
                                 }
                             }
+                        }
+
+                    }
+
+
+                    else{
+
+                        foreach (var participant in room.Participants)
+                        {
+                                participant.score += 50+participant.gameScore; // Increase score by 1 for Blue team
+                                participant.gameScore+=50;
+
                         }
 
                     }

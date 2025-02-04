@@ -8,7 +8,7 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task<string> leaveRoom(leaveRequest request)
+        public async Task<string> leaveRoom(leaveRoomRequest request)
         {
             string token = request.token;
             string roomId = request.roomId;
@@ -107,7 +107,7 @@ namespace SignalRGame.Hubs
     }
 
     // Accept invitation request model
-    public class leaveRequest
+    public class leaveRoomRequest
     {
         public string token { get; set; }
         public string roomId { get; set; }

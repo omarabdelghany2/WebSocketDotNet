@@ -23,7 +23,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> getMonthlySubscription(string token)
     {
-        var databaseServerUrl = "http://localhost:8002/api/admin/dashboard/subscriptions/total-monthly/";
+        var databaseServerUrl = "http://localhost:8002/api/admin/dashboard/subscriptions/monthly-totals/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

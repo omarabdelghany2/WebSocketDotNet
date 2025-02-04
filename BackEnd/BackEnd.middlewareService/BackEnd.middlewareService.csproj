@@ -12,6 +12,8 @@
     
     <!-- SignalR Client for SignalR Client-Side Connection -->
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PayPal" Version="1.9.1" />
     
     <!-- Swagger for API Documentation -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />

@@ -28,10 +28,12 @@ namespace SignalRGame.Hubs
         private readonly userProfileFromTokenService _userProfileFromTokenService;
         private readonly GetFriendsByIdService  _GetFriendsByIdService;
         private readonly userIdFromProfileNameService _userIdFromProfileNameService;
+        private readonly isSubscribedService _isSubscribedService;
+        
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService)
         {
                     // Add questions directly to the dictionary
 
@@ -42,6 +44,7 @@ namespace SignalRGame.Hubs
             _userProfileFromTokenService=userProfile;
             _GetFriendsByIdService=userFriendsById;
             _userIdFromProfileNameService=userIdfromProfile;
+            _isSubscribedService=IsSubscribedService;
         }
 
 

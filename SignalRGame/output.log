@@ -1,77 +1,690 @@
 nohup: ignoring input
 Building...
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(9,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(13,7): warning CS0105: The using directive for 'System.Text.Json.Serialization' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(4,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(5,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(6,7): warning CS0105: The using directive for 'System.Net.Http.Headers' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(5,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(6,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(7,7): warning CS0105: The using directive for 'System.Net.Http.Headers' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/switchTeam.cs(63,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/switchTeam.cs(64,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(58,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(59,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(112,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(113,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(65,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(66,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(323,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(312,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/dashboardOnlineandOfflineUsers.cs(27,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(84,23): warning CS8618: Non-nullable property 'firstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(87,23): warning CS8618: Non-nullable property 'lastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(90,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(94,23): warning CS8618: Non-nullable property 'email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(98,23): warning CS8618: Non-nullable property 'country' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(99,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(100,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(102,23): warning CS8618: Non-nullable property 'answer' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(63,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(64,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(136,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(137,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(72,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(73,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(51,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(40,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(56,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(70,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(81,94): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(41,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(48,31): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(57,35): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(34,16): warning CS8618: Non-nullable field '_httpClient' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Services/GameService.cs(259,21): warning CS1717: Assignment made to same variable; did you mean to assign something else? [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(143,45): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(171,37): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(178,108): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(12,19): warning CS8618: Non-nullable property 'subCategory' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(15,19): warning CS8618: Non-nullable property 'questionTitle' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(222,113): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(256,48): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(21,32): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(78,29): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(85,100): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(99,113): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(134,24): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(143,44): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(172,24): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(183,27): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(21,20): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(40,40): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(85,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(41,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(23,40): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(46,38): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(84,113): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(31,32): warning CS8618: Non-nullable field 'recentNewsLetter' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
-/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(33,37): warning CS0169: The field 'GameHub._httpClient' is never used [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
 info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://0.0.0.0:5274
+      Now listening on: http://localhost:5274
 info: Microsoft.Hosting.Lifetime[0]
       Application started. Press Ctrl+C to shut down.
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
       Content root path: /root/BackEnd/WebSocketDotNet/SignalRGame
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 49.6347ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.2113ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 65.9438ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 66.339ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 60.8365ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 61.18ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.2476ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.5689ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 25.3529ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 25.5644ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 70.6548ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 70.8949ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 61.5614ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 61.871ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-3d5fb3dc-eb64-4c0f-bda6-8cb6f6e185d7
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.1874ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.4466ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.537ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.7877ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+Friend Markizz0 is online, roomId: login-264abc97-15e0-4231-ba0b-b8bb26bf843f
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 61.6618ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 61.7997ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.1941ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.3551ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 64.2713ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 64.4074ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.188ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.5254ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.2208ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.6485ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.7754ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.939ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.1233ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.2698ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.289ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4117ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 64.0985ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 64.239ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-ac20d76d-6288-42eb-9324-bfcb5ab763f6
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.9953ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 22.1539ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-ac20d76d-6288-42eb-9324-bfcb5ab763f6
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 65.8187ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 65.9545ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 22.9288ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 23.5503ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 64.7689ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 65.5066ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 62.7159ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 62.9851ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.4425ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.7758ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 27.4367ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 27.5879ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.7205ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.8663ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.2781ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.3941ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.8794ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 68.0116ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-f20d75f6-1212-45ef-86c9-94643e0504fb
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 23.264ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 23.3852ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+Friend Markizz0 is online, roomId: login-fb55b86b-1120-43a1-a1af-21b70616b3ca
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.1545ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4384ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.4236ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.5491ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 66.8624ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.2768ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 62.7942ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.084ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.2951ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.5137ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.2554ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.533ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.2119ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.3155ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.5942ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.8659ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.4026ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.6875ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-d28f2713-b24b-4b0e-a55c-2bf4fb8c1ee0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.0072ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.3299ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+Friend Markizz0 is online, roomId: login-f87301ce-6bf7-438a-b9e1-4d4faeea54f8
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.8093ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.91ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.6244ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.0649ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 69.8514ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 70.1162ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 58.9443ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.0402ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.9249ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.9948ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.5807ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.887ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 69.223ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 69.8326ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 65.2423ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 65.8323ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.309ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.6485ms - 200
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-e8a24d1b-132d-41a1-bb75-48afe38a96c4
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 65.9049ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 66.1094ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+Friend Markizz0 is online, roomId: login-24a00361-b6a6-473c-96f2-936648be8972
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 23.4599ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 23.5679ms - 200
+entered HandleNotifyofDiscnnection
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.8742ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.9461ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+sent empty online friends
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.8116ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.8835ms - 200
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.3991ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.4905ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.7719ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.8614ms - 200
+Received friendsListJson: [{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":4,"profile_name":"Markizz0","friend_score":1499,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 11, Profile Name: cccc, Score: 771
+Friend ID: 4, Profile Name: Markizz0, Score: 1499
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 19.159ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 19.2645ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 64.3432ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 64.4204ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/id/
+4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.5424ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.617ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8000/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8000/api/user/friends/list/
+Received friendsListJson: [{"friend_id":10,"profile_name":"aaaa","friend_score":313,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":5,"profile_name":"a_neklawi","friend_score":2,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"},{"friend_id":11,"profile_name":"cccc","friend_score":771,"avatar_url":"https://t3arff.com/static/images/default-avatar.png"}]
+Friend ID: 10, Profile Name: aaaa, Score: 313
+Friend aaaa is online, roomId: login-a203efce-a7f4-452a-87fc-1e7421a2abfd
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 771
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.7768ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.8842ms - 200
