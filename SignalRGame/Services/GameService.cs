@@ -48,7 +48,7 @@ namespace SignalRGame.Services
 
                 string roundWinner="";
                 // for (int i = 0; i < questions.Count; i++)
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < questions.Count; i++)
                 {
                     room.answersCount=0;
 

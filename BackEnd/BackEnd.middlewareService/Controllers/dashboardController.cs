@@ -22,14 +22,16 @@ namespace BackEnd.middlewareService.Controllers
 
         private readonly numberOfUsersFromTokenService _numberOfUsersFromTokenService;
         private readonly getMonthsSubscriptionsService _getMonthsSubscriptionsService;
+        private readonly numberOfSubscriptionsFromTokenService _numberOfSubscriptionsFromTokenService;
 
         public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger,
-            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe)
+            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe ,numberOfSubscriptionsFromTokenService subscriptions)
         {
             _TokenValidator = tokenValidator;
             _logger = logger;
             _numberOfUsersFromTokenService = numberOfUsers;
             _getMonthsSubscriptionsService = monthlySubscribe;
+            _numberOfSubscriptionsFromTokenService=subscriptions;
             InitializeSignalRConnection(); // Initialize SignalR connection on controller creation
         }
 
@@ -115,18 +117,21 @@ namespace BackEnd.middlewareService.Controllers
                         // Get the users from the database (serializedResponce)
                         string serverResponse = await _numberOfUsersFromTokenService.GetNumberUsersAsync(token);
                         string secondServerResponse = await _getMonthsSubscriptionsService.getMonthlySubscription(token);
+                        string thirdServerResponse = await _numberOfSubscriptionsFromTokenService.GetNumberSubsAsync(token);
 
                         // Deserialize the server response for the total number of users
-                        var serializedResponce = JsonSerializer.Deserialize<UsersDashboardResponce>(serverResponse);
+                        var serializedResponce = JsonSerializer.Deserialize<TotalUsersDashboardResponce>(serverResponse);
 
                         // Deserialize the second server response for monthly subscription data
                         var secondSerializedResponce = JsonSerializer.Deserialize<List<monthlySubscriptionResponce>>(secondServerResponse);
+                        var thirdSerializedResponce = JsonSerializer.Deserialize<SubscriptionsDashboardResponce>(thirdServerResponse);
 
                         return Ok(new
                         {
                             numberOfOnlineUsers = numberOfOnlineUsers,
                             totalUsers = serializedResponce.totalUsers,
                             numberOfOfflineUsers = serializedResponce.totalUsers - numberOfOnlineUsers,
+                            totalSubsctiptions=thirdSerializedResponce.totalSubscriptions,
                             monthlySubscriptions = secondSerializedResponce?.Select(subscription => new
                             {
                                 month = subscription.month,
@@ -153,12 +158,17 @@ namespace BackEnd.middlewareService.Controllers
     }
 
     // Response models
-    public class UsersDashboardResponce
+    public class TotalUsersDashboardResponce
     {
         [JsonPropertyName("total_users")]  // Mapping snake_case to PascalCase
         public int totalUsers { get; set; }
     }
 
+    public class SubscriptionsDashboardResponce
+    {
+        [JsonPropertyName("total_subscriptions")]  // Mapping snake_case to PascalCase
+        public int totalSubscriptions { get; set; }
+    }
     public class monthlySubscriptionResponce
     {
         [JsonPropertyName("month")]  // Mapping snake_case to PascalCase

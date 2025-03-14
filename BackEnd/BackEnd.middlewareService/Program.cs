@@ -22,6 +22,8 @@ builder.Services.AddHttpClient<getSubCategoriesService>();
 builder.Services.AddHttpClient<numberOfUsersFromTokenService>();
 builder.Services.AddHttpClient<getMonthsSubscriptionsService>();
 builder.Services.AddHttpClient<paypalDatabaseServices>();
+builder.Services.AddHttpClient<numberOfSubscriptionsFromTokenService>();
+
 
 
 
