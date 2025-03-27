@@ -97,6 +97,57 @@ namespace SignalRGame.Hubs
                     Console.WriteLine("sent empty online friends");
                 }
             }
+
+
+
+            // if he was in a game make him listen on the next channel first if he was the host
+            if (UserRoomMapping.TryGetValue(userId, out var hostRoomId) && !string.IsNullOrEmpty(hostRoomId))
+            {
+                // Check if the room exists
+                if (Rooms.TryGetValue(hostRoomId, out var room))
+                {
+                    bool isHost = room.Host.userId == userId;
+
+                    // Remove the user from the participants list
+                    var player = room.Participants.FirstOrDefault(p => p.userId == userId);
+                    if (player != null)
+                    {
+                        if(player.inGame!=false){
+
+                            await Clients.Caller.SendAsync("inGame", new{roomId=hostRoomId});
+                            Console.WriteLine("inGame        RoomIdddddddddddddssssssssssss");
+                            return;
+                        }
+                    }
+
+                }
+            }
+
+
+
+            // if he was in a game make him listen on the next channel first if he was the participant
+            if (ParticipantRoomMapping.TryGetValue(userId, out var participantRoomId) && !string.IsNullOrEmpty(participantRoomId))
+            {
+                // Check if the room exists
+                if (Rooms.TryGetValue(participantRoomId, out var room))
+                {
+
+                    // Remove the user from the participants list
+                    var player = room.Participants.FirstOrDefault(p => p.userId == userId);
+                    if (player != null)
+                    {
+
+                        if(player.inGame!=false){
+
+                            await Clients.Caller.SendAsync("inGame", new{roomId=participantRoomId});
+
+                        }
+                    }
+                    
+                }
+            }
+
+
         }
 
 

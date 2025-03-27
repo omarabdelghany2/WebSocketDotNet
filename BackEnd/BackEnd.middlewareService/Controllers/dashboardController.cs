@@ -24,14 +24,17 @@ namespace BackEnd.middlewareService.Controllers
         private readonly getMonthsSubscriptionsService _getMonthsSubscriptionsService;
         private readonly numberOfSubscriptionsFromTokenService _numberOfSubscriptionsFromTokenService;
 
+        private readonly insertQuestionsSerivce _insertQuestionsSerivce;
+
         public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger,
-            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe ,numberOfSubscriptionsFromTokenService subscriptions)
+            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe ,numberOfSubscriptionsFromTokenService subscriptions ,insertQuestionsSerivce insertQuestions )
         {
             _TokenValidator = tokenValidator;
             _logger = logger;
             _numberOfUsersFromTokenService = numberOfUsers;
             _getMonthsSubscriptionsService = monthlySubscribe;
             _numberOfSubscriptionsFromTokenService=subscriptions;
+            _insertQuestionsSerivce =insertQuestions;
             InitializeSignalRConnection(); // Initialize SignalR connection on controller creation
         }
 
@@ -155,6 +158,69 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, "An error occurred while waiting for the response.");
             }
         }
+
+
+
+
+
+
+
+
+        // [HttpPost("dashboard/insert-question")]
+        // public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file)
+        // {
+        //     if (file == null || file.Length == 0)
+        //     {
+        //         return BadRequest("File is required.");
+        //     }
+
+        //     // Read the file content
+        //     using var reader = new StreamReader(file.OpenReadStream());
+        //     string fileContent = await reader.ReadToEndAsync();
+
+        //     // Print the received file content
+        //     Console.WriteLine($"Received file: {file.FileName}");
+        //     Console.WriteLine($"File content: {fileContent}");
+
+        //     return Ok(new
+        //     {
+        //         Message = "File received successfully",
+        //         FileName = file.FileName,
+        //         FileContent = fileContent // For debugging, remove in production
+        //     });
+        // }
+
+
+
+
+        [HttpPost("dashboard/insert-question")]
+        public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file, [FromHeader] string Authorization)
+        {
+
+            var token = Authorization.Substring("Bearer ".Length).Trim();
+            string validationResult = await _TokenValidator.ValidateTokenAsync(token);
+
+            if (validationResult == "error")
+            {
+                return Unauthorized("You are not authorized to get the accessToken list.");
+
+            }
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("File is required.");
+            }
+
+            // Call the function to send the file to another server
+            string response = await _insertQuestionsSerivce.insertQuestion(file, Authorization);
+
+            return Ok(new
+            {
+                Message = "File sent successfully",
+                Response = response
+            });
+        }
+
     }
 
     // Response models

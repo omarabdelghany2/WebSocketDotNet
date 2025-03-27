@@ -13,7 +13,7 @@ namespace SignalRGame.Hubs
     public partial  class GameHub : Hub
     {
         private static readonly ConcurrentDictionary<string, Room> Rooms = new();
-        private static readonly Dictionary <string ,Room>LoginRooms = new();
+        private static readonly Dictionary <string ,Room> LoginRooms = new();
         private static readonly ConcurrentDictionary<string, string> UserRoomMapping = new();
         private static readonly ConcurrentDictionary<string, string> ParticipantRoomMapping = new();
         private static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
@@ -29,11 +29,12 @@ namespace SignalRGame.Hubs
         private readonly GetFriendsByIdService  _GetFriendsByIdService;
         private readonly userIdFromProfileNameService _userIdFromProfileNameService;
         private readonly isSubscribedService _isSubscribedService;
+        private readonly afkPlayerService _afkPlayerService;
         
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService, afkPlayerService AfkPlayerService)
         {
                     // Add questions directly to the dictionary
 
@@ -45,6 +46,7 @@ namespace SignalRGame.Hubs
             _GetFriendsByIdService=userFriendsById;
             _userIdFromProfileNameService=userIdfromProfile;
             _isSubscribedService=IsSubscribedService;
+            _afkPlayerService=AfkPlayerService;
         }
 
 
@@ -114,7 +116,7 @@ namespace SignalRGame.Hubs
             int userId = profile?.id ?? 0; // Default to 0 if profile.id is null
 
 
-                    // Step 1: Handle disconnection from UserIdToConnectionId map
+            // Step 1: Handle disconnection from UserIdToConnectionId map
             HandleUserDisconnection(userId.ToString());
 
             // Step 2: Handle disconnection from login room
@@ -165,36 +167,47 @@ namespace SignalRGame.Hubs
                     var player = room.Participants.FirstOrDefault(p => p.userId == userId);
                     if (player != null)
                     {
-                        room.Participants.Remove(player);
+                        if(player.inGame==false){
+
+                            room.Participants.Remove(player);
+                        }
                     }
 
                     // Handle host-specific logic
-                    if (isHost)
-                    {
-                        room.Host = null; // Remove host
-                        if (room.Participants.Count > 0)
+
+                    if(player.inGame==false){
+
+                        if (isHost)
                         {
-                            // Assign a new host from participants
-                            room.Host = room.Participants.First();
-                            UserRoomMapping[room.Host.userId] = roomId;
-                            Console.WriteLine($"Host left; reassigned new host: {room.Host.userId}");
-                            await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.userId),team=player.team,newHostId = Convert.ToInt32(room.Host.userId)});
+                            room.Host = null; // Remove host
+                            if (room.Participants.Count > 0)
+                            {
+                                // Assign a new host from participants
+                                room.Host = room.Participants.First();
+                                UserRoomMapping[room.Host.userId] = roomId;
+                                Console.WriteLine($"Host left; reassigned new host: {room.Host.userId}");
+                                await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.userId),team=player.team,newHostId = Convert.ToInt32(room.Host.userId)});
+                            }
+                            else
+                            {
+                                // No participants left, delete the room
+                                Rooms.TryRemove(roomId, out _);
+                                Console.WriteLine("Room deleted as the host and participants left.");
+                                await Clients.Group(roomId).SendAsync("roomDeleted");
+                            }
                         }
                         else
                         {
-                            // No participants left, delete the room
-                            Rooms.TryRemove(roomId, out _);
-                            Console.WriteLine("Room deleted as the host and participants left.");
-                            await Clients.Group(roomId).SendAsync("roomDeleted");
+                            Console.WriteLine($"Participant {userId} left room {roomId}.");
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Participant {userId} left room {roomId}.");
                     }
 
                     // Remove the mapping for the user
-                    UserRoomMapping.TryRemove(userId, out _);
+
+                     if(player.inGame==false){
+
+                        UserRoomMapping.TryRemove(userId, out _);
+                     }
 
                     // Successfully disconnected
                     return true;
@@ -219,16 +232,17 @@ namespace SignalRGame.Hubs
                     var player = room.Participants.FirstOrDefault(p => p.userId == userId);
                     if (player != null)
                     {
-                        room.Participants.Remove(player);
+
+                        if(player.inGame==false){
+
+                            room.Participants.Remove(player);
+                            await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=Convert.ToInt32(userId),team=player.team});                       
+                            Console.WriteLine($"Participant {userId} left room {roomId}.");
+                            // Remove the mapping for the user
+                            ParticipantRoomMapping.TryRemove(userId, out _);
+
+                        }
                     }
-
-                    await Clients.Group(roomId).SendAsync("playerLeft" ,new{userId=Convert.ToInt32(userId),team=player.team});                       
-                    Console.WriteLine($"Participant {userId} left room {roomId}.");
-                
-
-                    // Remove the mapping for the user
-                    ParticipantRoomMapping.TryRemove(userId, out _);
-
                     // Successfully disconnected
                     
                 }

@@ -90,6 +90,12 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+            // Set inGame variable to true for all players
+            foreach (var player in room.Participants)
+            {
+                player.inGame = true;
+            }
+
 
 
             //sending the countdown Timer in the loading page

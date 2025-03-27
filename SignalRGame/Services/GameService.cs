@@ -27,12 +27,12 @@ namespace SignalRGame.Services
         public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories,int questionTime)
         {
             string winner="";
-            var group = _hubContext.Clients.Group(roomId);
+            // var group = _hubContext.Clients.Group(roomId);
 
             //get the room object
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await group.SendAsync("Error", "Room does not exist.");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
                 return;
             }
 
@@ -42,13 +42,13 @@ namespace SignalRGame.Services
 
                 if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
                 {
-                    await group.SendAsync("Error", "No questions available for this room.");
+                    await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
                     return;
                 }
 
                 string roundWinner="";
+                for (int i = 0; i < 5; i++)
                 // for (int i = 0; i < questions.Count; i++)
-                for (int i = 0; i < questions.Count; i++)
                 {
                     room.answersCount=0;
 
@@ -72,11 +72,11 @@ namespace SignalRGame.Services
                     var rng = new Random();
                     answers = answers.OrderBy(a => rng.Next()).ToList();
 
-                    await group.SendAsync("receiveQuestion", new{subCategory=currentQuestion.subCategory,questionTitle=currentQuestion.questionTitle,answers = answers});
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new{subCategory=currentQuestion.subCategory,questionTitle=currentQuestion.questionTitle,answers = answers});
                     //sendin the Timer Here 1 after every second
                     for (int j = questionTime; j >= 0; j--)
                     {
-                        await group.SendAsync("timer",new{timer=j}); // Send the current time on the "timer" channel
+                        await _hubContext.Clients.Group(roomId).SendAsync("timer",new{timer=j}); // Send the current time on the "timer" channel
                         if (room.answersCount == room.Participants.Count)
                         {
                             break; // Break the loop if all participants have answered
@@ -121,7 +121,7 @@ namespace SignalRGame.Services
                     room.blueTeamRoundScore=0;
                     room.redTeamRoundScore=0;
 
-                    await group.SendAsync("countDownComplete", new
+                    await _hubContext.Clients.Group(roomId).SendAsync("countDownComplete", new
                     {
                         questioIndex = i + 1,
                         correctAnswer = currentQuestion.correctAnswer,
@@ -295,7 +295,20 @@ namespace SignalRGame.Services
 
                 Console.WriteLine("entered save game");
 
+                roomToQuestions.TryRemove(roomId, out _);
+
+                // Ensure removal happens only after saving is completed successfully
+                if (saveResult)
+                {
+                    Console.WriteLine("Game saved successfully. Now removing room...");
                     roomToQuestions.TryRemove(roomId, out _);
+                    Rooms.TryRemove(roomId, out _);
+                    Console.WriteLine($"Room {roomId} removed.");
+                }
+                else
+                {
+                    Console.WriteLine("Game save failed. Room will not be removed.");
+                }
 
 
             }
@@ -304,7 +317,7 @@ namespace SignalRGame.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in SendingQuestions: {ex.Message}");
-                await group.SendAsync("Error", "An error occurred during the game.");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the game.");
             }
         }
 
