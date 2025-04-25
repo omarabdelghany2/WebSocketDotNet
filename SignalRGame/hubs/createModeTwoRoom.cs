@@ -17,7 +17,7 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-    public async Task createRoom(string Authorization)
+    public async Task createModeTwoRoom(string Authorization)
     {
         string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(Authorization);
         var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
@@ -25,7 +25,8 @@ namespace SignalRGame.Hubs
 
         if (serverResponse == "error")
         {
-            await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "Error retrieving userId; something went wrong with the Token." });
+            await Clients.Caller.SendAsync("roomCreatedModeTwo", new { roomId = "",error = true, errorMessage = "Error retrieving userId; something went wrong with the Token." });
+            Console.WriteLine("didnt get the user id");
         }
 
 
@@ -37,9 +38,9 @@ namespace SignalRGame.Hubs
 
             if(subscriptionResponce!=true){
             // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            Console.WriteLine("subscribedd notttt ");
             return;
             }
-            
 
 
 
@@ -48,7 +49,7 @@ namespace SignalRGame.Hubs
         // Check if the user already has a room
         if (UserRoomMapping.ContainsKey(userId.ToString()))
         {
-            await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The Host already has a Room" });
+            await Clients.Caller.SendAsync("roomCreatedModeTwo", new { roomId = "",error = true, errorMessage = "The Host already has a Room" });
             Console.WriteLine("already hasaroom");
             return;
         }
@@ -96,39 +97,10 @@ namespace SignalRGame.Hubs
 
         // Notify the caller that the room has been created
         Console.WriteLine(roomId);
-        await Clients.Caller.SendAsync("roomCreated", new { roomId = roomId, team = "Blue", error = false, errorMessage = "" });
+        await Clients.Caller.SendAsync("roomCreatedModeTwo", new { roomId = roomId, error = false, errorMessage = "" });
     }
 
     }
 
 
-    public class UserProfile
-    {
-        [JsonPropertyName("id")]  // Mapping snake_case to PascalCase
-        public int? id { get; set; }
-
-        [JsonPropertyName("first_name")]  // Mapping snake_case to PascalCase
-        public string firstName { get; set; }
-
-        [JsonPropertyName("last_name")]  // Mapping snake_case to PascalCase
-        public string lastName { get; set; }
-
-        [JsonPropertyName("profile_name")]  // Mapping snake_case to PascalCase
-        public string profileName { get; set; }
-
-
-        [JsonPropertyName("email")]  // Mapping snake_case to PascalCase
-        public string email { get; set; }
-
-        
-        [JsonPropertyName("country")]  // Mapping snake_case to PascalCase
-        public string country { get; set; }
-
-        [JsonPropertyName("score")]  // Mapping snake_case to PascalCase
-        public int? score { get; set; }
-
-        [JsonPropertyName("balance")]  // Mapping snake_case to PascalCase
-        public int balance { get; set; }
-        
-    }
 }

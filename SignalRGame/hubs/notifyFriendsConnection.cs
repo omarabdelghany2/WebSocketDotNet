@@ -9,7 +9,7 @@ namespace SignalRGame.Hubs
     public partial class GameHub : Hub
     {
     
-                // Your notifyFriends method to notify each friend in the list
+    // Your notifyFriends method to notify each friend in the list
     public async Task<string> NotifyFriends(string Authorization)
     {
         Console.WriteLine("entered Notify");
@@ -32,7 +32,6 @@ namespace SignalRGame.Hubs
         }
 
         // Log the raw response for debugging purposes
-        Console.WriteLine($"Received friendsListJson: {friendsListJson}");
 
         // Deserialize the JSON response into a list of Friend objects
         try

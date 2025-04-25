@@ -20,6 +20,8 @@ namespace SignalRGame.Hubs
         private static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); // UserId to ConnectionId mapping
         private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
         private static readonly ConcurrentDictionary<string,List<Question>> RoomToQuestions =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
+        private static readonly ConcurrentDictionary<string,List<QuestionMillionaire>> RoomToQuestionsModeTwo =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
+        private static readonly ConcurrentDictionary<string,QuestionMillionaire> RoomToCurrentQuestionModeTwo =new();  //this for me to handel the Answers for it
         private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
         private readonly getQuestionsService _GetQuestions;
         private readonly GameService _gameService;
@@ -30,6 +32,8 @@ namespace SignalRGame.Hubs
         private readonly userIdFromProfileNameService _userIdFromProfileNameService;
         private readonly isSubscribedService _isSubscribedService;
         private readonly afkPlayerService _afkPlayerService;
+
+        string globalNews="";
         
         private static  string recentNewsLetter;
         //add the variables of questions
@@ -264,8 +268,6 @@ namespace SignalRGame.Hubs
 
                 // Log the raw response for debugging purposes
 
-                Console.WriteLine("entered HandleNotifyofDiscnnection");
-                Console.WriteLine($"Received friendsListJson: {friendsListJson}");
 
                 // Deserialize the JSON response into a list of Friend objects
                 try

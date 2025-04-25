@@ -77,3 +77,10 @@
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/notFound.json
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/winner.json
 /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Images/lottie/winners.json
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Google.Apis.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Google.Apis.Auth.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/Google.Apis.Core.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/System.CodeDom.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/System.Management.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Management.dll
+/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Debug/net8.0/DnsClient.dll

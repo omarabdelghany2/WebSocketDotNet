@@ -88,6 +88,7 @@ namespace SignalRGame.Hubs
                 {
                     // No participants left, delete the room
                     Rooms.TryRemove(roomId, out _);
+                    UserRoomMapping.TryRemove(userId.ToString(), out _);
                     Console.WriteLine("Room deleted as the host and participants left.");
                     await Clients.Group(roomId).SendAsync("roomDeleted");
                 }

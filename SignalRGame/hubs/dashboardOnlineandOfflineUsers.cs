@@ -19,12 +19,44 @@ namespace SignalRGame.Hubs
 
 
         }
+
+
+
+        public async Task updateNews(newsRequest request)
+        
+        {
+                globalNews=request.news;
+
+                Console.WriteLine("yes we entered here and we got the following");
+
+                Console.WriteLine(globalNews);
+                foreach (var entry in LoginRoomMapping)
+                {
+                    string roomId = entry.Value; // Get UserId from the LoginRoomMapping
+                    await Clients.Group(roomId).SendAsync("news" ,new { news = globalNews });
+
+                }
+
+        }
+
+        
+
+
+
+        
     }
 
 
-    public class dashbooardRequest{
+    // public class onlineAndOfflineUsersRequest{
 
-        public string token { get; set; }
+    //     public string token { get; set; }
+
+    // }
+
+
+        public class newsRequest{
+
+        public string news { get; set; }
 
     }
 }

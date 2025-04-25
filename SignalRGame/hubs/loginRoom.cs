@@ -9,148 +9,251 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
+        // public async Task loginRoom(string Authorization)
+        // {
+        //     // Check if the Token is empty or something
+        //     if (string.IsNullOrEmpty(Authorization))
+        //     {
+        //         await Clients.Caller.SendAsync("Error", "Token is required.");
+        //         return;
+        //     }
+
+        //     // Call the GetUserIdFromTokenAsync function to fetch the userId
+        //     string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+        //     if (userId == "error")
+        //     {
+        //         await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
+        //         return;
+        //     }
+            
+
+        //     // Update or add the user to UserIdToConnectionId map
+        //     UserIdToConnectionId[userId] = Context.ConnectionId;
+        //     Console.WriteLine(Context.ConnectionId);
+
+        //     string roomId;
+
+        //     // Check if the user already has a login room
+        //     if (LoginRoomMapping.TryGetValue(userId, out var existingRoomId))
+        //     {
+        //         roomId = existingRoomId;
+
+        //         // Update the SignalR group membership
+        //         await Groups.RemoveFromGroupAsync(Context.ConnectionId, existingRoomId);
+        //         await Groups.AddToGroupAsync(Context.ConnectionId, existingRoomId);
+
+        //         // Notify the caller that the room was updated
+        //         await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
+        //         await Clients.Caller.SendAsync("news", new { news = globalNews });
+        //         List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
+        //         if (onlineFriends != null && onlineFriends.Any())
+        //         {
+        //             // If there are online friends, send the list to the caller
+        //             await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = onlineFriends });
+        //             Console.WriteLine("sent online friends");
+        //         }
+        //         else
+        //         {
+        //             // If there are no online friends or the list is null, send an empty list
+        //             await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = new List<FriendStatus>() });
+        //             Console.WriteLine("sent empty online friends");
+        //         }
+        //     }
+        //     else
+        //     {
+        //         // Generate a new login room ID
+        //         roomId = $"login-{Guid.NewGuid()}";
+
+        //         // Create the login room with only the host
+        //         Player host = new Player { userId = userId };
+
+        //         var room = new Room
+        //         {
+        //             RoomId = roomId,
+        //             Host = host
+        //         };
+
+        //         LoginRooms[roomId] = room; // Save the room in the global Rooms dictionary
+        //         LoginRoomMapping[userId] = roomId;
+
+        //         // Add the user to the SignalR group
+        //         await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+
+        //         // Notify the caller that the room was created
+        //         await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
+        //         await Clients.Caller.SendAsync("news", new { news = globalNews });
+
+        //         // Fetch the online friends
+        //         List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
+        //         if (onlineFriends != null && onlineFriends.Any())
+        //         {
+        //             // If there are online friends, send the list to the caller
+        //             await Clients.Caller.SendAsync("onlineFriends", onlineFriends );
+        //             Console.WriteLine("sent online friends");
+        //         }
+        //         else
+        //         {
+        //             // If there are no online friends or the list is null, send an empty list
+        //             await Clients.Caller.SendAsync("onlineFriends", "" );
+        //             Console.WriteLine("sent empty online friends");
+        //         }
+        //     }
+
+
+
+        //     // if he was in a game make him listen on the next channel first if he was the host
+        //     if (UserRoomMapping.TryGetValue(userId, out var hostRoomId) && !string.IsNullOrEmpty(hostRoomId))
+        //     {
+        //         // Check if the room exists
+        //         if (Rooms.TryGetValue(hostRoomId, out var room))
+        //         {
+        //             bool isHost = room.Host.userId == userId;
+
+        //             // Remove the user from the participants list
+        //             var player = room.Participants.FirstOrDefault(p => p.userId == userId);
+        //             if (player != null)
+        //             {
+        //                 if(player.inGame!=false){
+
+        //                     await Clients.Caller.SendAsync("inGame", new{roomId=hostRoomId});
+        //                     Console.WriteLine("inGame        RoomIdddddddddddddssssssssssss");
+        //                     return;
+        //                 }
+        //             }
+
+        //         }
+        //     }
+
+
+
+        //     // if he was in a game make him listen on the next channel first if he was the participant
+        //     if (ParticipantRoomMapping.TryGetValue(userId, out var participantRoomId) && !string.IsNullOrEmpty(participantRoomId))
+        //     {
+        //         // Check if the room exists
+        //         if (Rooms.TryGetValue(participantRoomId, out var room))
+        //         {
+
+        //             // Remove the user from the participants list
+        //             var player = room.Participants.FirstOrDefault(p => p.userId == userId);
+        //             if (player != null)
+        //             {
+
+        //                 if(player.inGame!=false){
+
+        //                     await Clients.Caller.SendAsync("inGame", new{roomId=participantRoomId});
+
+        //                 }
+        //             }
+                    
+        //         }
+        //     }
+
+
+        // }
+
+
         public async Task loginRoom(string Authorization)
         {
-            // Check if the Token is empty or something
+            // Check if the Token is empty
             if (string.IsNullOrEmpty(Authorization))
             {
                 await Clients.Caller.SendAsync("Error", "Token is required.");
                 return;
             }
 
-            // Call the GetUserIdFromTokenAsync function to fetch the userId
+            // Get userId from token
+
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
             if (userId == "error")
             {
                 await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
+                Console.WriteLine("the error is hereee careee");
                 return;
             }
 
-            // Update or add the user to UserIdToConnectionId map
-            UserIdToConnectionId[userId] = Context.ConnectionId;
-            // Console.WriteLine(Context.ConnectionId);
-
             string roomId;
 
-            // Check if the user already has a login room
             if (LoginRoomMapping.TryGetValue(userId, out var existingRoomId))
             {
                 roomId = existingRoomId;
 
-                // Update the SignalR group membership
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, existingRoomId);
-                await Groups.AddToGroupAsync(Context.ConnectionId, existingRoomId);
+                // Disconnect previous connection if different
+                if (UserIdToConnectionId.TryGetValue(userId, out var oldConnectionId) && oldConnectionId != Context.ConnectionId)
+                {
+                    await Groups.RemoveFromGroupAsync(oldConnectionId, existingRoomId);
+                    await Clients.Client(oldConnectionId).SendAsync("forceLogout", "You have been logged out due to a new login.");
+                    Console.WriteLine("You have been logged out due to a new login.");
+                }
 
-                // Notify the caller that the room was updated
-                await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
-                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter recentNewsLetter recentNewsLetter recentNewsLetter" });
-                List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
-                if (onlineFriends != null && onlineFriends.Any())
-                {
-                    // If there are online friends, send the list to the caller
-                    await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = onlineFriends });
-                    Console.WriteLine("sent online friends");
-                }
-                else
-                {
-                    // If there are no online friends or the list is null, send an empty list
-                    await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = new List<FriendStatus>() });
-                    Console.WriteLine("sent empty online friends");
-                }
+                // Add new connection to the group
+                await Groups.AddToGroupAsync(Context.ConnectionId, existingRoomId);
             }
             else
             {
-                // Generate a new login room ID
+                // Generate new login room
                 roomId = $"login-{Guid.NewGuid()}";
-
-                // Create the login room with only the host
-                Player host = new Player { userId = userId };
-
+                var host = new Player { userId = userId };
                 var room = new Room
                 {
                     RoomId = roomId,
                     Host = host
                 };
 
-                LoginRooms[roomId] = room; // Save the room in the global Rooms dictionary
+                LoginRooms[roomId] = room;
                 LoginRoomMapping[userId] = roomId;
 
-                // Add the user to the SignalR group
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-
-                // Notify the caller that the room was created
-                await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
-                await Clients.Caller.SendAsync("news", new { news = "recentNewsLetter recentNewsLetter recentNewsLetter recentNewsLetter" });
-
-                // Fetch the online friends
-                List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
-                if (onlineFriends != null && onlineFriends.Any())
-                {
-                    // If there are online friends, send the list to the caller
-                    await Clients.Caller.SendAsync("onlineFriends", onlineFriends );
-                    Console.WriteLine("sent online friends");
-                }
-                else
-                {
-                    // If there are no online friends or the list is null, send an empty list
-                    await Clients.Caller.SendAsync("onlineFriends", "" );
-                    Console.WriteLine("sent empty online friends");
-                }
             }
 
+            // Update the connection ID mapping
+            UserIdToConnectionId[userId] = Context.ConnectionId;
 
+            // Notify user about room and news
+            await Clients.Caller.SendAsync("loginRoom", new { roomId = roomId });
+            await Clients.Caller.SendAsync("news", new { news = globalNews });
 
-            // if he was in a game make him listen on the next channel first if he was the host
+            // Fetch online friends
+            List<FriendStatus> onlineFriends = await fetchOnlineFriends(Authorization, userId);
+            if (onlineFriends != null && onlineFriends.Any())
+            {
+                await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = onlineFriends });
+                Console.WriteLine("sent online friends");
+            }
+            else
+            {
+                await Clients.Caller.SendAsync("onlineFriends", new { onlineFriends = new List<FriendStatus>() });
+                Console.WriteLine("sent empty online friends");
+            }
+
+            // Check if user is in a game as host
             if (UserRoomMapping.TryGetValue(userId, out var hostRoomId) && !string.IsNullOrEmpty(hostRoomId))
             {
-                // Check if the room exists
-                if (Rooms.TryGetValue(hostRoomId, out var room))
+                if (Rooms.TryGetValue(hostRoomId, out var hostRoom))
                 {
-                    bool isHost = room.Host.userId == userId;
-
-                    // Remove the user from the participants list
-                    var player = room.Participants.FirstOrDefault(p => p.userId == userId);
-                    if (player != null)
+                    var player = hostRoom.Participants.FirstOrDefault(p => p.userId == userId);
+                    if (player != null && player.inGame)
                     {
-                        if(player.inGame!=false){
-
-                            await Clients.Caller.SendAsync("inGame", new{roomId=hostRoomId});
-                            Console.WriteLine("inGame        RoomIdddddddddddddssssssssssss");
-                            return;
-                        }
+                        await Clients.Caller.SendAsync("inGame", new { roomId = hostRoomId });
+                        Console.WriteLine("User is in game as host.");
+                        return;
                     }
-
                 }
             }
 
-
-
-            // if he was in a game make him listen on the next channel first if he was the participant
+            // Check if user is in a game as participant
             if (ParticipantRoomMapping.TryGetValue(userId, out var participantRoomId) && !string.IsNullOrEmpty(participantRoomId))
             {
-                // Check if the room exists
-                if (Rooms.TryGetValue(participantRoomId, out var room))
+                if (Rooms.TryGetValue(participantRoomId, out var partRoom))
                 {
-
-                    // Remove the user from the participants list
-                    var player = room.Participants.FirstOrDefault(p => p.userId == userId);
-                    if (player != null)
+                    var player = partRoom.Participants.FirstOrDefault(p => p.userId == userId);
+                    if (player != null && player.inGame)
                     {
-
-                        if(player.inGame!=false){
-
-                            await Clients.Caller.SendAsync("inGame", new{roomId=participantRoomId});
-
-                        }
+                        await Clients.Caller.SendAsync("inGame", new { roomId = participantRoomId });
+                        Console.WriteLine("User is in game as participant.");
                     }
-                    
                 }
             }
-
-
         }
-
-
 
         public async Task getOnlineFriends(string Authorization){
                 
@@ -184,10 +287,6 @@ namespace SignalRGame.Hubs
             {
                 return null;
             }
-
-            // Log the raw response for debugging purposes
-            Console.WriteLine($"Received friendsListJson: {friendsListJson}");
-
             // Deserialize the JSON response into a list of Friend objects
             try
             {
@@ -202,7 +301,7 @@ namespace SignalRGame.Hubs
                 List<FriendStatus> onlineFriends = new List<FriendStatus>();
                 foreach (var friend in friendsList)
                 {
-                    Console.WriteLine($"Friend ID: {friend.friendId}, Profile Name: {friend.profileName}, Score: {friend.friendScore}");
+                    
 
                     // Check if the friend is logged in (by checking LoginRoomMapping)
                     if (LoginRoomMapping.ContainsKey(friend.friendId.ToString()))
@@ -212,8 +311,11 @@ namespace SignalRGame.Hubs
                             friendId = friend.friendId,
                             profileName = friend.profileName
                         });
+                        Console.WriteLine("i have good gerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                        Console.WriteLine(friend.profileName);
                     }
                 }
+
                 return onlineFriends;
             }
             catch (JsonException ex)

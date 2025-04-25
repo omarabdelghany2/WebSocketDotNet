@@ -13,5 +13,7 @@ namespace SignalRGame.Models
         public int questionTime=0;
 
         public int answersCount=0;
+        public bool publicRoom=false;
+        public bool inGame=false;
     }
 }

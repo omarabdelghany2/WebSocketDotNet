@@ -24,7 +24,7 @@ namespace SignalRGame.Services
             _httpClient = httpClient;
         }
 
-        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories,int questionTime)
+        public async Task SendingQuestions(string token ,string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms ,List<string>subCategories,int questionTime,ConcurrentDictionary<string, string> UserRoomMapping)
         {
             string winner="";
             // var group = _hubContext.Clients.Group(roomId);
@@ -47,8 +47,8 @@ namespace SignalRGame.Services
                 }
 
                 string roundWinner="";
-                for (int i = 0; i < 5; i++)
-                // for (int i = 0; i < questions.Count; i++)
+                // for (int i = 0; i < 2; i++)
+                for (int i = 0; i < questions.Count; i++)
                 {
                     room.answersCount=0;
 
@@ -282,7 +282,7 @@ namespace SignalRGame.Services
                 string createdAt = kuwaitTime.ToString("yyyy-MM-dd HH:mm:ss");
 
 
-                bool saveResult = await saveGame(
+                bool saveResult = await saveGameClassic(
                     token=token,
                     isPublic: "True",
                     createdAt: createdAt,
@@ -303,6 +303,7 @@ namespace SignalRGame.Services
                     Console.WriteLine("Game saved successfully. Now removing room...");
                     roomToQuestions.TryRemove(roomId, out _);
                     Rooms.TryRemove(roomId, out _);
+                    UserRoomMapping.TryRemove(room.Host.userId, out _);
                     Console.WriteLine($"Room {roomId} removed.");
                 }
                 else
@@ -322,9 +323,12 @@ namespace SignalRGame.Services
         }
 
 
-        public async Task<bool> saveGame(string token,string isPublic,string createdAt,List<string>categories,string mood ,string hostId,List<object> teamInfo,List<string>subCategories){
 
-            var databaseServerUrl = $"http://localhost:8000/api/game/save/";
+
+        
+        public async Task<bool> saveGameClassic(string token,string isPublic,string createdAt,List<string>categories,string mood ,string hostId,List<object> teamInfo,List<string>subCategories){
+
+            var databaseServerUrl = $"http://localhost:8000/api/game/";
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
 
@@ -360,5 +364,173 @@ namespace SignalRGame.Services
             }
 
         }
+
+
+
+        public async Task SendingQuestionsModeTwo(string token ,string roomId, ConcurrentDictionary<string, List<QuestionMillionaire>> roomToQuestionsModeTwo,ConcurrentDictionary<string, QuestionMillionaire> roomToCurrentQuestionModeTwo,ConcurrentDictionary<string, Room> Rooms,ConcurrentDictionary<string, string> UserRoomMapping)
+        {
+            string winner="";
+            // var group = _hubContext.Clients.Group(roomId);
+
+            //get the room object
+            if (!Rooms.TryGetValue(roomId, out var room))
+            {
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
+                return;
+            }
+
+            try
+            {
+                
+
+                if (!roomToQuestionsModeTwo.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
+                {
+                    await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+                    return;
+                }
+
+                string roundWinner="";
+                // for (int i = 0; i < 5; i++)
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    room.answersCount=0;
+
+
+
+                    //make the answered variable by falase
+                    room.Host.answered=false;
+                    //make that he didnt choosed the correct answer for the first Time
+                    room.Host.answereCorrectModeTwo=false;
+
+                    //get the current question
+                    var currentQuestion = questions[i];
+                    roomToCurrentQuestionModeTwo.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+                    var answers = currentQuestion.answers;
+
+                    // Shuffle the answers
+                    var rng = new Random();
+                    answers = answers.OrderBy(a => rng.Next()).ToList();
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestionModeTwo", new{questionTitle=currentQuestion.questionTitle,answers = answers});
+                    //sending the Timer Here 1 after every second
+                    for (int j = 100; j >= 0; j--)
+                    {
+                        await _hubContext.Clients.Group(roomId).SendAsync("timerModeTwo",new{timer=(j/100.0)*100.0}); // Send the current time on the "timer" channel
+                        if (room.answersCount > 0)
+                        {
+                            break; // The host answered succefully
+                        }
+                        await Task.Delay(100); // Wait for 1 second
+                    }
+
+
+
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("countDownCompleteModeTwo", new
+                    {
+                        questionIndex = ((i + 1) / (double)questions.Count) * 100.0,
+                        correctAnswer = currentQuestion.correctAnswer
+                                 
+                    });
+                    await Task.Delay(1000); // Wait for 1 second
+                    roomToCurrentQuestionModeTwo.TryRemove(roomId, out _);
+
+                    //RULES OF GAME MODE 2 THAT IF HE ANSWERED WRONG MAKE HIM GO OUT
+                    if(room.Host.answereCorrectModeTwo==false){
+                        break;
+
+                    }
+                }
+
+
+
+                //gameEnd 
+
+                await _hubContext.Clients.Group(roomId).SendAsync("gameEndModeTwo", new {score=room.Host.gameScore});
+
+                bool saveResult = await saveGameMillionaire(
+                    token=token,
+                    score : room.Host.gameScore
+                );
+
+                Console.WriteLine("entered save game");
+
+
+                // Ensure removal happens only after saving is completed successfully
+                if (saveResult)
+                {
+                    Console.WriteLine("Game saved successfully. Now removing room...");
+                    roomToQuestionsModeTwo.TryRemove(roomId, out _);
+                    Rooms.TryRemove(roomId, out _);
+                    UserRoomMapping.TryRemove(room.Host.userId, out _);
+                    Console.WriteLine($"Room {roomId} removed.");
+                }
+                else
+                {
+                    Console.WriteLine("Game save failed. Room will not be removed.");
+                }
+
+
+
+                
+
+
+            }
+
+                
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SendingQuestions: {ex.Message}");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the game.");
+            }
+        }
+
+
+
+
+
+
+
+        public async Task<bool> saveGameMillionaire(string token , int score){
+
+            var databaseServerUrl = $"http://localhost:8000/api/millionaire/game/";
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
+
+            var jsonPayload = JsonSerializer.Serialize(new { score=score});
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Send the request
+                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                requestMessage.Content = content;
+                var databaseResponse = await _httpClient.SendAsync(requestMessage);
+
+                if (databaseResponse.IsSuccessStatusCode)
+                {
+                    // Read the response content as a string
+                    var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+                    return true;
+                }
+                else
+                {
+                    // Log the error response
+                    var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error from database: {errorContent}");
+                    return false; // Return false for non-success status codes
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any exceptions that occurred during the HTTP request
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return false; // Return false if an exception occurs
+            }
+
+        }
+    
+    
     }
 }

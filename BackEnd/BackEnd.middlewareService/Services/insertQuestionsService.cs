@@ -44,8 +44,13 @@ namespace BackEnd.middlewareService.Services
                         {
                             var errorContent = await databaseResponse.Content.ReadAsStringAsync();
                             Console.WriteLine($"Error from database: {errorContent}");
-                            return $"Error: {errorContent}";
+                            return "error";
                         }
+
+
+
+
+                        
                     }
                     catch (Exception ex)
                     {

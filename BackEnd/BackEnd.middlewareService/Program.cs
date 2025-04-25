@@ -41,6 +41,7 @@ builder.Services.AddHttpClient<insertQuestionsSerivce>();
 
 
 
+
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.Listen(System.Net.IPAddress.Any, 5038);
@@ -120,6 +121,26 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(Directory.GetCurrentDirectory(), "Avatars")),
     RequestPath = "/Avatars"
 });
+
+// // Serve the "questionFiles" folder
+// app.UseStaticFiles(new StaticFileOptions
+// {
+//     FileProvider = new PhysicalFileProvider(
+//         Path.Combine(Directory.GetCurrentDirectory(), "questionFiles")),
+//     RequestPath = "/questionFiles"
+// });
+
+
+app.MapGet("/download/questions", async context =>
+{
+    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "questionFiles", "questions.csv");
+    var fileName = "questions.csv";
+
+    context.Response.ContentType = "application/octet-stream";
+    context.Response.Headers.Add("Content-Disposition", $"attachment; filename=\"{fileName}\"");
+    await context.Response.SendFileAsync(filePath);
+});
+
 
 app.UseCors("AllowAll");
 

@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text;
-using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
-using BackEnd.middlewareService.Services;
-
+using System.Text.RegularExpressions;
+using DnsClient;
+using System.Linq;
 
 namespace BackEnd.middlewareService.Controllers
 {
@@ -15,87 +15,68 @@ namespace BackEnd.middlewareService.Controllers
     public class registerController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        // private readonly TokenValidator _tokenValidator;
 
-        public registerController(HttpClient httpClient,TokenValidator tokenValidator)
+        public registerController(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            // _tokenValidator = tokenValidator;
-            
         }
 
         [HttpPost]
-        public async Task<IActionResult> register([FromBody] UserRegistrationInput input)
+    public async Task<IActionResult> register([FromBody] UserRegistrationInput input)
+    {
+        // Log the received input
+        Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
+
+  
+        // Validate email format and domain
+        if (string.IsNullOrWhiteSpace(input.Email) || 
+            !Regex.IsMatch(input.Email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase))
         {
-            // Log the received input
-            Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
-
-            // Database server URL
-            var databaseServerUrl = "http://localhost:8000/api/user/auth/register/";
-
-            try
-            {
-                // Log the request body being sent to the database
-                var jsonInput = JsonSerializer.Serialize(input);
-                Console.WriteLine($"Sending to database: {jsonInput}");
-
-                // Manually create the content to ensure it's serialized correctly
-                var content = new StringContent(jsonInput, Encoding.UTF8, "application/json");
-
-                // Alternatively, you could set the content type header explicitly:
-                // content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                // Send input to the database server
-                var databaseResponse = await _httpClient.PostAsync(databaseServerUrl, content);
-
-                if (databaseResponse.IsSuccessStatusCode)
-                {
-                    // Read the database server's response
-                    var result = await databaseResponse.Content.ReadAsStringAsync();
-                    return Ok(new { Message = "Registration successful", Details = result });
-                }
-                else
-                {
-                    // Capture and return the error response
-                    var error = await databaseResponse.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Database server error: {error}");
-                    return StatusCode((int)databaseResponse.StatusCode, new { Message = "Database server error", Error = error });
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                // Handle HTTP communication errors
-                return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
-            }
+            return BadRequest(new { Message = "Invalid email. Please provide a valid Gmail address." });
         }
 
-        // [HttpPost("validate")]
-        // public async Task<IActionResult> ValidateToken([FromBody] TokenRequest tokenRequest)
-        // {
-        //     // Check if token is provided in the body
-        //     if (tokenRequest == null || string.IsNullOrEmpty(tokenRequest.Token))
-        //     {
-        //         return BadRequest("Token is required.");
-        //     }
 
-        //     // Get the token from the body
-        //     var token = tokenRequest.Token;
+        var databaseServerUrl = "http://localhost:8000/api/user/auth/register/";
 
-        //     // Send the token in the header to the ValidateTokenAsync method
-        //     string result = await _tokenValidator.ValidateTokenAsync(token);
+        try
+        {
+            var jsonInput = JsonSerializer.Serialize(input);
+            var content = new StringContent(jsonInput, Encoding.UTF8, "application/json");
 
-        //     if (result == "error")
-        //     {
-        //         return Unauthorized("Invalid token.");
-        //     }
+            var databaseResponse = await _httpClient.PostAsync(databaseServerUrl, content);
 
-        //     return Ok(result);
-        // }
+            if (databaseResponse.IsSuccessStatusCode)
+            {
+                var result = await databaseResponse.Content.ReadAsStringAsync();
+                return Ok(new { Message = "Registration successful", Details = result });
+            }
+            else
+            {
+                var error = await databaseResponse.Content.ReadAsStringAsync();
+                Console.WriteLine($"Database server error: {error}");
+                return StatusCode((int)databaseResponse.StatusCode, new { Message = "Database server error", Error = error });
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
+        }
+    }
 
-
-
-
-
+            // MX record checker for domain
+    private async Task<bool> DomainHasMxRecords(string domain)
+    {
+            try
+            {
+                var lookup = new LookupClient();
+                var result = await lookup.QueryAsync(domain, QueryType.MX);
+                return result.Answers.MxRecords().Any();
+            }
+            catch
+            {
+                return false;
+            }
+    }
     }
 
     public class UserRegistrationInput
@@ -119,8 +100,3 @@ namespace BackEnd.middlewareService.Controllers
         public string Country { get; set; }
     }
 }
-    // Token request class
-    // public class TokenRequest
-    // {
-    //     public string Token { get; set; }
-    // }

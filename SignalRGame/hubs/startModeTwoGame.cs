@@ -8,21 +8,18 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task startGame(startGameRequest request)
+        public async Task startModeTwoGame(startGameModeTwoRequest request)
         {
             Console.WriteLine("StartGame method called.");
             string token = request.token;
             string roomId = request.roomId;
-            List<string> subCategories = request.subCategories;
-
-            string result = await _GetQuestions.GetQuestionsResponseAsync(token, subCategories);
-
 
 
 
             //serilaize the questions here then add it to RoomToQuestions Dictionary
+            string result = await _GetQuestions.GetQuestionsResponseModeTwoAsync(token);
 
-            List<Question> questions = JsonSerializer.Deserialize<List<Question>>(result);
+            List<QuestionMillionaire> questions = JsonSerializer.Deserialize<List<QuestionMillionaire>>(result);
 
 
             //check if the user is Subscribed first
@@ -54,44 +51,43 @@ namespace SignalRGame.Hubs
 
             //add the question to the RoomToQuestions Dictionary
 
-             RoomToQuestions[roomId]=questions;
+            RoomToQuestionsModeTwo[roomId]=questions;
 
             
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
             if (userId == "error")
             {
-                await Clients.Caller.SendAsync("gameStarted", new{error =true, errorMessage="Invalid token."});
+                await Clients.Caller.SendAsync("gameModeTwoStarted", new{error =true, errorMessage="Invalid token."});
                 
                 return;
             }
 
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await Clients.Caller.SendAsync("gameStarted", new{error =true, errorMessage="Room does not exist."});
+                await Clients.Caller.SendAsync("gameModeTwoStarted", new{error =true, errorMessage="Room does not exist."});
                 
                 return;
             }
 
             if (room.Host.userId != userId)
             {
-                await Clients.Caller.SendAsync("gameStarted", new{error =true, errorMessage="Only the host can start the game."});
+                await Clients.Caller.SendAsync("gameModeTwoStarted", new{error =true, errorMessage="Only the host can start the game."});
                 
                 return;
             }
-            var blueTeamCount = room.Participants.Count(player => player.team == "Blue");
-            var redTeamCount = room.Participants.Count(player => player.team == "Red");
-            room.questionTime=request.questionTime;
+            // var blueTeamCount = room.Participants.Count(player => player.team == "Blue");
+            // var redTeamCount = room.Participants.Count(player => player.team == "Red");
 
             //game started
             room.inGame=true;
             
 
-            if (blueTeamCount != redTeamCount)
-            {
-                await Clients.Caller.SendAsync("gameStarted", new{error =true,errorMessage="Teams must have an equal number of players to start the game."});
+            // if (blueTeamCount != redTeamCount)
+            // {
+            //     await Clients.Caller.SendAsync("gameModeTwoStarted", new{error =true,errorMessage="Teams must have an equal number of players to start the game."});
                 
-                return;
-            }
+            //     return;
+            // }
 
             // Set inGame variable to true for all players
             foreach (var player in room.Participants)
@@ -108,33 +104,28 @@ namespace SignalRGame.Hubs
                 await Task.Delay(1000); // Wait for 1 second
             }
             // Notify participants that the game has started
-            await Clients.Group(roomId).SendAsync("gameStarted",new{error =false,errorMessage="",questionsCount=questions.Count});
+            await Clients.Group(roomId).SendAsync("gameModeTwoStarted",new{error =false,errorMessage="",questionsCount=questions.Count});
 
 
     
 
             // Run the question-sending process in the background
             _ = Task.Run(() =>
-                _gameService.SendingQuestions(request.token,roomId, RoomToQuestions, RoomToCurrentQuestion ,Rooms ,request.subCategories,request.questionTime,UserRoomMapping));
+                _gameService.SendingQuestionsModeTwo(request.token,roomId, RoomToQuestionsModeTwo, RoomToCurrentQuestionModeTwo ,Rooms,UserRoomMapping));
         }
     }
 
     // Properly defining the startGameRequest class with access modifiers and a constructor
-    public class startGameRequest
+    public class startGameModeTwoRequest
     {
         public string token { get; set; }
         public string roomId { get; set; }
-        public List<string> subCategories { get; set; }
-
-        public int questionTime{get;set;}
 
         // Constructor to initialize the properties
-        public startGameRequest(string token, string roomId, List<string> subCategories,int questionTime)
+        public startGameModeTwoRequest(string token, string roomId)
         {
             this.token = token;
             this.roomId = roomId;
-            this.subCategories = subCategories;
-            this.questionTime=questionTime;
         }
     }
 }

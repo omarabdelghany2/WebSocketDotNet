@@ -6,12 +6,7 @@ namespace SignalRGame.Hubs
 {
     public partial class GameHub
     {
-        public async Task answerQuestion(answerQuestionRequest request)
-        
-        {
-
-
-
+        public async Task answerQuestion(answerQuestionRequest request){
             Console.WriteLine("entered answer ");
             string token= request.token;
             string roomId=request.roomId;
@@ -128,6 +123,76 @@ namespace SignalRGame.Hubs
             await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=Convert.ToInt32(room.Participants[participantIndex].userId) ,team =room.Participants[participantIndex].team});
 
         }
+
+        public async Task answerQuestionModeTwo(answerQuestionModeTwoRequest request){
+            Console.WriteLine("entered answer ");
+            string token= request.token;
+            string roomId=request.roomId;
+            string answer=request.answer;
+            string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
+            Console.WriteLine(userId);
+            if (userId == "error")
+            {
+                await Clients.Caller.SendAsync("Error", "Invalid token.");
+                return;
+            }
+
+
+            // Check if the room exists
+            if (!Rooms.TryGetValue(roomId, out var room))
+            {
+                await Clients.Caller.SendAsync("Error", "Room does not exist."); 
+                return;
+            }
+            Console.WriteLine(roomId);
+
+            //get the current question
+
+            if (!RoomToCurrentQuestionModeTwo.TryGetValue(roomId, out var currentQuestion))
+            {
+                await Clients.Caller.SendAsync("Error", "Game Is End no Question to Answer.");
+                return;
+            }
+
+            //check is the answer is correct and add the score to him in the room
+            if(room.Host.answered==true){
+                
+                return;
+            }
+             room.Host.answered=true;
+
+
+            //increasing the room anseerscount
+            room.answersCount+=1;   
+
+
+            if(answer == currentQuestion.correctAnswer)
+            {
+
+
+                if(userId == room.Host.userId) // so its the answer of the host
+                {
+                    room.Host.gameScore+=10;
+                    room.Host.answereCorrectModeTwo=true;
+                }
+                else{
+                    await Clients.Group(roomId).SendAsync("succefullyAnsweredModeTwo", new{error =true ,errorMessage=" he isnt the host of the room "});
+                    room.Host.answereCorrectModeTwo=false;
+                        return;
+                }
+            }
+            else
+            {
+                if(userId == room.Host.userId) // so its the answer of the host
+                {
+                    room.Host.gameScore-=10;
+                }
+
+            }
+            
+            await Clients.Group(roomId).SendAsync("succefullyAnsweredModeTwo", new{profileName=room.Host.profileName,userId=Convert.ToInt32(room.Host.userId) });
+
+        }
     }
 
 
@@ -139,5 +204,15 @@ namespace SignalRGame.Hubs
         public string answer { get; set; }
 
         public int timer { get; set;} 
+    }
+
+
+        public class answerQuestionModeTwoRequest{
+
+        public string token { get; set; }
+        public string roomId { get; set; }
+
+        public string answer { get; set; }
+
     }
 }

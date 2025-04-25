@@ -88,7 +88,7 @@ namespace BackEnd.middlewareService.Controllers
             }
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
-            string validationResult = await _TokenValidator.ValidateTokenAsync(token);
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
 
             if (validationResult == "error")
             {
@@ -162,7 +162,72 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
+        // [HttpPost("dashboard/send-news")]
+        // public async Task<IActionResult> SendNewsToWebSocket([FromHeader] string Authorization, [FromBody] string news)
+        // {
+        //     if (string.IsNullOrEmpty(Authorization))
+        //     {
+        //         return BadRequest("Refresh Token is required.");
+        //     }
 
+        //     var token = Authorization.Substring("Bearer ".Length).Trim();
+        //     string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+
+        //     if (validationResult == "error")
+        //     {
+        //         return Unauthorized("You are not authorized to send news.");
+        //     }
+
+        //     if (_hubConnection.State != HubConnectionState.Connected)
+        //     {
+        //         return StatusCode(500, "SignalR connection is not established.");
+        //     }
+
+        //     try
+        //     {
+        //         await _hubConnection.SendAsync("updateNews", news);
+
+        //         return Ok(news);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogError(ex, "Error sending news to WebSocket.");
+        //         return StatusCode(500, "An error occurred while sending the news.");
+        //     }
+        // }
+
+        [HttpPost("dashboard/send-news")]
+        public async Task<IActionResult> SendNewsToWebSocket([FromHeader] string Authorization, [FromBody] newsRequest request)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return BadRequest("Refresh Token is required.");
+            }
+
+            var token = Authorization.Substring("Bearer ".Length).Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+
+            if (validationResult == "error")
+            {
+                return Unauthorized("You are not authorized to send news.");
+            }
+
+            if (_hubConnection.State != HubConnectionState.Connected)
+            {
+                return StatusCode(500, "SignalR connection is not established.");
+            }
+
+            try
+            {
+                await _hubConnection.SendAsync("updateNews", request);
+                return Ok(request.news);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending news to WebSocket.");
+                return StatusCode(500, "An error occurred while sending the news.");
+            }
+        }
 
 
 
@@ -196,30 +261,49 @@ namespace BackEnd.middlewareService.Controllers
         [HttpPost("dashboard/insert-question")]
         public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file, [FromHeader] string Authorization)
         {
+            if (string.IsNullOrWhiteSpace(Authorization) || !Authorization.StartsWith("Bearer "))
+            {
+                return BadRequest(new
+                {
+                    Message = "Authorization header is missing or invalid.",
+                    Status = "Error"
+                });
+            }
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
             string validationResult = await _TokenValidator.ValidateTokenAsync(token);
+            Console.WriteLine(token);
 
             if (validationResult == "error")
             {
-                return Unauthorized("You are not authorized to get the accessToken list.");
+                return Unauthorized(new
+                {
+                    Message = "You are not authorized to get the accessToken list."
 
+                });
             }
 
             if (file == null || file.Length == 0)
             {
-                return BadRequest("File is required.");
+                return BadRequest(new
+                {
+                    Message = "File is required."
+
+                });
             }
 
             // Call the function to send the file to another server
-            string response = await _insertQuestionsSerivce.insertQuestion(file, Authorization);
-
+            string response = await _insertQuestionsSerivce.insertQuestion(file, token);
+            if (response == "error")
+            {
+                return BadRequest(new { Message = "error from database." });
+            }
             return Ok(new
             {
-                Message = "File sent successfully",
-                Response = response
+                Message = "File sent successfully."
             });
         }
+
 
     }
 
@@ -242,5 +326,10 @@ namespace BackEnd.middlewareService.Controllers
 
         [JsonPropertyName("total_amount")]  // Mapping snake_case to PascalCase
         public double totalAmount { get; set; }  // Use double to match the response value type (e.g., 3523.0)
+    }
+
+
+    public class newsRequest{
+        public string news {get; set;}
     }
 }
