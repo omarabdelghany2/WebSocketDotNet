@@ -21,8 +21,10 @@ builder.Services.AddSingleton<GameService>();
 builder.Services.AddSingleton<FriendsService>(); 
 builder.Services.AddSingleton<GetFriendsByIdService>(); 
 builder.Services.AddSingleton<userIdFromProfileNameService>(); 
-builder.Services.AddSingleton<isSubscribedService>(); 
+builder.Services.AddSingleton<isSubscribedService>();
 builder.Services.AddSingleton<afkPlayerService>(); 
+
+
 
 
 

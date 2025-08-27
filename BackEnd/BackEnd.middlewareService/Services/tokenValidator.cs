@@ -14,7 +14,7 @@ namespace BackEnd.middlewareService.Services{
         }
         public async Task<string> ValidateTokenAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/user/auth/";
+            var databaseServerUrl = "http://localhost:8004/api/user/auth/";
 
             try
             {
@@ -47,7 +47,7 @@ namespace BackEnd.middlewareService.Services{
 
         public async Task<string> GetAccessTokenByRefresh(string refreshToken)
         {
-            var databaseServerUrl = "http://localhost:8000/api/token/refresh/";
+            var databaseServerUrl = "http://localhost:8004/api/token/refresh/";
 
             try
             {
@@ -93,7 +93,7 @@ namespace BackEnd.middlewareService.Services{
 
         public async Task<string> ValidateAdminAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/user/auth/admin/";
+            var databaseServerUrl = "http://localhost:8004/api/user/auth/admin/";
 
             try
             {

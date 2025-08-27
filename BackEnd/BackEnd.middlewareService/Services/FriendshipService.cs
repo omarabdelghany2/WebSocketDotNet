@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetFriendsListAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/friends/list/";
+        var databaseServerUrl = "http://localhost:8004/api/user/friends/list/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
@@ -53,7 +53,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> addFriendAsync(string token, int userID)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/friends/add/";
+        var databaseServerUrl = "http://localhost:8004/api/user/friends/add/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
@@ -95,7 +95,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> remFriendAsync(string token, int friend_id)
     {
-        var databaseServerUrl = $"http://localhost:8000/api/user/friends/remove/?friend_id={friend_id}";
+        var databaseServerUrl = $"http://localhost:8004/api/user/friends/remove/?friend_id={friend_id}";
 
 
         // Prepare the request message with PATCH method
@@ -132,7 +132,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> acceptFriendAsync(string token, int userID)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/friends/accept/";
+        var databaseServerUrl = "http://localhost:8004/api/user/friends/accept/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
@@ -174,7 +174,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> getPendingFriendRequestAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/friends/pending/list/";
+        var databaseServerUrl = "http://localhost:8004/api/user/friends/pending/list/";
 
         // Prepare the request message with Get method
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
@@ -212,7 +212,7 @@ namespace BackEnd.middlewareService.Services
     public async Task<bool> declinePendingRequestAsync(string token, int user_request_idD)
     {
         // Directly append the integer to the URL
-        var databaseServerUrl = $"http://localhost:8000/api/user/friends/pending/decline/?user_request_id={user_request_idD}";
+        var databaseServerUrl = $"http://localhost:8004/api/user/friends/pending/decline/?user_request_id={user_request_idD}";
 
         // Prepare the request message with DELETE method
         var requestMessage = new HttpRequestMessage(HttpMethod.Delete, databaseServerUrl);

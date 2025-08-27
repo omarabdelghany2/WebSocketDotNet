@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetUserIdFromTokenAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/id/";
+        var databaseServerUrl = "http://localhost:8004/api/user/id/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
@@ -58,7 +58,7 @@ namespace BackEnd.middlewareService.Services
     public async Task<int?> GetUserIdFromProfileNameAsync(string token, string profile_name)
     {
         // Include profile_name as a query parameter in the URL
-        var databaseServerUrl = $"http://localhost:8000/api/user/id/?profile_name={Uri.EscapeDataString(profile_name)}";
+        var databaseServerUrl = $"http://localhost:8004/api/user/id/?profile_name={Uri.EscapeDataString(profile_name)}";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

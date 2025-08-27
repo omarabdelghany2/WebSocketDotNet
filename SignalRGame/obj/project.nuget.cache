@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nsy3gHvW7a8=",
+  "dgSpecHash": "/UzJamsmEHQ=",
   "success": true,
   "projectFilePath": "/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj",
   "expectedPackageFiles": [
@@ -61,9 +61,9 @@
     "/root/.nuget/packages/system.text.json/5.0.0/system.text.json.5.0.0.nupkg.sha512",
     "/root/.nuget/packages/system.threading.channels/4.5.0/system.threading.channels.4.5.0.nupkg.sha512",
     "/root/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.netcore.app.ref/8.0.14/microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.14/microsoft.aspnetcore.app.ref.8.0.14.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.14/microsoft.netcore.app.host.linux-x64.8.0.14.nupkg.sha512"
+    "/root/.nuget/packages/microsoft.netcore.app.ref/8.0.17/microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.17/microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.17/microsoft.netcore.app.host.linux-x64.8.0.17.nupkg.sha512"
   ],
   "logs": []
 }

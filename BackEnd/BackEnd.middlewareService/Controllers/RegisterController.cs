@@ -36,7 +36,7 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
-        var databaseServerUrl = "http://localhost:8000/api/user/auth/register/";
+        var databaseServerUrl = "http://localhost:8004/api/user/auth/register/";
 
         try
         {

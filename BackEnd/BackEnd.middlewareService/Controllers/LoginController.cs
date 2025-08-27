@@ -36,7 +36,7 @@ namespace BackEnd.middlewareService.Controllers
             public async Task<IActionResult> login([FromBody] UserLoginInput input)
             {
                 // Database server URL
-                var databaseServerUrl = "http://localhost:8000/api/user/auth/login/"; // Replace with your actual database server URL
+                var databaseServerUrl = "http://localhost:8004/api/user/auth/login/"; // Replace with your actual database server URL
 
                 try
                 {
@@ -52,6 +52,7 @@ namespace BackEnd.middlewareService.Controllers
 
                     // Send login credentials to the database server
                     var response = await _httpClient.PostAsync(databaseServerUrl, content);
+                    Console.WriteLine(response);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -99,7 +100,7 @@ namespace BackEnd.middlewareService.Controllers
                     
 
                     // 2. Check if user exists in the DB
-                    var databaseUrl = $"http://localhost:8000/api/user/auth/login-google/";
+                    var databaseUrl = $"http://localhost:8004/api/user/auth/login-google/";
                     var json = JsonSerializer.Serialize(new { email = email });
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 

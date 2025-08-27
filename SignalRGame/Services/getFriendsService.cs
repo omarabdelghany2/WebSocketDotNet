@@ -17,7 +17,7 @@ namespace SignalRGame.Services
 
     public async Task<string> GetFriendsListAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/friends/list/";
+        var databaseServerUrl = "http://localhost:8004/api/user/friends/list/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

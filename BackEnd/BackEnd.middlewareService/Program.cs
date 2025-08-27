@@ -24,6 +24,10 @@ builder.Services.AddHttpClient<getMonthsSubscriptionsService>();
 builder.Services.AddHttpClient<paypalDatabaseServices>();
 builder.Services.AddHttpClient<numberOfSubscriptionsFromTokenService>();
 builder.Services.AddHttpClient<insertQuestionsSerivce>();
+builder.Services.AddHttpClient<CustomRoomService>();
+builder.Services.AddHttpClient<StoreService>();
+
+
 
 
 

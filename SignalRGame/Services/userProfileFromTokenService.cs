@@ -24,7 +24,7 @@ namespace SignalRGame.Services
 
     public async Task<string> GetUserProfileAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/profile/";
+        var databaseServerUrl = "http://localhost:8004/api/user/profile/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

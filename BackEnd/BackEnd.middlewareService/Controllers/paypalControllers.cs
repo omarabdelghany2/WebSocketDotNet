@@ -75,46 +75,46 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
- [HttpPost("billing")]
-public async Task<IActionResult> payments()
-{
-    try
-    {
-        // Read the request body
-        using var reader = new StreamReader(Request.Body);
-        var requestBody = await reader.ReadToEndAsync();
-        
-        // Parse the JSON body
-        var requestData = JsonDocument.Parse(requestBody);
-        _logger.LogInformation("Incoming JSON: {RequestBody}", requestBody);
-        
-        // Extract the required fields
-        var resource = requestData.RootElement.GetProperty("resource");
-
-        // Correct the key for PayPal payment ID, it should be 'id' instead of 'xfx'
-        string paypalPaymentId = resource.GetProperty("id").GetString(); // <-- fixed key here
-        string amount = resource.GetProperty("amount").GetProperty("total").GetString();
-        var subscriptionId = resource.GetProperty("billing_agreement_id").GetString(); // Use correct field for subscription ID
-
-        // Log the data
-        _logger.LogInformation("Subscription ID: {SubscriptionId}", subscriptionId);
-        
-        // Database call (if needed)
-        bool result = await _paypalDatabaseServices.billingAsync(subscriptionId = subscriptionId, amount = amount, paypalPaymentId = paypalPaymentId);
-
-        return Ok(new
+        [HttpPost("billing")]
+        public async Task<IActionResult> payments()
         {
-            message = "payment success"
-        });
-    }
-    catch (Exception ex)
-    {
-        // Log any errors that occur
-        _logger.LogError(ex, "Error processing subscription request");
+            try
+            {
+                // Read the request body
+                using var reader = new StreamReader(Request.Body);
+                var requestBody = await reader.ReadToEndAsync();
+                
+                // Parse the JSON body
+                var requestData = JsonDocument.Parse(requestBody);
+                _logger.LogInformation("Incoming JSON: {RequestBody}", requestBody);
+                
+                // Extract the required fields
+                var resource = requestData.RootElement.GetProperty("resource");
 
-        return StatusCode(500, new { message = "Internal server error", error = ex.Message });
-    }
-}
+                // Correct the key for PayPal payment ID, it should be 'id' instead of 'xfx'
+                string paypalPaymentId = resource.GetProperty("id").GetString(); // <-- fixed key here
+                string amount = resource.GetProperty("amount").GetProperty("total").GetString();
+                var subscriptionId = resource.GetProperty("billing_agreement_id").GetString(); // Use correct field for subscription ID
+
+                // Log the data
+                _logger.LogInformation("Subscription ID: {SubscriptionId}", subscriptionId);
+                
+                // Database call (if needed)
+                bool result = await _paypalDatabaseServices.billingAsync(subscriptionId = subscriptionId, amount = amount, paypalPaymentId = paypalPaymentId);
+
+                return Ok(new
+                {
+                    message = "payment success"
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log any errors that occur
+                _logger.LogError(ex, "Error processing subscription request");
+
+                return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+            }
+        }
 
 
 

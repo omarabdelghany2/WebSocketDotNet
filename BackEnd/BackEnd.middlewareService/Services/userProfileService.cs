@@ -19,7 +19,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<string> GetUserProfileAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/user/profile/";
+            var databaseServerUrl = "http://localhost:8004/api/user/profile/";
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
@@ -64,7 +64,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<string> GetUserClassicModeHistoryAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/game/";
+            var databaseServerUrl = "http://localhost:8004/api/game/";
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
@@ -105,7 +105,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<string> GetUserMillionaireModeHistoryAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/millionaire/game/";
+            var databaseServerUrl = "http://localhost:8004/api/millionaire/game/";
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

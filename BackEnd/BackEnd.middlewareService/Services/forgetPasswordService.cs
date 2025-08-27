@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<bool> ValidateEmail(string Email)
         {
-            var databaseServerUrl = $"http://localhost:8000/api/user/password/reset/{Uri.EscapeDataString(Email)}";
+            var databaseServerUrl = $"http://localhost:8004/api/user/password/reset/{Uri.EscapeDataString(Email)}";
             
 
             // Prepare the request message with POST
@@ -53,7 +53,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<bool> SaveCode(string Email,string VerifyCode)
         {
-            var databaseServerUrl = "http://localhost:8000/api/user/password/verification/store/";
+            var databaseServerUrl = "http://localhost:8004/api/user/password/verification/store/";
 
             // Prepare the request message with POST
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
@@ -96,7 +96,7 @@ namespace BackEnd.middlewareService.Services
         public async Task<string> GetCode(string Email)
         {
             // Prepare the database server URL with the email as a query parameter
-            var databaseServerUrl = $"http://localhost:8000/api/user/password/verification/{Uri.EscapeDataString(Email)}";
+            var databaseServerUrl = $"http://localhost:8004/api/user/password/verification/{Uri.EscapeDataString(Email)}";
 
             try
             {
@@ -141,7 +141,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> ResetPassword(string Email, string newPassword, string verifyCode)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/password/confirm/reset/";
+        var databaseServerUrl = "http://localhost:8004/api/user/password/confirm/reset/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Patch, databaseServerUrl);

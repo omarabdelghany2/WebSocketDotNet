@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetUserScoreAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/user/home/";
+        var databaseServerUrl = "http://localhost:8004/api/user/home/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

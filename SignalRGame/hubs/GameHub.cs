@@ -23,6 +23,9 @@ namespace SignalRGame.Hubs
         private static readonly ConcurrentDictionary<string,List<QuestionMillionaire>> RoomToQuestionsModeTwo =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
         private static readonly ConcurrentDictionary<string,QuestionMillionaire> RoomToCurrentQuestionModeTwo =new();  //this for me to handel the Answers for it
         private static readonly ConcurrentDictionary<string,Question> RoomToCurrentQuestion =new();  //this for me to handel the Answers for it
+
+
+        
         private readonly getQuestionsService _GetQuestions;
         private readonly GameService _gameService;
         private readonly userIdFromTokenService _userIdFromTokenService;

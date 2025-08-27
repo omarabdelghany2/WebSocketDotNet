@@ -16,7 +16,7 @@ namespace SignalRGame.Services
         public async Task<string> GetFriendsByIdAsync(int userId)
         {
             // Include userId in the URL as a path variable
-            var databaseServerUrl = $"http://localhost:8000/api/user/friends/list/{userId}/";
+            var databaseServerUrl = $"http://localhost:8004/api/user/friends/list/{userId}/";
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

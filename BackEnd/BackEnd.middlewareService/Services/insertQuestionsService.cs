@@ -17,7 +17,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<string> insertQuestion(IFormFile file, string token)
         {
-            var databaseServerUrl = "http://localhost:8000/api/questions/upload/";
+            var databaseServerUrl = "http://localhost:8004/api/questions/upload/";
 
             using (var content = new MultipartFormDataContent())
             using (var stream = file.OpenReadStream())

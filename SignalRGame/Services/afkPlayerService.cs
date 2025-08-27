@@ -24,7 +24,7 @@ namespace SignalRGame.Services
 
     public async Task<bool> sendAfkPlayerToDataBase(string token)
     {
-        var databaseServerUrl = "http://localhost:8000/api/core/leave-game-afk/";
+        var databaseServerUrl = "http://localhost:8004/api/core/leave-game-afk/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);

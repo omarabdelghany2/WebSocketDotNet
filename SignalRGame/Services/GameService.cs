@@ -325,14 +325,186 @@ namespace SignalRGame.Services
 
 
 
-        
-        public async Task<bool> saveGameClassic(string token,string isPublic,string createdAt,List<string>categories,string mood ,string hostId,List<object> teamInfo,List<string>subCategories){
+        public async Task SendingCustomQuestions(string token,string roomId,ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms,int questionTime,ConcurrentDictionary<string, string> UserRoomMapping)
+        {
+            string winner = "";
 
-            var databaseServerUrl = $"http://localhost:8000/api/game/";
+            if (!Rooms.TryGetValue(roomId, out var room))
+            {
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
+                return;
+            }
+
+            try
+            {
+                if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
+                {
+                    await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+                    return;
+                }
+
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    room.answersCount = 0;
+                    foreach (var participant in room.Participants)
+                        participant.answered = false;
+
+                    var currentQuestion = questions[i];
+                    roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+                    var rng = new Random();
+                    var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new
+                    {
+                        subCategory = currentQuestion.subCategory,
+                        questionTitle = currentQuestion.questionTitle,
+                        answers = answers
+                    });
+
+                    for (int j = questionTime; j >= 0; j--)
+                    {
+                        await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
+
+                        if (room.answersCount == room.Participants.Count)
+                            break;
+
+                        await Task.Delay(1000);
+                    }
+
+                    var blueTeam = room.Participants
+                        .Where(p => p.team == "Blue")
+                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                        .ToList();
+
+                    var redTeam = room.Participants
+                        .Where(p => p.team == "Red")
+                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                        .ToList();
+
+                    string roundWinner = "";
+                    if (room.blueTeamRoundScore > room.redTeamRoundScore)
+                    {
+                        room.blueTeamScore += 100;
+                        roundWinner = "blue";
+                    }
+                    else if (room.blueTeamRoundScore < room.redTeamRoundScore)
+                    {
+                        room.redTeamScore += 100;
+                        roundWinner = "red";
+                    }
+                    else if (room.blueTeamRoundScore == 0 && room.redTeamRoundScore == 0)
+                    {
+                        roundWinner = "NegativeDraw";
+                    }
+                    else
+                    {
+                        room.redTeamScore += 100;
+                        room.blueTeamScore += 100;
+                        roundWinner = "PositiveDraw";
+                    }
+
+                    room.blueTeamRoundScore = 0;
+                    room.redTeamRoundScore = 0;
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("countDownComplete", new
+                    {
+                        questioIndex = i + 1,
+                        correctAnswer = currentQuestion.correctAnswer,
+                        blueTeam,
+                        redTeam,
+                        blueTeamScore = room.blueTeamScore,
+                        redTeamScore = room.redTeamScore,
+                        roundWinner
+                    });
+
+                    await Task.Delay(1000);
+                    roomToCurrentQuestion.TryRemove(roomId, out _);
+                }
+
+                // Determine final winner
+                if (room.blueTeamScore > room.redTeamScore)
+                    winner = "Blue";
+                else if (room.blueTeamScore < room.redTeamScore)
+                    winner = "Red";
+                else
+                    winner = "Draw";
+
+                // Update player scores based on winner
+                foreach (var participant in room.Participants)
+                {
+                    if (winner == "Red")
+                    {
+                        if (participant.team == "Red")
+                        {
+                            participant.score += 100 + participant.gameScore;
+                            participant.gameScore += 100;
+                        }
+                        else
+                        {
+                            participant.score -= 100 + participant.gameScore;
+                            participant.gameScore -= 100;
+                            if (participant.score < 0) participant.score = 0;
+                        }
+                    }
+                    else if (winner == "Blue")
+                    {
+                        if (participant.team == "Blue")
+                        {
+                            participant.score += 100 + participant.gameScore;
+                            participant.gameScore += 100;
+                        }
+                        else
+                        {
+                            participant.score -= 100 + participant.gameScore;
+                            participant.gameScore -= 100;
+                            if (participant.score < 0) participant.score = 0;
+                        }
+                    }
+                    else // Draw
+                    {
+                        participant.score += 50 + participant.gameScore;
+                        participant.gameScore += 50;
+                    }
+                }
+
+                var participantsData = room.Participants.ToDictionary(
+                    p => Convert.ToInt32(p.userId),
+                    p => new
+                    {
+                        gameScore = p.gameScore,
+                        score = p.score,
+                        team = p.team
+                    });
+
+                await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
+                {
+                    winner,
+                    stats = participantsData
+                });
+
+                // ✅ Cleanup memory (same as classic)
+                roomToQuestions.TryRemove(roomId, out _);
+                Rooms.TryRemove(roomId, out _);
+                UserRoomMapping.TryRemove(room.Host.userId, out _);
+                Console.WriteLine($"Custom game finished and cleaned up: Room {roomId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SendingCustomQuestions: {ex.Message}");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the custom game.");
+            }
+        }
+
+
+        public async Task<bool> saveGameClassic(string token, string isPublic, string createdAt, List<string> categories, string mood, string hostId, List<object> teamInfo, List<string> subCategories)
+        {
+
+            var databaseServerUrl = $"http://localhost:8004/api/game/";
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
 
-            var jsonPayload = JsonSerializer.Serialize(new { is_public = isPublic ,created_at = createdAt,sub_categories= subCategories,mood=mood,host_id=hostId,teams_info=teamInfo});
+            var jsonPayload = JsonSerializer.Serialize(new { is_public = isPublic, created_at = createdAt, sub_categories = subCategories, mood = mood, host_id = hostId, teams_info = teamInfo });
             var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
             try
@@ -494,7 +666,7 @@ namespace SignalRGame.Services
 
         public async Task<bool> saveGameMillionaire(string token , int score){
 
-            var databaseServerUrl = $"http://localhost:8000/api/millionaire/game/";
+            var databaseServerUrl = $"http://localhost:8004/api/millionaire/game/";
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
 
