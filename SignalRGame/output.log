@@ -1,12 +1,1213 @@
 nohup: ignoring input
 Building...
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createModeTwoRoom.cs(9,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createModeTwoRoom.cs(13,7): warning CS0105: The using directive for 'System.Text.Json.Serialization' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(9,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(13,7): warning CS0105: The using directive for 'System.Text.Json.Serialization' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/afkPlayerService.cs(5,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/afkPlayerService.cs(6,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/afkPlayerService.cs(7,7): warning CS0105: The using directive for 'System.Net.Http.Headers' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(4,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(5,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/getUserIdFromToken.cs(6,7): warning CS0105: The using directive for 'System.Net.Http.Headers' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(5,7): warning CS0105: The using directive for 'System.Text.Json' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(6,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/userProfileFromTokenService.cs(7,7): warning CS0105: The using directive for 'System.Net.Http.Headers' appeared previously in this namespace [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/isSubscribedService.cs(44,30): warning CS0168: The variable 'ex' is declared but never used [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/switchTeam.cs(63,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/switchTeam.cs(64,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(58,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(59,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/reconnectGame.cs(141,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/reconnectGame.cs(142,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(113,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(114,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveGame.cs(112,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveGame.cs(113,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinRoom.cs(122,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinRoom.cs(123,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/GameService.cs(286,21): warning CS1717: Assignment made to same variable; did you mean to assign something else? [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinPublicGamesMode1.cs(115,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinPublicGamesMode1.cs(108,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinPublicGamesMode1.cs(109,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(74,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(75,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/gameSettings.cs(57,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/gameSettings.cs(59,30): warning CS8618: Non-nullable property 'subCategories' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/gameSettings.cs(60,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(345,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(334,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/dashboardOnlineandOfflineUsers.cs(59,23): warning CS8618: Non-nullable property 'news' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(111,23): warning CS8618: Non-nullable property 'firstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(114,23): warning CS8618: Non-nullable property 'lastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(117,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(121,23): warning CS8618: Non-nullable property 'email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(125,23): warning CS8618: Non-nullable property 'country' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(212,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(213,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(215,23): warning CS8618: Non-nullable property 'answer' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(201,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(202,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/answerQuestion.cs(204,23): warning CS8618: Non-nullable property 'answer' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(63,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(64,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(144,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(145,23): warning CS8618: Non-nullable property 'roomId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(72,23): warning CS8618: Non-nullable property 'token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(73,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptAddFriendRequest.cs(51,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(48,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(64,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(78,28): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/acceptInvitation.cs(89,94): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/addFriend.cs(41,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/GameService.cs(625,21): warning CS1717: Assignment made to same variable; did you mean to assign something else? [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/GameService.cs(564,24): warning CS0219: The variable 'roundWinner' is assigned but its value is never used [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Services/GameService.cs(544,20): warning CS0219: The variable 'winner' is assigned but its value is never used [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createModeTwoRoom.cs(68,31): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createModeTwoRoom.cs(77,35): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(67,31): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/createRoom.cs(76,35): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/CustomGameHubs/createCustomRoom.cs(45,35): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/CustomGameHubs/createCustomRoom.cs(54,39): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(30,19): warning CS8618: Non-nullable property 'subCategory' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(33,19): warning CS8618: Non-nullable property 'questionTitle' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(40,19): warning CS8618: Non-nullable property 'difficulty' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(12,19): warning CS8618: Non-nullable property 'subCategory' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/Models/Question.cs(15,19): warning CS8618: Non-nullable property 'questionTitle' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(44,16): warning CS8618: Non-nullable field '_httpClient' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(155,45): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(185,24): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(189,41): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(278,48): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/inviteToRoom.cs(21,32): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/joinRoom.cs(71,94): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveGame.cs(78,29): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveGame.cs(85,100): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveGame.cs(99,117): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(78,29): warning CS8625: Cannot convert null literal to non-nullable reference type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(85,100): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/leaveRoom.cs(100,113): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(288,24): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(293,44): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(325,24): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/loginRoom.cs(336,27): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(21,20): warning CS8603: Possible null reference return. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(39,40): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/notifyFriendsConnection.cs(84,23): warning CS8618: Non-nullable property 'profileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/removeFriend.cs(41,46): warning CS8604: Possible null reference argument for parameter 'key' in 'bool ConcurrentDictionary<string, string>.TryGetValue(string key, out string value)'. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(25,40): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(57,38): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startGame.cs(111,113): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startModeTwoGame.cs(22,51): warning CS8600: Converting null literal or possible null value to non-nullable type. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startModeTwoGame.cs(54,44): warning CS8601: Possible null reference assignment. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/startModeTwoGame.cs(107,120): warning CS8602: Dereference of a possibly null reference. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(41,32): warning CS8618: Non-nullable field 'recentNewsLetter' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
+/root/BackEnd/WebSocketDotNet/SignalRGame/hubs/GameHub.cs(43,37): warning CS0169: The field 'GameHub._httpClient' is never used [/root/BackEnd/WebSocketDotNet/SignalRGame/SignalRGame.csproj]
 info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://0.0.0.0:5274
+      Now listening on: http://localhost:5274
 info: Microsoft.Hosting.Lifetime[0]
       Application started. Press Ctrl+C to shut down.
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
       Content root path: /root/BackEnd/WebSocketDotNet/SignalRGame
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 51.4723ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 87.4036ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 76.5224ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 77.2388ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 69.0395ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 69.4348ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 115.1848ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 115.3766ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 28.967ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 29.1333ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 85.2923ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 85.4705ms - 200
+i have good gerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+aaaa
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 66.6494ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 66.8953ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.3704ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.55ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend aaaa is online, roomId: login-93728db3-a56c-4c91-ab40-6d36dd109e3a
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 40.807ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 41.2617ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend Markizz0 is online, roomId: login-ca46af1e-f69f-4e67-8002-f0d31403703c
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 39.4026ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 39.5899ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.392ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.6926ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 82.1366ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 82.2624ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.3285ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4824ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.5588ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.7284ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+yes we entered here and we got the following
+of a7
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 29.299ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 29.4763ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 73.9084ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 74.093ms - 200
+i have good gerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+Markizz0
+sent online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 66.8696ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.0354ms - 200
+6
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.6845ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.8143ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend Markizz0 is online, roomId: login-99e9a4ea-eda3-47d9-9e2a-3ea4bca30fdf
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Removed user 6 from UserIdToConnectionId map successfully.
+Removed user 6 from their login room successfully.
+User 6 was not Host of any room.
+User 6 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/6/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/6/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 41.4887ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 41.8437ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend Markizz0 is online, roomId: login-99e9a4ea-eda3-47d9-9e2a-3ea4bca30fdf
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 45.9299ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.2ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 19.4599ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 19.8192ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 83.6531ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 83.7662ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.2876ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.4143ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.8274ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.9522ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.3887ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 31.7524ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 24.5545ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 24.7615ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.262ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.3913ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.4082ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5345ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 71.6117ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 71.762ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 40.1678ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 40.3117ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 3.5399ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 3.7434ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 43.0127ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 43.1302ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 4.8874ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 5.0671ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 43.7494ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 44.0156ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 5.3687ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 5.8126ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 46.2ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.6791ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 4.8901ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 5.4183ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 44.4594ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 44.7263ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 6.6562ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 6.834ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 46.0127ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.1091ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 6.5666ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 6.7129ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+the error is hereee careee
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 47.5726ms - 401
+Error from database: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 47.6642ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 70.3998ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 70.5813ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 84.0541ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 84.2697ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.444ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5348ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.7385ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.8409ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 28.6343ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 28.7404ms - 200
+UserId: 10, Team: Blue, Score: 0
+1e81ac1a-68c9-4204-9265-a92e12785e60
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 53.8241ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 53.9572ms - 200
+Room deleted as the host and participants left.
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+Friend ID: 4, Profile Name: Markizz0, Score: -361
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 43.371ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 43.4722ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 33.7465ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 34.2133ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 81.9792ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 82.0599ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.4976ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5573ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 71.8507ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 72.2166ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+UserId: 4, Team: Blue, Score: -361
+8a4feff9-54e3-479d-a730-c95327f1add8
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 36.143ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 36.2294ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 19.8661ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 19.9886ms - 200
+False
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.8033ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.9014ms - 200
+True
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 42.3003ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 42.4083ms - 200
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 39.9826ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 40.0798ms - 200
+UserId: 4, Team: Blue, Score: -361
+d30b80d0-80df-4bd4-a6b5-40e918c1befa
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+already hasaroom
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 33.0141ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 33.1149ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 44.5711ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 44.6783ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 29.6133ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 29.9522ms - 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.3106ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 31.4212ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.0976ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.2164ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 92.1297ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 92.2304ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.4949ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5578ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 87.6741ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 87.7334ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 76.7757ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 76.8632ms - 200
+UserId: 4, Team: Blue, Score: -361
+62aa8615-85f5-4e16-ab2e-d1bbd008c6e1
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 47.0995ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 47.1982ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 25.5126ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 25.5939ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 82.0937ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 82.147ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.4945ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.9973ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.0757ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.8239ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 37.5189ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 37.6254ms - 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.5475ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.6454ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 23.0775ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 23.3076ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 80.1591ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 80.3564ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.1392ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4482ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.6479ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.7574ms - 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 37.3903ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 37.463ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.6818ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.7637ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 76.7184ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 76.8084ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.362ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.438ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.5902ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.8803ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 51.4369ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 51.6907ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.3516ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 21.4429ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 86.3554ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 86.4229ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.3414ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4106ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 87.9511ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 88.0204ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.2871ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.9761ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 29.6142ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 29.9927ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 89.3933ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 89.4819ms - 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.7453ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.8439ms - 200
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 34.1251ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 34.2275ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 119.216ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 119.3021ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 71.4258ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 71.5006ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.8557ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.9234ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.6508ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.7382ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.8196ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.8887ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 34.1249ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 34.2035ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 54.9567ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 55.0463ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 35.6513ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 35.7162ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.3234ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.4174ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 37.8485ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 37.9636ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 37.909ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 37.9996ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 41.2323ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 41.2954ms - 200
 info: Microsoft.Hosting.Lifetime[0]
       Application is shutting down...
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+Friend ID: 10, Profile Name: aaaa, Score: 0
+Friend ID: 5, Profile Name: a_neklawi, Score: 2
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 47.527ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 47.6083ms - 200

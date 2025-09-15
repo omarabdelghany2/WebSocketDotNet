@@ -20,13 +20,24 @@ namespace BackEnd.middlewareService.Services
         }
 
 
+ 
 
-
-        public async Task<bool> CreateCustomRoomAsync(string token)
+        public async Task<bool> CreateCustomRoomAsync(int userId, string token)
         {
-            var url = "http://localhost:8004/api/custom_room/create/";
+            var url = $"http://localhost:8004/api/custom-rooms/{userId}/";
 
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            var requestBody = new
+            {
+                questions = new string[] { }
+            };
+
+            var json = JsonSerializer.Serialize(requestBody);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content
+            };
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             try
@@ -41,9 +52,9 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
-        public async Task<bool> DeleteCustomRoomAsync(string token)
+        public async Task<bool> DeleteCustomRoomAsync(int userId, int roomId, string token)
         {
-            var url = "http://localhost:8004/api/custom_room/delete/";
+            var url = $"http://localhost:8004/api/custom-rooms/{userId}/{roomId}/";
 
             var request = new HttpRequestMessage(HttpMethod.Delete, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -51,6 +62,10 @@ namespace BackEnd.middlewareService.Services
             try
             {
                 var response = await _httpClient.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error deleting room: {await response.Content.ReadAsStringAsync()}");
+                }
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -60,9 +75,9 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
-        public async Task<bool> CheckIfUserHasCustomRoomAsync(string token)
+        public async Task<bool> CheckIfUserHasCustomRoomAsync(int userId, string token)
         {
-            var url = "http://localhost:8004/api/custom_room/check/";
+            var url = $"http://localhost:8004/api/custom-rooms/{userId}/";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -73,8 +88,17 @@ namespace BackEnd.middlewareService.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return result.Trim().ToLower() == "true";
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    using var doc = JsonDocument.Parse(json);
+                    var root = doc.RootElement;
+
+                    if (root.TryGetProperty("count", out var countElement))
+                    {
+                        return countElement.GetInt32() > 0;
+                    }
+
+                    return false; // if no "count" property, assume no room
                 }
                 else
                 {
@@ -89,9 +113,9 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
-        public async Task<string> GetCustomRoomQuestionsAsync(string token)
+        public async Task<string> GetCustomRoomDetailsAsync(int userId, string token)
         {
-            var url = "http://localhost:8004/api/custom_room/questions/";
+            var url = $"http://localhost:8004/api/custom-rooms/{userId}/";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -106,7 +130,7 @@ namespace BackEnd.middlewareService.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Error fetching questions: {await response.Content.ReadAsStringAsync()}");
+                    Console.WriteLine($"Error fetching room details: {await response.Content.ReadAsStringAsync()}");
                     return "error";
                 }
             }
@@ -118,39 +142,43 @@ namespace BackEnd.middlewareService.Services
         }
 
 
-
-        public async Task<bool> SaveCustomRoomAsync(string token, List<Question> questions)
+        public async Task<bool> AddQuestionsToCustomRoomAsync(int userId, int roomId, string token, List<Question> questions)
         {
-            var url = "http://localhost:8004/api/custom_room/save/";
+            var url = $"http://localhost:8004/api/custom-rooms/{userId}/{roomId}/";
 
-            var jsonPayload = JsonSerializer.Serialize(questions);
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            var requestBody = new { questions };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            var json = JsonSerializer.Serialize(requestBody, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = false
+            });
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Patch, url)
+            {
+                Content = content
+            };
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            request.Content = content;
 
             try
             {
                 var response = await _httpClient.SendAsync(request);
 
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    return true;
+                    Console.WriteLine($"Error adding questions: {await response.Content.ReadAsStringAsync()}");
                 }
-                else
-                {
-                    Console.WriteLine($"Error saving room: {await response.Content.ReadAsStringAsync()}");
-                    return false;
-                }
+
+                return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception occurred: {ex.Message}");
+                Console.WriteLine($"Exception occurred while adding questions: {ex.Message}");
                 return false;
             }
         }
-
 
 
 

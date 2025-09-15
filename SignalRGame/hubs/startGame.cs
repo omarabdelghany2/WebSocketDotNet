@@ -26,12 +26,12 @@ namespace SignalRGame.Hubs
 
 
             //check if the user is Subscribed first
-            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(token);
+            // bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(token);
 
-            if(subscriptionResponce!=true){
-            // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
-            return;
-            }
+            // if(subscriptionResponce!=true){
+            // // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            // return;
+            // }
 
             if (questions != null)
             {

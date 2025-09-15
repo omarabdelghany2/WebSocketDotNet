@@ -21,7 +21,7 @@ namespace BackEnd.middlewareService.Services
     public async Task<string> GetSubCategoriesAsync(string token, string category)
     {
         // Base URL
-        var databaseServerUrl = "http://127.0.0.1:8000/api/categories/subcategories/list/";
+        var databaseServerUrl = "http://127.0.0.1:8004/api/categories/subcategories/list/";
 
         // Trim and encode the category to ensure proper URL formatting
         var trimmedCategory = category.Trim(); // Remove any leading or trailing whitespace/newlines

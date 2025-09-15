@@ -16,7 +16,7 @@ namespace SignalRGame.Services
 
         public async Task<bool> isSubscribedAsync(string token)
         {
-            var databaseServerUrl = "http://localhost:8002/api/subscription/status/";
+            var databaseServerUrl = "http://localhost:8005/api/subscription/status/";
 
             try
             {

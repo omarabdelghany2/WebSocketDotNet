@@ -31,25 +31,61 @@ namespace BackEnd.middlewareService.Controllers
             {
                 return BadRequest("Token is required.");
             }
+
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Call the GetUserProfileAsync function to fetch the friends list
             string result = await _userProfileService.GetUserProfileAsync(token);
 
             if (result == "error")
             {
-                return BadRequest("Error retrieving friends list.");
+                return BadRequest("Error retrieving user profile.");
             }
 
             try
             {
-                // Parse the JSON response into a more readable format
-                var profile = JsonSerializer.Deserialize<object>(result);
+                using var doc = JsonDocument.Parse(result);
+                var root = doc.RootElement;
+
+                // Extract score
+                int score = root.GetProperty("score").GetInt32();
+
+                // Rank logic: each rank has 3 parts of 100 points (except AI has 1000)
+                string[] orderedRanks = new[] { "Abyssal", "ICY", "Stone", "Copper", "Bronze", "Iron", "Classical", "Modern", "Contemporary" };
+                int pointsPerPart = 100;
+                int partsPerRank = 3;
+                int pointsPerRank = pointsPerPart * partsPerRank; // 300
+                int totalBeforeAI = orderedRanks.Length * pointsPerRank; // 2700
+
+                string rank;
+                if (score < 0)
+                {
+                    rank = "NEWBIE";
+                }
+                else if (score < totalBeforeAI)
+                {
+                    int rankIndex = score / pointsPerRank;
+                    int remainderInRank = score % pointsPerRank;
+                    int partIndex = remainderInRank / pointsPerPart; // 0,1,2
+                    rank = $"{orderedRanks[rankIndex]} {partIndex + 1}";
+                }
+                else if (score < totalBeforeAI + 1000)
+                {
+                    rank = "AI";
+                }
+                else
+                {
+                    // If above AI cap, stay at AI
+                    rank = "AI";
+                }
+
+                // Deserialize profile into a dictionary so we can add rank
+                var profile = JsonSerializer.Deserialize<Dictionary<string, object>>(result);
+                profile["rank"] = rank;
 
                 return Ok(new
                 {
-                    Message = "profile fetched successfully",
-                    Data = profile // Return the friends list as parsed JSON
+                    Message = "Profile fetched successfully",
+                    Data = profile
                 });
             }
             catch (JsonException ex)
@@ -57,7 +93,6 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
             }
         }
-
 
 
 

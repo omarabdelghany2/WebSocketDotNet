@@ -30,7 +30,7 @@ namespace BackEnd.middlewareService.Controllers
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            var avatars = await _storeService.GetAllAvatarsAsync(token);
+            var avatars = await _storeService.GetAvailableAvatarsAsync(token);
             return Ok(new
             {
                 Message = "Avatars retrieved successfully.",
@@ -39,33 +39,20 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         // POST: api/store/purchase
+
+        public class PurchaseRequest
+        {
+            public int AvatarId { get; set; }
+        }
         [HttpPost("purchase")]
-        public async Task<IActionResult> PurchaseAvatar([FromHeader] string Authorization, [FromBody] int avatarId)
+        public async Task<IActionResult> PurchaseAvatar([FromHeader] string Authorization, [FromBody] PurchaseRequest request)
         {
             if (string.IsNullOrEmpty(Authorization))
                 return BadRequest("Token is required.");
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Step 1: Get user balance
-            decimal userBalance = await _storeService.GetUserBalanceAsync(token);
-
-            // Step 2: Get avatar price
-            decimal avatarPrice = await _storeService.GetAvatarPriceAsync(token, avatarId);
-
-            // Step 3: Check balance
-            if (userBalance < avatarPrice)
-            {
-                return BadRequest(new
-                {
-                    Message = "Insufficient balance to purchase this avatar.",
-                    CurrentBalance = userBalance,
-                    AvatarPrice = avatarPrice
-                });
-            }
-
-            // Step 4: Proceed to purchase
-            var result = await _storeService.PurchaseAvatarAsync(token, avatarId);
+            var result = await _storeService.PurchaseAvatarAsync(token, request.AvatarId);
 
             if (!result.Success)
                 return BadRequest(new { Message = result.ErrorMessage });
@@ -78,16 +65,20 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
-        // PUT: api/store/change-avatar
-        [HttpPut("change-avatar")]
-        public async Task<IActionResult> ChangeAvatar([FromHeader] string Authorization, [FromBody] int avatarId)
+        public class ChangeAvatarRequest
+        {
+            public int avatarId { get; set; }
+        }
+
+        [HttpPut("set-avatar")]
+        public async Task<IActionResult> ChangeAvatar([FromHeader] string Authorization, [FromBody] ChangeAvatarRequest request)
         {
             if (string.IsNullOrEmpty(Authorization))
                 return BadRequest("Token is required.");
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            var success = await _storeService.ChangeAvatarAsync(token, avatarId);
+            var success = await _storeService.ChangeAvatarAsync(token, request.avatarId);
 
             if (!success)
                 return BadRequest(new { Message = "Failed to change avatar." });
@@ -95,6 +86,7 @@ namespace BackEnd.middlewareService.Controllers
             return Ok(new { Message = "Avatar changed successfully." });
         }
 
+        //TODO
         // POST: api/store/paypal-webhook
         [HttpPost("paypal-webhook")]
         public async Task<IActionResult> PayPalWebhook([FromBody] JsonElement webhookEvent)

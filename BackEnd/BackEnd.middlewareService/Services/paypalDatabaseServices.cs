@@ -16,7 +16,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> billingAsync(string subscriptionId,string amount,string paypalPaymentId)
     {
-        var databaseServerUrl = $"http://localhost:8002/api/subscription/{subscriptionId}/payment/";
+        var databaseServerUrl = $"http://localhost:8005/api/subscription/{subscriptionId}/payment/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
@@ -57,7 +57,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> subscribeAsync(string userId,string planId, string startTime,string subscriptionId)
     {
-        var databaseServerUrl = "http://localhost:8002/api/subscription/";
+        var databaseServerUrl = "http://localhost:8005/api/subscription/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
@@ -105,7 +105,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> activateAsync(string subscriptionId)
     {
-        var databaseServerUrl = $"http://127.0.0.1:8002/api/subscription/{subscriptionId}/active/";
+        var databaseServerUrl = $"http://127.0.0.1:8005/api/subscription/{subscriptionId}/active/";
 
         var requestMessage = new HttpRequestMessage(HttpMethod.Patch, databaseServerUrl);
 
@@ -133,7 +133,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> cancelAsync(string subscriptionId)
     {
-        var databaseServerUrl = $"http://127.0.0.1:8002/api/subscription/{subscriptionId}/cancel/";
+        var databaseServerUrl = $"http://127.0.0.1:8005/api/subscription/{subscriptionId}/cancel/";
 
         var requestMessage = new HttpRequestMessage(HttpMethod.Patch, databaseServerUrl);
 
@@ -160,7 +160,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> expireAsync(string subscriptionId)
     {
-        var databaseServerUrl = $"http://127.0.0.1:8002/api/subscription/{subscriptionId}/expired/";
+        var databaseServerUrl = $"http://127.0.0.1:8005/api/subscription/{subscriptionId}/expired/";
 
         var requestMessage = new HttpRequestMessage(HttpMethod.Patch, databaseServerUrl);
 

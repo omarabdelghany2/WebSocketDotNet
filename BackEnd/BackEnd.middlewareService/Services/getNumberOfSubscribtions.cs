@@ -23,7 +23,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<string> GetNumberSubsAsync(string token)
     {
-        var databaseServerUrl = "http://localhost:8002/api/admin/dashboard/subscriptions/total/";
+        var databaseServerUrl = "http://localhost:8005/api/admin/dashboard/subscriptions/total/";
 
         // Prepare the request message with GET
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

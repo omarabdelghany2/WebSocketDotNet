@@ -19,7 +19,7 @@ namespace SignalRGame.Services
                     // Function to send token and list of questions
     public async Task<string> GetQuestionsResponseAsync(string token, List<string> subCategories)
     {
-        var databaseServerUrl = "http://127.0.0.1:8000/api/questions/";
+        var databaseServerUrl = "http://127.0.0.1:8004/api/questions/";
 
         // Construct the query string with multiple `subcategory` parameters
         var queryString = string.Join("&", subCategories.Select(sub => $"subcategory={Uri.EscapeDataString(sub)}"));
@@ -64,7 +64,7 @@ namespace SignalRGame.Services
 
     public async Task<string> GetQuestionsResponseModeTwoAsync(string token)
     {
-        var databaseServerUrl = "http://127.0.0.1:8000/api/millionaire/questions/";
+        var databaseServerUrl = "http://127.0.0.1:8004/api/millionaire/questions/";
 
         // Construct the query string with multiple `subcategory` parameters
 

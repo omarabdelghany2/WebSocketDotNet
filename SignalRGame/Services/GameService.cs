@@ -165,13 +165,17 @@ namespace SignalRGame.Services
                         {
                             if (participant.team == "Red")
                             {
-                                participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
-                                participant.gameScore+=100;
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 10 + scaledBonus;
+                                participant.gameScore += 10;
                             }
                             else if (participant.team == "Blue")
                             {
-                                participant.score -= (100+participant.gameScore); // Decrease score by 1 for Red team
-                                participant.gameScore-=100;
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score -= (10 + scaledBonus);
+                                participant.gameScore -= 10;
                                 if(participant.score<0){
                                     participant.score=0;
                                 }
@@ -186,13 +190,17 @@ namespace SignalRGame.Services
                         {
                             if (participant.team == "Blue")
                             {
-                                participant.score += 100+participant.gameScore; // Increase score by 1 for Blue team
-                                participant.gameScore+=100;
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 10 + scaledBonus;
+                                participant.gameScore += 10;
                             }
                             else if (participant.team == "Red")
                             {
-                                 participant.score -= (100+participant.gameScore); // Decrease score by 1 for Red team
-                                 participant.gameScore-=100;
+                                 int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                 int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                 participant.score -= (10 + scaledBonus);
+                                 participant.gameScore -= 10;
                                 if(participant.score<0){
                                     participant.score=0;
                                 }
@@ -206,8 +214,10 @@ namespace SignalRGame.Services
 
                         foreach (var participant in room.Participants)
                         {
-                                participant.score += 50+participant.gameScore; // Increase score by 1 for Blue team
-                                participant.gameScore+=50;
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 5 + scaledBonus;
+                                participant.gameScore += 5;
 
                         }
 

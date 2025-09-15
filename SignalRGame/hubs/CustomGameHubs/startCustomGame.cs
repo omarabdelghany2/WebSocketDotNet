@@ -21,7 +21,7 @@ namespace SignalRGame.Hubs
             string token = request.token;
             string roomId = request.roomId;
             int questionTime = request.questionTime;
-            var questions = request.questions;
+            int customRoomId = request.customRoomId;
 
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
             if (userId == "error")
@@ -49,9 +49,11 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+            // Fetch questions from API by customRoomId
+            var questions = await _customRoomsService.GetQuestionsForRoomAsync(token, Convert.ToInt32(userId), customRoomId);
             if (questions == null || questions.Count == 0)
             {
-                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "No questions provided." });
+                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "No questions available for this room." });
                 return;
             }
 
@@ -107,14 +109,14 @@ namespace SignalRGame.Hubs
             public string token { get; set; }
             public string roomId { get; set; }
             public int questionTime { get; set; }
-            public List<Question> questions { get; set; }
+            public int customRoomId { get; set; }
 
-            public startCustomGameRequest(string token, string roomId, int questionTime, List<Question> questions)
+            public startCustomGameRequest(string token, string roomId, int questionTime, int customRoomId)
             {
                 this.token = token;
                 this.roomId = roomId;
                 this.questionTime = questionTime;
-                this.questions = questions;
+                this.customRoomId = customRoomId;
             }
         }
     }

@@ -13,6 +13,9 @@ namespace BackEnd.middlewareService.Models
         [JsonPropertyName("answers")]
         public List<Answer> answers { get; set; } = new List<Answer>();
 
+        [JsonPropertyName("difficulty")]
+        public string Difficulty { get; set; }  // <-- add this
+
         [JsonPropertyName("correctAnswer")]
         public string correctAnswer { get; set; } = string.Empty;
     }

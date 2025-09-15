@@ -23,17 +23,13 @@ namespace BackEnd.middlewareService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLeaderBoard([FromHeader] string Authorization)
         {
-            // Ensure the Authorization header is present and has the correct format
             if (string.IsNullOrEmpty(Authorization) || !Authorization.StartsWith("Bearer "))
             {
                 return BadRequest("Token is required in the Authorization header.");
             }
-            
 
-            // Extract the token from the Authorization header
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Call the GetLeaderBoardAsync function to fetch the leaderboard list
             string result = await _leaderBoardService.GetLeaderBoardAsync(token);
 
             if (result == "error")
@@ -43,13 +39,47 @@ namespace BackEnd.middlewareService.Controllers
 
             try
             {
-                // Parse the JSON response into a more readable format
-                var leaderBoardList = JsonSerializer.Deserialize<object>(result);
+                var leaderBoardList = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(result);
+
+                string[] orderedRanks = new[] { "Abyssal", "ICY", "Stone", "Copper", "Bronze", "Iron", "Classical", "Modern", "Contemporary" };
+                int pointsPerPart = 100;
+                int partsPerRank = 3;
+                int pointsPerRank = pointsPerPart * partsPerRank; // 300
+                int totalBeforeAI = orderedRanks.Length * pointsPerRank; // 2700
+
+                foreach (var player in leaderBoardList)
+                {
+                    if (player.ContainsKey("score") && int.TryParse(player["score"].ToString(), out int score))
+                    {
+                        string rank;
+                        if (score < 0)
+                        {
+                            rank = "NEWBIE";
+                        }
+                        else if (score < totalBeforeAI)
+                        {
+                            int rankIndex = score / pointsPerRank;
+                            int remainderInRank = score % pointsPerRank;
+                            int partIndex = remainderInRank / pointsPerPart; // 0..2
+                            rank = $"{orderedRanks[rankIndex]} {partIndex + 1}";
+                        }
+                        else if (score < totalBeforeAI + 1000)
+                        {
+                            rank = "AI";
+                        }
+                        else
+                        {
+                            rank = "AI";
+                        }
+
+                        player["rank"] = rank;
+                    }
+                }
 
                 return Ok(new
                 {
                     Message = "Leaderboard list fetched successfully",
-                    Data = leaderBoardList // Return the leaderboard list as parsed JSON
+                    Data = leaderBoardList
                 });
             }
             catch (JsonException ex)
@@ -57,6 +87,7 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Error parsing leaderboard JSON", Exception = ex.Message });
             }
         }
+
 
     }
 }

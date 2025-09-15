@@ -14,7 +14,7 @@ namespace SignalRGame.Hubs
             
             if (serverResponse == "error")
             {
-                await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "Invalid token." });
+                await Clients.Caller.SendAsync("customRoomCreated", new { roomId = "", team = "", error = true, errorMessage = "Invalid token." });
                 return;
             }
 
@@ -23,13 +23,13 @@ namespace SignalRGame.Hubs
 
             if (!await _isSubscribedService.isSubscribedAsync(authorization))
             {
-                await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "User is not subscribed." });
+                await Clients.Caller.SendAsync("customRoomCreated", new { roomId = "", team = "", error = true, errorMessage = "User is not subscribed." });
                 return;
             }
 
             if (UserRoomMapping.ContainsKey(userId.ToString()))
             {
-                await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "User already has a room." });
+                await Clients.Caller.SendAsync("customRoomCreated", new { roomId = "", team = "", error = true, errorMessage = "User already has a room." });
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace SignalRGame.Hubs
 
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
 
-            await Clients.Caller.SendAsync("roomCreated", new { roomId = roomId, team = "Blue", error = false, errorMessage = "" });
+            await Clients.Caller.SendAsync("customRoomCreated", new { roomId = roomId, team = "Blue", error = false, errorMessage = "" });
         }
     }
 }

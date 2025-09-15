@@ -26,17 +26,52 @@ namespace BackEnd.middlewareService.Controllers
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Call the GetFriendsListAsync function with the userId from the request
             string result = await _friendsService.GetFriendsListAsync(token);
 
-            if (result == "error")
+            if (result == "error" || result.StartsWith("Exception"))
             {
                 return BadRequest("Error retrieving friends list.");
             }
 
             try
             {
-                var friendsList = JsonSerializer.Deserialize<object>(result);
+                var friendsList = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(result);
+
+                string[] orderedRanks = new[] { "Abyssal", "ICY", "Stone", "Copper", "Bronze", "Iron", "Classical", "Modern", "Contemporary" };
+                int pointsPerPart = 100;
+                int partsPerRank = 3;
+                int pointsPerRank = pointsPerPart * partsPerRank; // 300
+                int totalBeforeAI = orderedRanks.Length * pointsPerRank; // 2700
+
+                foreach (var friend in friendsList)
+                {
+                    if (friend.ContainsKey("friend_score") &&
+                        int.TryParse(friend["friend_score"].ToString(), out int score))
+                    {
+                        string rank;
+                        if (score < 0)
+                        {
+                            rank = "NEWBIE";
+                        }
+                        else if (score < totalBeforeAI)
+                        {
+                            int rankIndex = score / pointsPerRank;
+                            int remainderInRank = score % pointsPerRank;
+                            int partIndex = remainderInRank / pointsPerPart; // 0..2
+                            rank = $"{orderedRanks[rankIndex]} {partIndex + 1}";
+                        }
+                        else if (score < totalBeforeAI + 1000)
+                        {
+                            rank = "AI";
+                        }
+                        else
+                        {
+                            rank = "AI";
+                        }
+
+                        friend["rank"] = rank;
+                    }
+                }
 
                 return Ok(new
                 {
