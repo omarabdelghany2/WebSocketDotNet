@@ -713,6 +713,212 @@ namespace SignalRGame.Services
 
         }
     
+
+
+
+
+        public async Task SendingGuestQuestions(string token,string roomId,ConcurrentDictionary<string, List<Question>> roomToQuestions,ConcurrentDictionary<string, Question> roomToCurrentQuestion,ConcurrentDictionary<string, Room> Rooms,int questionTime,ConcurrentDictionary<string, string> UserRoomMapping)
+        {
+            string winner = "";
+
+            if (!Rooms.TryGetValue(roomId, out var room))
+            {
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
+                return;
+            }
+
+            try
+            {
+                if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
+                {
+                    await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+                    return;
+                }
+
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    room.answersCount = 0;
+                    foreach (var participant in room.Participants)
+                        participant.answered = false;
+
+                    var currentQuestion = questions[i];
+                    roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+                    var rng = new Random();
+                    var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new
+                    {
+                        subCategory = currentQuestion.subCategory,
+                        questionTitle = currentQuestion.questionTitle,
+                        answers = answers
+                    });
+
+                    for (int j = questionTime; j >= 0; j--)
+                    {
+                        await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
+
+                        if (room.answersCount == room.Participants.Count)
+                            break;
+
+                        await Task.Delay(1000);
+                    }
+
+                    var blueTeam = room.Participants
+                        .Where(p => p.team == "Blue")
+                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                        .ToList();
+
+                    var redTeam = room.Participants
+                        .Where(p => p.team == "Red")
+                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                        .ToList();
+
+                    string roundWinner = "";
+                    if (room.blueTeamRoundScore > room.redTeamRoundScore)
+                    {
+                        room.blueTeamScore += 100;
+                        roundWinner = "blue";
+                    }
+                    else if (room.blueTeamRoundScore < room.redTeamRoundScore)
+                    {
+                        room.redTeamScore += 100;
+                        roundWinner = "red";
+                    }
+                    else if (room.blueTeamRoundScore == 0 && room.redTeamRoundScore == 0)
+                    {
+                        roundWinner = "NegativeDraw";
+                    }
+                    else
+                    {
+                        room.redTeamScore += 100;
+                        room.blueTeamScore += 100;
+                        roundWinner = "PositiveDraw";
+                    }
+
+                    room.blueTeamRoundScore = 0;
+                    room.redTeamRoundScore = 0;
+
+                    await _hubContext.Clients.Group(roomId).SendAsync("countDownComplete", new
+                    {
+                        questioIndex = i + 1,
+                        correctAnswer = currentQuestion.correctAnswer,
+                        blueTeam,
+                        redTeam,
+                        blueTeamScore = room.blueTeamScore,
+                        redTeamScore = room.redTeamScore,
+                        roundWinner
+                    });
+
+                    await Task.Delay(1000);
+                    roomToCurrentQuestion.TryRemove(roomId, out _);
+                }
+
+                // Determine final winner
+                if (room.blueTeamScore > room.redTeamScore)
+                    winner = "Blue";
+                else if (room.blueTeamScore < room.redTeamScore)
+                    winner = "Red";
+                else
+                    winner = "Draw";
+
+
+
+
+                    //ADD THE SCORES OF THE WINNERS AND MINUS THE SCORES OF THE LOSERS
+
+                    if(winner=="Red"){
+
+                        foreach (var participant in room.Participants)
+                        {
+                            if (participant.team == "Red")
+                            {
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 10 + scaledBonus;
+                                participant.gameScore += 10;
+                            }
+                            else if (participant.team == "Blue")
+                            {
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score -= (10 + scaledBonus);
+                                participant.gameScore -= 10;
+                                if(participant.score<0){
+                                    participant.score=0;
+                                }
+                            }
+                        }
+
+                    }
+
+                    else if(winner=="Blue"){
+
+                        foreach (var participant in room.Participants)
+                        {
+                            if (participant.team == "Blue")
+                            {
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 10 + scaledBonus;
+                                participant.gameScore += 10;
+                            }
+                            else if (participant.team == "Red")
+                            {
+                                 int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                 int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                 participant.score -= (10 + scaledBonus);
+                                 participant.gameScore -= 10;
+                                if(participant.score<0){
+                                    participant.score=0;
+                                }
+                            }
+                        }
+
+                    }
+
+
+                    else{
+
+                        foreach (var participant in room.Participants)
+                        {
+                                int totalWindow = Math.Max(1, questions.Count * questionTime);
+                                int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+                                participant.score += 5 + scaledBonus;
+                                participant.gameScore += 5;
+
+                        }
+
+                    }
+
+                var participantsData = room.Participants.ToDictionary(
+                    p => Convert.ToInt32(p.userId),
+                    p => new
+                    {
+                        gameScore = p.gameScore,
+                        score = p.score,
+                        team = p.team
+                    });
+
+                await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
+                {
+                    winner,
+                    stats = participantsData
+                });
+
+                // ✅ Cleanup memory (same as classic)
+                roomToQuestions.TryRemove(roomId, out _);
+                Rooms.TryRemove(roomId, out _);
+                UserRoomMapping.TryRemove(room.Host.userId, out _);
+                Console.WriteLine($"Custom game finished and cleaned up: Room {roomId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SendingCustomQuestions: {ex.Message}");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the custom game.");
+            }
+        }
+
     
     }
 }

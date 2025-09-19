@@ -24,6 +24,8 @@ builder.Services.AddSingleton<userIdFromProfileNameService>();
 builder.Services.AddSingleton<isSubscribedService>();
 builder.Services.AddSingleton<afkPlayerService>(); 
 builder.Services.AddSingleton<CustomRoomsService>();
+builder.Services.AddSingleton<GuestRoomService>();
+
 
 
 

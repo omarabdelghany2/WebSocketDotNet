@@ -36,13 +36,14 @@ namespace SignalRGame.Hubs
         private readonly isSubscribedService _isSubscribedService;
         private readonly afkPlayerService _afkPlayerService;
         private readonly CustomRoomsService _customRoomsService;
+        private readonly GuestRoomService _guestRoomService;
 
         string globalNews="";
         
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService, afkPlayerService AfkPlayerService, CustomRoomsService customRoomsService)
+        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService, afkPlayerService AfkPlayerService, CustomRoomsService customRoomsService,GuestRoomService guestRoomService)
         {
                     // Add questions directly to the dictionary
 
@@ -56,6 +57,8 @@ namespace SignalRGame.Hubs
             _isSubscribedService=IsSubscribedService;
             _afkPlayerService=AfkPlayerService;
             _customRoomsService=customRoomsService;
+
+            _guestRoomService=guestRoomService;
         }
 
 
