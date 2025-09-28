@@ -28,7 +28,7 @@ namespace BackEnd.middlewareService.Controllers
             _httpClient = httpClient;
             _ForgetPsswordService = forgetPassword;             //this is how we use TokenValidator 
         }
-        public void SendEmail(string subject, string body, string senderEmail, string senderPassword, string receiverEmail)
+        private void SendEmail(string subject, string body, string senderEmail, string senderPassword, string receiverEmail)
             {
                 try
                 {

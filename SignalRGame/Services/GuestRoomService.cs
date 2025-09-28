@@ -17,10 +17,9 @@ namespace SignalRGame.Services
 
         public async Task<List<Question>> GetGuestRoomQuestionsAsync()
         {
-            var url = "http://127.0.0.1:8004/api/guest-room/";
+            var url = "http://127.0.0.1:8004/api/core/guest-mode-questions/";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
-            // 🚫 Guest mode does not use Authorization
             var response = await _httpClient.SendAsync(request);
             if (!response.IsSuccessStatusCode)
             {
@@ -33,10 +32,21 @@ namespace SignalRGame.Services
                 PropertyNameCaseInsensitive = true
             };
 
-            // API returns a raw list of questions
-            var questions = JsonSerializer.Deserialize<List<Question>>(json, options);
+            // Deserialize into wrapper, then pull "results"
+            var apiResponse = JsonSerializer.Deserialize<QuestionApiResponse>(json, options);
 
-            return questions ?? new List<Question>();
+            return apiResponse?.Results ?? new List<Question>();
         }
+
+
+        public class QuestionApiResponse
+            {
+                public int Count { get; set; }
+                public string Next { get; set; }
+                public string Previous { get; set; }
+                public List<Question> Results { get; set; }
+            }
+
+
     }
 }

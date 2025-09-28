@@ -6,11 +6,18 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+
+
+
+using System.Text.Json;
+
+using System.Text.Json.Serialization;
+
 namespace SignalRGame.Hubs
 {
     public partial class GameHub : Hub
     {
-        // ---- START GUEST GAME ----
+        
         public async Task startGuestGame(string roomId)
         {
             if (!Rooms.TryGetValue(roomId, out var room))
@@ -25,15 +32,6 @@ namespace SignalRGame.Hubs
                 return;
             }
 
-            // Add bots
-            var bot1 = new Player { userId = "bot1", team = "Blue", profileName = "Bot 1", score = 100, isBot = true };
-            var bot2 = new Player { userId = "bot2", team = "Red", profileName = "Bot 2", score = 200, isBot = true };
-            var bot3 = new Player { userId = "bot3", team = "Red", profileName = "Bot 3", score = 300, isBot = true };
-
-            room.Participants.Add(bot1);
-            room.Participants.Add(bot2);
-            room.Participants.Add(bot3);
-
             room.inGame = true;
             room.questionTime = 10; // Default guest question time
 
@@ -42,8 +40,25 @@ namespace SignalRGame.Hubs
                 player.inGame = true;
             }
 
-            // Get default guest questions
-            var questions = await _guestRoomService.GetGuestRoomQuestionsAsync();
+            // 🔹 Get questions from service
+            List<Question> questions = await _guestRoomService.GetGuestRoomQuestionsAsync();
+
+            // 🔹 Ensure correctAnswer is set & strip is_correct
+            foreach (var q in questions)
+            {
+                var correctAnswer = q.answers.FirstOrDefault(a => a.is_correct);
+                if (correctAnswer != null)
+                {
+                    q.correctAnswer = correctAnswer.answerText;
+                }
+
+                foreach (var a in q.answers)
+                {
+                    a.is_correct = false; // hide correctness info
+                }
+            }
+
+            // 🔹 Save to dictionary
             RoomToQuestions[roomId] = questions;
 
             // Countdown
@@ -53,11 +68,38 @@ namespace SignalRGame.Hubs
                 await Task.Delay(1000);
             }
 
-            await Clients.Group(roomId).SendAsync("gameStarted", new { error = false, errorMessage = "", questionsCount = questions.Count });
+            await Clients.Group(roomId).SendAsync("gameStarted", new
+            {
+                error = false,
+                errorMessage = "",
+                questionsCount = questions.Count
+            });
 
-            // Start sending questions
+            // Start sending questions in the background
             _ = Task.Run(() =>
                 _gameService.SendingGuestQuestions("guest", roomId, RoomToQuestions, RoomToCurrentQuestion, Rooms, room.questionTime, UserRoomMapping));
         }
+
+
+
+
+
+
+public class QuestionApiResponse
+{
+    [JsonPropertyName("count")]
+    public int Count { get; set; }
+
+    [JsonPropertyName("next")]
+    public string Next { get; set; }
+
+    [JsonPropertyName("previous")]
+    public string Previous { get; set; }
+
+    [JsonPropertyName("results")]
+    public List<Question> Results { get; set; }
+}
+
+
     }
 }

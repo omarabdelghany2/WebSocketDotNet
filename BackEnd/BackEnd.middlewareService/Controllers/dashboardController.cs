@@ -27,14 +27,14 @@ namespace BackEnd.middlewareService.Controllers
         private readonly insertQuestionsSerivce _insertQuestionsSerivce;
 
         public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger,
-            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe ,numberOfSubscriptionsFromTokenService subscriptions ,insertQuestionsSerivce insertQuestions )
+            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe, numberOfSubscriptionsFromTokenService subscriptions, insertQuestionsSerivce insertQuestions)
         {
             _TokenValidator = tokenValidator;
             _logger = logger;
             _numberOfUsersFromTokenService = numberOfUsers;
             _getMonthsSubscriptionsService = monthlySubscribe;
-            _numberOfSubscriptionsFromTokenService=subscriptions;
-            _insertQuestionsSerivce =insertQuestions;
+            _numberOfSubscriptionsFromTokenService = subscriptions;
+            _insertQuestionsSerivce = insertQuestions;
             InitializeSignalRConnection(); // Initialize SignalR connection on controller creation
         }
 
@@ -134,7 +134,7 @@ namespace BackEnd.middlewareService.Controllers
                             numberOfOnlineUsers = numberOfOnlineUsers,
                             totalUsers = serializedResponce.totalUsers,
                             numberOfOfflineUsers = serializedResponce.totalUsers - numberOfOnlineUsers,
-                            totalSubsctiptions=thirdSerializedResponce.totalSubscriptions,
+                            totalSubsctiptions = thirdSerializedResponce.totalSubscriptions,
                             monthlySubscriptions = secondSerializedResponce?.Select(subscription => new
                             {
                                 month = subscription.month,
@@ -258,10 +258,61 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
+        // [HttpPost("dashboard/insert-question")]
+        // [Consumes("multipart/form-data")]
+        // public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file, [FromHeader] string Authorization)
+        // {
+        //     if (string.IsNullOrWhiteSpace(Authorization) || !Authorization.StartsWith("Bearer "))
+        //     {
+        //         return BadRequest(new
+        //         {
+        //             Message = "Authorization header is missing or invalid.",
+        //             Status = "Error"
+        //         });
+        //     }
+
+        //     var token = Authorization.Substring("Bearer ".Length).Trim();
+        //     string validationResult = await _TokenValidator.ValidateTokenAsync(token);
+        //     Console.WriteLine(token);
+
+        //     if (validationResult == "error")
+        //     {
+        //         return Unauthorized(new
+        //         {
+        //             Message = "You are not authorized to get the accessToken list."
+
+        //         });
+        //     }
+
+        //     if (file == null || file.Length == 0)
+        //     {
+        //         return BadRequest(new
+        //         {
+        //             Message = "File is required."
+
+        //         });
+        //     }
+
+        //     // Call the function to send the file to another server
+        //     string response = await _insertQuestionsSerivce.insertQuestion(file, token);
+        //     if (response == "error")
+        //     {
+        //         return BadRequest(new { Message = "error from database." });
+        //     }
+        //     return Ok(new
+        //     {
+        //         Message = "File sent successfully."
+        //     });
+        // }
+        
+
         [HttpPost("dashboard/insert-question")]
-        public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file, [FromHeader] string Authorization)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> InsertQuestion([FromForm] InsertQuestionRequest request)
         {
-            if (string.IsNullOrWhiteSpace(Authorization) || !Authorization.StartsWith("Bearer "))
+            var authorization = HttpContext.Request.Headers["Authorization"].ToString();
+
+            if (string.IsNullOrWhiteSpace(authorization) || !authorization.StartsWith("Bearer "))
             {
                 return BadRequest(new
                 {
@@ -270,39 +321,43 @@ namespace BackEnd.middlewareService.Controllers
                 });
             }
 
-            var token = Authorization.Substring("Bearer ".Length).Trim();
+            var token = authorization.Substring("Bearer ".Length).Trim();
             string validationResult = await _TokenValidator.ValidateTokenAsync(token);
-            Console.WriteLine(token);
 
             if (validationResult == "error")
             {
                 return Unauthorized(new
                 {
                     Message = "You are not authorized to get the accessToken list."
-
                 });
             }
 
-            if (file == null || file.Length == 0)
+            if (request.File == null || request.File.Length == 0)
             {
-                return BadRequest(new
-                {
-                    Message = "File is required."
-
-                });
+                return BadRequest(new { Message = "File is required." });
             }
 
-            // Call the function to send the file to another server
-            string response = await _insertQuestionsSerivce.insertQuestion(file, token);
+            string response = await _insertQuestionsSerivce.insertQuestion(request.File, token);
+
             if (response == "error")
             {
                 return BadRequest(new { Message = "error from database." });
             }
-            return Ok(new
-            {
-                Message = "File sent successfully."
-            });
+
+            return Ok(new { Message = "File sent successfully." });
         }
+
+
+        public class InsertQuestionRequest
+        {
+            [FromForm(Name = "file")]
+            public IFormFile File { get; set; }
+        }
+
+
+
+
+
 
 
     }

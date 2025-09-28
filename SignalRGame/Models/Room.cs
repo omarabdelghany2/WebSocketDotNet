@@ -11,6 +11,8 @@ namespace SignalRGame.Models
         public int redTeamRoundScore=0;
 
         public int questionTime=0;
+                // ✅ Add Mode
+        public string Mode { get; set; } = "default";
 
         public int answersCount=0;
         public bool publicRoom=false;
