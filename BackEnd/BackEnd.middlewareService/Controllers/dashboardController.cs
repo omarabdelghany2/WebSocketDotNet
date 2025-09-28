@@ -220,7 +220,11 @@ namespace BackEnd.middlewareService.Controllers
             try
             {
                 await _hubConnection.SendAsync("updateNews", request);
-                return Ok(request.news);
+
+                return Ok(new
+                {
+                    news = request.news,
+                });
             }
             catch (Exception ex)
             {

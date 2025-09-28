@@ -788,7 +788,7 @@ public async Task SendingQuestionsMode4(
 
             var questionPayload = new
             {
-                questionText = currentQuestion.questionTitle,
+                questionTitle = currentQuestion.questionTitle,
                 answers = answers
             };
 
@@ -865,7 +865,7 @@ public async Task SendingQuestionsMode4(
         };
 
         Console.WriteLine($"[SEND] gameEnd => {System.Text.Json.JsonSerializer.Serialize(gameEndPayload)}");
-        await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", gameEndPayload);
+        await _hubContext.Clients.Group(roomId).SendAsync("gameEndMode4", gameEndPayload);
 
         // cleanup
         roomToQuestions.TryRemove(roomId, out _);
@@ -1077,7 +1077,7 @@ public async Task SendingQuestionsMode4(
                         team = p.team
                     });
 
-                await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
+                await _hubContext.Clients.Group(roomId).SendAsync("gameEndMode4", new
                 {
                     winner,
                     stats = participantsData

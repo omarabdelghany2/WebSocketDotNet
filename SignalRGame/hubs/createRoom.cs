@@ -77,7 +77,8 @@ namespace SignalRGame.Hubs
                     score = profile?.score ?? 0  // Default to 0 if profileScore is null
                 }
             },
-            publicRoom=true  //make it private room as default
+            publicRoom=true , //make it private room as default
+            Mode = "mode1"
         };
 
         // Console.WriteLine("here i want to detectttttttttttttttttttttttttt");

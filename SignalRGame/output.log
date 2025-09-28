@@ -15,17 +15,17 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 107.5378ms - 200
+      Received HTTP response headers after 80.5887ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 131.4333ms - 200
+      End processing HTTP request after 117.8999ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 36.0715ms - 200
+      Received HTTP response headers after 76.6476ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 36.9251ms - 200
+      End processing HTTP request after 76.8354ms - 200
 sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
@@ -33,19 +33,206 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.9631ms - 200
+      Received HTTP response headers after 59.9999ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 65.7862ms - 200
-4
+      End processing HTTP request after 60.1905ms - 200
+10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 81.302ms - 200
+      Received HTTP response headers after 75.7672ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 82.3081ms - 200
-Friend ID: 10, Profile Name: aaaa, Score: -298
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
+      End processing HTTP request after 75.9304ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -3468
 Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
 Friend ID: 6, Profile Name: omarillo, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 41.6116ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 42.0551ms - 200
+Friend ID: 4, Profile Name: Markizz0, Score: -3468
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 25.197ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 25.4039ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 84.0303ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 84.21ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.0513ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.2633ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 4, Profile Name: Markizz0, Score: -3468
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 87.587ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 87.7423ms - 200
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+Friend ID: 4, Profile Name: Markizz0, Score: -3468
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 37.5071ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 37.7878ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://127.0.0.1:8004/api/core/guest-mode-questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://127.0.0.1:8004/api/core/guest-mode-questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 48.5268ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 48.9468ms - 200
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered correctly!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered correctly!
+Bot 3 answered correctly!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered correctly!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered correctly!
+entered guest answer 
+ca5de6c0-56e1-499b-92cc-16677db6752f
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered correctly!
+Custom game finished and cleaned up: Room 16940920-9503-4d17-87b9-fb6451faea78
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://127.0.0.1:8004/api/core/guest-mode-questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://127.0.0.1:8004/api/core/guest-mode-questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 46.2553ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.4155ms - 200
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered correctly!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered correctly!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered correctly!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+Bot 1 answered wrong!
+Bot 2 answered wrong!
+Bot 3 answered wrong!
+entered guest answer 
+28ff34fb-4810-437c-81f1-70f30675d6b4
+answered before 
+Custom game finished and cleaned up: Room a9d6baa0-7c8e-4ee3-a0e9-e8f4d2efc9c0

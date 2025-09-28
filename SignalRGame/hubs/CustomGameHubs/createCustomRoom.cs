@@ -55,7 +55,8 @@ namespace SignalRGame.Hubs
                         score = profile?.score ?? 0
                     }
                 },
-                publicRoom = false
+                publicRoom = false,
+                Mode= "mode3",
             };
 
             Rooms[roomId] = room;

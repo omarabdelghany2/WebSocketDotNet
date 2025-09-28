@@ -54,7 +54,12 @@ namespace SignalRGame.Hubs
             if (LoginRoomMapping.TryGetValue(invitedUserId.ToString(), out var loginRoomConnectionId))
             {
                 // Send an invitation to the invited user's login room (using their user ID or token)
-                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new{roomId=roomId, inviterUserId=userId,profileName=profileName});
+                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new {
+                    roomId = roomId,
+                    inviterUserId = userId,
+                    profileName = profileName,
+                    mode = room.Mode // 👈 include Mode from the Room model
+                });
             }
             else
             {
