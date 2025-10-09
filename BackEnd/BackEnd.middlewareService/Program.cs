@@ -26,7 +26,8 @@ builder.Services.AddHttpClient<numberOfSubscriptionsFromTokenService>();
 builder.Services.AddHttpClient<insertQuestionsSerivce>();
 builder.Services.AddHttpClient<CustomRoomService>();
 builder.Services.AddHttpClient<StoreService>();
-
+builder.Services.AddHttpClient<ReportService>();
+builder.Services.AddHttpClient<ParagraphUploadService>();
 
 
 

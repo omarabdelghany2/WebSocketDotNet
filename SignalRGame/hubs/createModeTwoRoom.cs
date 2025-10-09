@@ -29,18 +29,22 @@ namespace SignalRGame.Hubs
             Console.WriteLine("didnt get the user id");
         }
 
-
+        if (serverResponse == "unauthorized")
+        {
+            await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+            return;
+        }
 
         //check if the user is Subscribed first
 
 
-            bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(Authorization);
+            // bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(Authorization);
 
-            if(subscriptionResponce!=true){
-            // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
-            Console.WriteLine("subscribedd notttt ");
-            return;
-            }
+            // if(subscriptionResponce!=true){
+            // // await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "The user is not subscribed" });
+            // Console.WriteLine("subscribedd notttt ");
+            // return;
+            // }
 
 
 

@@ -18,6 +18,11 @@ namespace SignalRGame.Hubs
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return null;
+            }
             if (serverResponse == "error")
             {
                 await Clients.Caller.SendAsync("invitationAccepted", new
@@ -97,6 +102,7 @@ namespace SignalRGame.Hubs
                 userId = Convert.ToInt32(userId),
                 team = team,
                 profileName = profile?.profileName,
+                rank= newPlayer.rank,
                 score = profile?.score
             });
 
@@ -114,7 +120,8 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.score,
+                        score = p.score,
+                        rank = p.rank,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 blue = room.Participants
@@ -124,12 +131,14 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.score,
+                        score = p.score,
+                        rank = p.rank,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
-                roomId=roomId,    
+                roomId = roomId,
                 error = false,
-                errorMessage = ""
+                errorMessage = "",
+                mode = room.Mode,
             });
 
             

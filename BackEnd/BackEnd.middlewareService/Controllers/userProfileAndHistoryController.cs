@@ -24,6 +24,7 @@ namespace BackEnd.middlewareService.Controllers
             _userProfileService = userprofile;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetUserProfile([FromHeader] string Authorization)
         {
@@ -49,7 +50,7 @@ namespace BackEnd.middlewareService.Controllers
                 // Extract score
                 int score = root.GetProperty("score").GetInt32();
 
-                // Rank logic: each rank has 3 parts of 100 points (except AI has 1000)
+                // Rank logic
                 string[] orderedRanks = new[] { "Abyssal", "ICY", "Stone", "Copper", "Bronze", "Iron", "Classical", "Modern", "Contemporary" };
                 int pointsPerPart = 100;
                 int partsPerRank = 3;
@@ -74,178 +75,149 @@ namespace BackEnd.middlewareService.Controllers
                 }
                 else
                 {
-                    // If above AI cap, stay at AI
                     rank = "AI";
                 }
 
-                // Deserialize profile into a dictionary so we can add rank
+                // Deserialize profile into dictionary
                 var profile = JsonSerializer.Deserialize<Dictionary<string, object>>(result);
                 profile["rank"] = rank;
+
+                // Extract owned achievements from API response
+                var ownedAchievements = root.GetProperty("achievements")
+                    .EnumerateArray()
+                    .Select(a => a.GetProperty("name").GetString()?.Trim().ToLowerInvariant())
+                    .Where(n => !string.IsNullOrEmpty(n))
+                    .ToHashSet();
+
+            
+                // Predefined achievements (now with description)
+                var allAchievements = new List<object>
+                {
+                    new { name = "First Classic Match", iconUrl = "/images/achievements/first_classic.png", description = "Play your very first Classic mode match." },
+                    new { name = "Classic Winner x10", iconUrl = "/images/achievements/classic_winner_10.png", description = "Win 10 Classic matches." },
+                    new { name = "Classic Winner x30", iconUrl = "/images/achievements/classic_winner_30.png", description = "Win 30 Classic matches." },
+                    new { name = "Classic Winner x60", iconUrl = "/images/achievements/classic_winner_60.png", description = "Win 60 Classic matches." },
+                    new { name = "Classic Winner x90", iconUrl = "/images/achievements/classic_winner_90.png", description = "Win 90 Classic matches." },
+                    new { name = "Classic Winner 3 Consecutive", iconUrl = "/images/achievements/classic_winner_3.png", description = "Win 3 Classic matches in a row." },
+                    new { name = "Classic Winner 5 Consecutive", iconUrl = "/images/achievements/classic_winner_5.png", description = "Win 5 Classic matches in a row." },
+                    new { name = "Classic Winner 7 Consecutive", iconUrl = "/images/achievements/classic_winner_7.png", description = "Win 7 Classic matches in a row." },
+                    new { name = "First Millionaire Match", iconUrl = "/images/achievements/first_millionaire.png", description = "Play your very first Millionaire mode match." },
+                    new { name = "Millionaire Winner x10", iconUrl = "/images/achievements/millionaire_winner_10.png", description = "Win 10 Millionaire matches." },
+                    new { name = "Millionaire Winner x30", iconUrl = "/images/achievements/millionaire_winner_30.png", description = "Win 30 Millionaire matches." },
+                    new { name = "Millionaire Winner x60", iconUrl = "/images/achievements/millionaire_winner_60.png", description = "Win 60 Millionaire matches." },
+                    new { name = "Millionaire Winner x90", iconUrl = "/images/achievements/millionaire_winner_90.png", description = "Win 90 Millionaire matches." },
+                    new { name = "Millionaire Winner 3 Consecutive", iconUrl = "/images/achievements/millionaire_winner_3.png", description = "Win 3 Millionaire matches in a row." },
+                    new { name = "Millionaire Winner 5 Consecutive", iconUrl = "/images/achievements/millionaire_winner_5.png", description = "Win 5 Millionaire matches in a row." },
+                    new { name = "Millionaire Winner 7 Consecutive", iconUrl = "/images/achievements/millionaire_winner_7.png", description = "Win 7 Millionaire matches in a row." }
+                };
+
+                // Merge with ownership
+                var achievementsWithOwnership = allAchievements
+                    .Select(a => new
+                    {
+                        name = (string)a.GetType().GetProperty("name").GetValue(a),
+                        iconUrl = (string)a.GetType().GetProperty("iconUrl").GetValue(a),
+                        description = (string)a.GetType().GetProperty("description").GetValue(a),
+                        owned = ownedAchievements.Contains(
+                            ((string)a.GetType().GetProperty("name").GetValue(a)).Trim().ToLowerInvariant()
+                        )
+                    })
+                    .ToList();
+
+                // ✅ Overwrite "achievements" in profile
+                profile["achievements"] = achievementsWithOwnership;
 
                 return Ok(new
                 {
                     Message = "Profile fetched successfully",
                     Data = profile
                 });
+
+
             }
             catch (JsonException ex)
             {
-                return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
+                return BadRequest($"Invalid JSON format: {ex.Message}");
             }
         }
 
 
 
+        // [HttpGet("classic-mode-history")]
+        // public async Task<IActionResult> GetUserClassicModeHistory([FromHeader] string Authorization)
+        // {
+        //     if (string.IsNullOrEmpty(Authorization))
+        //     {
+        //         return BadRequest("Token is required.");
+        //     }
+        //     var token = Authorization.Substring("Bearer ".Length).Trim();
 
-        [HttpGet("classic-mode-history")]
-        public async Task<IActionResult> GetUserClassicModeHistory([FromHeader] string Authorization)
-        {
-            if (string.IsNullOrEmpty(Authorization))
-            {
-                return BadRequest("Token is required.");
-            }
-            var token = Authorization.Substring("Bearer ".Length).Trim();
+        //     // Call the GetUserProfileAsync function to fetch the friends list
+        //     string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
 
-            // Call the GetUserProfileAsync function to fetch the friends list
-            string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
+        //     if (result == "error")
+        //     {
+        //         return BadRequest("Error retrieving friends list.");
+        //     }
 
-            if (result == "error")
-            {
-                return BadRequest("Error retrieving friends list.");
-            }
+        //     try
+        //     {
+        //         // Parse the JSON response into a more readable format
+        //         var profile = JsonSerializer.Deserialize<ClassicGame>(result);
 
-            try
-            {
-                // Parse the JSON response into a more readable format
-                var profile = JsonSerializer.Deserialize<ClassicGame>(result);
-
-                return Ok(new
-                {
-                    Message = "profile classic mode history fetched successfully",
-                    Data = profile // Return the friends list as parsed JSON
-                });
-            }
-            catch (JsonException ex)
-            {
-                return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
-            }
-        }
-
+        //         return Ok(new
+        //         {
+        //             Message = "profile classic mode history fetched successfully",
+        //             Data = profile // Return the friends list as parsed JSON
+        //         });
+        //     }
+        //     catch (JsonException ex)
+        //     {
+        //         return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
+        //     }
+        // }
 
 
 
 
-        [HttpGet("millionaire-mode-history")]
-        public async Task<IActionResult> GetUserMillionaireModeHistory([FromHeader] string Authorization)
-        {
-            if (string.IsNullOrEmpty(Authorization))
-            {
-                return BadRequest("Token is required.");
-            }
-            var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            // Call the GetUserProfileAsync function to fetch the friends list
-            string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
+        // [HttpGet("millionaire-mode-history")]
+        // public async Task<IActionResult> GetUserMillionaireModeHistory([FromHeader] string Authorization)
+        // {
+        //     if (string.IsNullOrEmpty(Authorization))
+        //     {
+        //         return BadRequest("Token is required.");
+        //     }
+        //     var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            if (result == "error")
-            {
-                return BadRequest("Error retrieving friends list.");
-            }
+        //     // Call the GetUserProfileAsync function to fetch the friends list
+        //     string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
 
-            try
-            {
-                // Parse the JSON response into a more readable format
-                var profile = JsonSerializer.Deserialize<MillionaireGame>(result);
+        //     if (result == "error")
+        //     {
+        //         return BadRequest("Error retrieving friends list.");
+        //     }
 
-                return Ok(new
-                {
-                    Message = "profile classic mode history fetched successfully",
-                    Data = profile // Return the friends list as parsed JSON
-                });
-            }
-            catch (JsonException ex)
-            {
-                return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
-            }
-        }
+        //     try
+        //     {
+        //         // Parse the JSON response into a more readable format
+        //         var profile = JsonSerializer.Deserialize<MillionaireGame>(result);
+
+        //         return Ok(new
+        //         {
+        //             Message = "profile classic mode history fetched successfully",
+        //             Data = profile // Return the friends list as parsed JSON
+        //         });
+        //     }
+        //     catch (JsonException ex)
+        //     {
+        //         return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
+        //     }
+        // }
  
 
 
 
-        [HttpGet("combined-history")]
-        public async Task<IActionResult> GetCombinedGameHistory([FromHeader] string Authorization)
-        {
-            if (string.IsNullOrEmpty(Authorization))
-            {
-                return BadRequest("Token is required.");
-            }
-
-            var token = Authorization.Substring("Bearer ".Length).Trim();
-
-            var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
-            var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
-
-            await Task.WhenAll(classicTask, millionaireTask);
-
-            if (classicTask.Result == "error" || millionaireTask.Result == "error")
-            {
-                return BadRequest("Error retrieving game history.");
-            }
-
-            try
-            {
-                var classicGames = JsonSerializer.Deserialize<ClassicGame>(classicTask.Result);
-                var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(millionaireTask.Result);
-
-                var mergedHistory = new List<MergedGameEntry>();
-
-            if (classicGames?.Results != null)
-            {
-                mergedHistory.AddRange(classicGames.Results.Select(c => new MergedGameEntry
-                {
-                    gameMode = "Classic",
-                    createdAt = c.CreatedAt.ToString("yyyy/MM/dd"),
-                    data = new
-                    {
-                        id = c.Id,
-                        winnerTeam = c.WinnerTeam?.Color.Equals("red", StringComparison.OrdinalIgnoreCase) == true ? "Red" :
-                                    c.WinnerTeam?.Color.Equals("blue", StringComparison.OrdinalIgnoreCase) == true ? "Blue" : "",
-                        members = c.Teams?.Sum(t => t.NumberOfMembers) ?? 0
-                    }
-                }));
-            }
-
-            if (millionaireGames?.Results != null)
-            {
-                mergedHistory.AddRange(millionaireGames.Results.Select(m => new MergedGameEntry
-                {
-                    gameMode = "Millionaire",
-                    createdAt = m.CreatedAt.ToString("yyyy/MM/dd"),
-                    data = new
-                    {
-                        id = m.Id,
-                        winnerTeam = m.Score.ToString(),
-                        members = 1
-                    }
-                }));
-            }
-
-
-
-
-                var ordered = mergedHistory.OrderByDescending(g => g.createdAt).ToList();
-
-                return Ok(new
-                {
-                    Message = "Combined game history fetched successfully",
-                    Data = ordered
-                });
-            }
-            catch (JsonException ex)
-            {
-                return StatusCode(500, new { Message = "Error parsing JSON", Exception = ex.Message });
-            }
-        }
 
         public class MergedGameEntry
         {
@@ -367,7 +339,93 @@ namespace BackEnd.middlewareService.Controllers
 
             [JsonPropertyName("player")]
             public int Player { get; set; }
-        }  
-    
+        }
+
+        [HttpGet("combined-history")]
+        public async Task<IActionResult> GetCombinedHistory([FromHeader] string Authorization)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return BadRequest("Token is required.");
+            }
+            var token = Authorization.Substring("Bearer ".Length).Trim();
+
+            try
+            {
+                // Get all histories in parallel
+                var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
+                var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
+                var customTask = _userProfileService.GetUserCustomGameHistoryAsync(token);
+
+                await Task.WhenAll(classicTask, millionaireTask, customTask);
+
+                var classicGames = JsonSerializer.Deserialize<ClassicGame>(await classicTask);
+                var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(await millionaireTask);
+                var customGames = JsonSerializer.Deserialize<ClassicGame>(await customTask); // Using same model as classic games
+
+                // Combine all games into one response
+                var combinedGames = new List<object>();
+
+                // Add classic games
+                foreach (var game in classicGames.Results)
+                {
+                    combinedGames.Add(new
+                    {
+                        type = "classic",
+                        game
+                    });
+                }
+
+                // Add millionaire games
+                foreach (var game in millionaireGames.Results)
+                {
+                    combinedGames.Add(new
+                    {
+                        type = "millionaire",
+                        game
+                    });
+                }
+
+                // Add custom games
+                foreach (var game in customGames.Results)
+                {
+                    combinedGames.Add(new
+                    {
+                        type = "custom",
+                        game
+                    });
+                }
+
+                // Sort all games by creation date, newest first
+                var sortedGames = combinedGames.OrderByDescending(g => 
+                {
+                    if (g.GetType().GetProperty("game").GetValue(g) is Result r)
+                        return r.CreatedAt;
+                    if (g.GetType().GetProperty("game").GetValue(g) is MillionaireGameResult m)
+                        return m.CreatedAt;
+                    return DateTime.MinValue;
+                }).ToList();
+
+                return Ok(new
+                {
+                    Message = "Combined game history fetched successfully",
+                    Data = new
+                    {
+                        count = sortedGames.Count,
+                        next = (string)null,
+                        previous = (string)null,
+                        results = sortedGames
+                    }
+                });
+            }
+            catch (JsonException ex)
+            {
+                return StatusCode(500, new { Message = "Error parsing game history", Exception = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Error fetching game history", Exception = ex.Message });
+            }
+        }
     }
 }

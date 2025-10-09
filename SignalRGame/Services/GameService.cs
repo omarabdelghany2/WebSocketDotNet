@@ -17,11 +17,13 @@ namespace SignalRGame.Services
     {
         private readonly IHubContext<GameHub> _hubContext;
         private readonly HttpClient _httpClient;
-        public GameService(IHubContext<GameHub> hubContext, HttpClient httpClient)
+        private readonly AchievementService _achievementService; // ✅ Add this
+        public GameService(IHubContext<GameHub> hubContext, HttpClient httpClient, AchievementService achievementService)
         {
             _hubContext = hubContext;
 
             _httpClient = httpClient;
+            _achievementService = achievementService; // ✅ Save it for use
         }
 
         public async Task SendingQuestions(string token, string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions, ConcurrentDictionary<string, Question> roomToCurrentQuestion, ConcurrentDictionary<string, Room> Rooms, List<string> subCategories, int questionTime, ConcurrentDictionary<string, string> UserRoomMapping)
@@ -244,6 +246,7 @@ namespace SignalRGame.Services
                             gameScore = participant.gameScore,
                             score = participant.score, // Assuming 'score' is the same as 'gameScore'
                             team = participant.team,
+                            profilName=participant.profileName
                         });
 
                 await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new { winner = winner, stats = participantsData });
@@ -322,6 +325,8 @@ namespace SignalRGame.Services
                 if (saveResult)
                 {
                     Console.WriteLine("Game saved successfully. Now removing room...");
+                        // ✅ Detect achievements while the room is still available
+                        await _achievementService.DetectAchievementsForRoom(roomId);
                     roomToQuestions.TryRemove(roomId, out _);
                     Rooms.TryRemove(roomId, out _);
                     UserRoomMapping.TryRemove(room.Host.userId, out _);
@@ -346,176 +351,9 @@ namespace SignalRGame.Services
 
 
 
-        public async Task SendingCustomQuestions(string token, string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions, ConcurrentDictionary<string, Question> roomToCurrentQuestion, ConcurrentDictionary<string, Room> Rooms, int questionTime, ConcurrentDictionary<string, string> UserRoomMapping)
-        {
-            string winner = "";
 
-            if (!Rooms.TryGetValue(roomId, out var room))
-            {
-                await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
-                return;
-            }
 
-            try
-            {
-                if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
-                {
-                    await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
-                    return;
-                }
 
-                for (int i = 0; i < questions.Count; i++)
-                {
-                    room.answersCount = 0;
-                    foreach (var participant in room.Participants)
-                        participant.answered = false;
-
-                    var currentQuestion = questions[i];
-                    roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
-
-                    var rng = new Random();
-                    var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
-
-                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new
-                    {
-                        subCategory = currentQuestion.subCategory,
-                        questionTitle = currentQuestion.questionTitle,
-                        answers = answers
-                    });
-
-                    for (int j = questionTime; j >= 0; j--)
-                    {
-                        await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
-
-                        if (room.answersCount == room.Participants.Count)
-                            break;
-
-                        await Task.Delay(1000);
-                    }
-
-                    var blueTeam = room.Participants
-                        .Where(p => p.team == "Blue")
-                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
-                        .ToList();
-
-                    var redTeam = room.Participants
-                        .Where(p => p.team == "Red")
-                        .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
-                        .ToList();
-
-                    string roundWinner = "";
-                    if (room.blueTeamRoundScore > room.redTeamRoundScore)
-                    {
-                        room.blueTeamScore += 100;
-                        roundWinner = "blue";
-                    }
-                    else if (room.blueTeamRoundScore < room.redTeamRoundScore)
-                    {
-                        room.redTeamScore += 100;
-                        roundWinner = "red";
-                    }
-                    else if (room.blueTeamRoundScore == 0 && room.redTeamRoundScore == 0)
-                    {
-                        roundWinner = "NegativeDraw";
-                    }
-                    else
-                    {
-                        room.redTeamScore += 100;
-                        room.blueTeamScore += 100;
-                        roundWinner = "PositiveDraw";
-                    }
-
-                    room.blueTeamRoundScore = 0;
-                    room.redTeamRoundScore = 0;
-
-                    await _hubContext.Clients.Group(roomId).SendAsync("countDownComplete", new
-                    {
-                        questioIndex = i + 1,
-                        correctAnswer = currentQuestion.correctAnswer,
-                        blueTeam,
-                        redTeam,
-                        blueTeamScore = room.blueTeamScore,
-                        redTeamScore = room.redTeamScore,
-                        roundWinner
-                    });
-
-                    await Task.Delay(1000);
-                    roomToCurrentQuestion.TryRemove(roomId, out _);
-                }
-
-                // Determine final winner
-                if (room.blueTeamScore > room.redTeamScore)
-                    winner = "Blue";
-                else if (room.blueTeamScore < room.redTeamScore)
-                    winner = "Red";
-                else
-                    winner = "Draw";
-
-                // Update player scores based on winner
-                foreach (var participant in room.Participants)
-                {
-                    if (winner == "Red")
-                    {
-                        if (participant.team == "Red")
-                        {
-                            participant.score += 100 + participant.gameScore;
-                            participant.gameScore += 100;
-                        }
-                        else
-                        {
-                            participant.score -= 100 + participant.gameScore;
-                            participant.gameScore -= 100;
-                            if (participant.score < 0) participant.score = 0;
-                        }
-                    }
-                    else if (winner == "Blue")
-                    {
-                        if (participant.team == "Blue")
-                        {
-                            participant.score += 100 + participant.gameScore;
-                            participant.gameScore += 100;
-                        }
-                        else
-                        {
-                            participant.score -= 100 + participant.gameScore;
-                            participant.gameScore -= 100;
-                            if (participant.score < 0) participant.score = 0;
-                        }
-                    }
-                    else // Draw
-                    {
-                        participant.score += 50 + participant.gameScore;
-                        participant.gameScore += 50;
-                    }
-                }
-
-                var participantsData = room.Participants.ToDictionary(
-                    p => Convert.ToInt32(p.userId),
-                    p => new
-                    {
-                        gameScore = p.gameScore,
-                        score = p.score,
-                        team = p.team
-                    });
-
-                await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
-                {
-                    winner,
-                    stats = participantsData
-                });
-
-                // ✅ Cleanup memory (same as classic)
-                roomToQuestions.TryRemove(roomId, out _);
-                Rooms.TryRemove(roomId, out _);
-                UserRoomMapping.TryRemove(room.Host.userId, out _);
-                Console.WriteLine($"Custom game finished and cleaned up: Room {roomId}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in SendingCustomQuestions: {ex.Message}");
-                await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the custom game.");
-            }
-        }
 
 
         public async Task<bool> saveGameClassic(string token, string isPublic, string createdAt, List<string> categories, string mood, string hostId, List<object> teamInfo, List<string> subCategories)
@@ -541,6 +379,10 @@ namespace SignalRGame.Services
                     var responseContent = await databaseResponse.Content.ReadAsStringAsync();
                     return true;
                 }
+
+
+
+
                 else
                 {
                     // Log the error response
@@ -655,6 +497,8 @@ namespace SignalRGame.Services
                 if (saveResult)
                 {
                     Console.WriteLine("Game saved successfully. Now removing room...");
+                    // ✅ Detect achievements while the room is still available
+                    await _achievementService.DetectAchievementsForRoom(roomId);
                     roomToQuestionsModeTwo.TryRemove(roomId, out _);
                     Rooms.TryRemove(roomId, out _);
                     UserRoomMapping.TryRemove(room.Host.userId, out _);
@@ -709,6 +553,9 @@ namespace SignalRGame.Services
                     var responseContent = await databaseResponse.Content.ReadAsStringAsync();
                     return true;
                 }
+
+
+
                 else
                 {
                     // Log the error response
@@ -733,151 +580,151 @@ namespace SignalRGame.Services
 
 
 
-public async Task SendingQuestionsMode4(
-    string token,
-    string roomId,
-    ConcurrentDictionary<string, List<Question>> roomToQuestions,
-    ConcurrentDictionary<string, Question> roomToCurrentQuestion,
-    ConcurrentDictionary<string, Room> Rooms,
-    int questionTime,
-    ConcurrentDictionary<string, string> UserRoomMapping)
-{
-    string winner = "";
-
-    if (!Rooms.TryGetValue(roomId, out var room))
+    public async Task SendingQuestionsMode4(
+        string token,
+        string roomId,
+        ConcurrentDictionary<string, List<Question>> roomToQuestions,
+        ConcurrentDictionary<string, Question> roomToCurrentQuestion,
+        ConcurrentDictionary<string, Room> Rooms,
+        int questionTime,
+        ConcurrentDictionary<string, string> UserRoomMapping)
     {
-        Console.WriteLine($"[ERROR] Room {roomId} does not exist.");
-        await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
-        return;
-    }
+        string winner = "";
 
-    try
-    {
-        if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
+        if (!Rooms.TryGetValue(roomId, out var room))
         {
-            Console.WriteLine($"[ERROR] No questions available for room {roomId}.");
-            await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+            Console.WriteLine($"[ERROR] Room {roomId} does not exist.");
+            await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
             return;
         }
 
-        // passage countdown loop
-        for (int j = 5; j >= 0; j--)
+        try
         {
-            Console.WriteLine($"[SEND] PassageTimer => {{ timer = {j} }}");
-            await _hubContext.Clients.Group(roomId).SendAsync("PassageTimer", new { timer = j });
-            await Task.Delay(1000);
-        }
-
-        for (int i = 0; i < questions.Count; i++)
-        {
-            room.answersCount = 0;
-
-            // reset answered flag for all participants
-            foreach (var participant in room.Participants)
+            if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
             {
-                participant.answered = false;
+                Console.WriteLine($"[ERROR] No questions available for room {roomId}.");
+                await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+                return;
             }
 
-            // current question
-            var currentQuestion = questions[i];
-            roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
-
-            // shuffle answers
-            var rng = new Random();
-            var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
-
-            var questionPayload = new
+            // passage countdown loop
+            for (int j = 5; j >= 0; j--)
             {
-                questionTitle = currentQuestion.questionTitle,
-                answers = answers
-            };
-
-            Console.WriteLine($"[SEND] receiveQuestion => {System.Text.Json.JsonSerializer.Serialize(questionPayload)}");
-            await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", questionPayload);
-
-            // countdown loop
-            for (int j = questionTime; j >= 0; j--)
-            {
-                Console.WriteLine($"[SEND] timer => {{ timer = {j} }}");
-                await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
-
-                if (room.answersCount == room.Participants.Count)
-                {
-                    Console.WriteLine("[INFO] All players answered. Skipping timer.");
-                    break; // all players answered
-                }
-
+                Console.WriteLine($"[SEND] PassageTimer => {{ timer = {j} }}");
+                await _hubContext.Clients.Group(roomId).SendAsync("PassageTimer", new { timer = j });
                 await Task.Delay(1000);
             }
 
-            // after question ends → show correct answer & scores
-            var playersData = room.Participants
-                .Select(p => new
-                {
-                    userId = p.userId,
-                    profileName = p.profileName,
-                    gameScore = p.gameScore,
-                    totalScore = p.score
-                })
-                .ToList();
-
-            var completePayload = new
+            for (int i = 0; i < questions.Count; i++)
             {
-                questionIndex = i + 1,
-                correctAnswer = currentQuestion.correctAnswer,
-                players = playersData
+                room.answersCount = 0;
+
+                // reset answered flag for all participants
+                foreach (var participant in room.Participants)
+                {
+                    participant.answered = false;
+                }
+
+                // current question
+                var currentQuestion = questions[i];
+                roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+                // shuffle answers
+                var rng = new Random();
+                var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
+
+                var questionPayload = new
+                {
+                    questionTitle = currentQuestion.questionTitle,
+                    answers = answers
+                };
+
+                Console.WriteLine($"[SEND] receiveQuestion => {System.Text.Json.JsonSerializer.Serialize(questionPayload)}");
+                await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", questionPayload);
+
+                // countdown loop
+                for (int j = questionTime; j >= 0; j--)
+                {
+                    Console.WriteLine($"[SEND] timer => {{ timer = {j} }}");
+                    await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
+
+                    if (room.answersCount == room.Participants.Count)
+                    {
+                        Console.WriteLine("[INFO] All players answered. Skipping timer.");
+                        break; // all players answered
+                    }
+
+                    await Task.Delay(1000);
+                }
+
+                // after question ends → show correct answer & scores
+                var playersData = room.Participants
+                    .Select(p => new
+                    {
+                        userId = p.userId,
+                        profileName = p.profileName,
+                        gameScore = p.gameScore,
+                        totalScore = p.score
+                    })
+                    .ToList();
+
+                var completePayload = new
+                {
+                    questionIndex = i + 1,
+                    correctAnswer = currentQuestion.correctAnswer,
+                    players = playersData
+                };
+
+                Console.WriteLine($"[SEND] countDownComplete => {System.Text.Json.JsonSerializer.Serialize(completePayload)}");
+                await _hubContext.Clients.Group(roomId).SendAsync("countDownCompleteMode4", completePayload);
+
+                await Task.Delay(1000);
+
+                roomToCurrentQuestion.TryRemove(roomId, out _);
+            }
+
+            // winner = player with highest gameScore
+            var topPlayer = room.Participants.OrderByDescending(p => p.gameScore).FirstOrDefault();
+            if (topPlayer != null)
+            {
+                winner = topPlayer.profileName;
+            }
+
+            // final scores: add gameScore to total score
+            foreach (var participant in room.Participants)
+            {
+                participant.score += participant.gameScore;
+            }
+
+            var finalStats = room.Participants.ToDictionary(
+                p => Convert.ToInt32(p.userId),
+                p => new
+                {
+                    gameScore = p.gameScore,
+                    score = p.score,
+                    profileName = p.profileName
+                });
+
+            var gameEndPayload = new
+            {
+                winner = winner,
+                stats = finalStats
             };
 
-            Console.WriteLine($"[SEND] countDownComplete => {System.Text.Json.JsonSerializer.Serialize(completePayload)}");
-            await _hubContext.Clients.Group(roomId).SendAsync("countDownCompleteMode4", completePayload);
+            Console.WriteLine($"[SEND] gameEnd => {System.Text.Json.JsonSerializer.Serialize(gameEndPayload)}");
+            await _hubContext.Clients.Group(roomId).SendAsync("gameEndMode4", gameEndPayload);
 
-            await Task.Delay(1000);
-
-            roomToCurrentQuestion.TryRemove(roomId, out _);
+            // cleanup
+            roomToQuestions.TryRemove(roomId, out _);
+            Rooms.TryRemove(roomId, out _);
+            UserRoomMapping.TryRemove(room.Host.userId, out _);
         }
-
-        // winner = player with highest gameScore
-        var topPlayer = room.Participants.OrderByDescending(p => p.gameScore).FirstOrDefault();
-        if (topPlayer != null)
+        catch (Exception ex)
         {
-            winner = topPlayer.profileName;
+            Console.WriteLine($"[ERROR] in SendingQuestionsMode4: {ex}");
+            await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the game.");
         }
-
-        // final scores: add gameScore to total score
-        foreach (var participant in room.Participants)
-        {
-            participant.score += participant.gameScore;
-        }
-
-        var finalStats = room.Participants.ToDictionary(
-            p => Convert.ToInt32(p.userId),
-            p => new
-            {
-                gameScore = p.gameScore,
-                score = p.score,
-                profileName = p.profileName
-            });
-
-        var gameEndPayload = new
-        {
-            winner = winner,
-            stats = finalStats
-        };
-
-        Console.WriteLine($"[SEND] gameEnd => {System.Text.Json.JsonSerializer.Serialize(gameEndPayload)}");
-        await _hubContext.Clients.Group(roomId).SendAsync("gameEndMode4", gameEndPayload);
-
-        // cleanup
-        roomToQuestions.TryRemove(roomId, out _);
-        Rooms.TryRemove(roomId, out _);
-        UserRoomMapping.TryRemove(room.Host.userId, out _);
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"[ERROR] in SendingQuestionsMode4: {ex}");
-        await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the game.");
-    }
-}
 
 
         public async Task SendingGuestQuestions(string token, string roomId, ConcurrentDictionary<string, List<Question>> roomToQuestions, ConcurrentDictionary<string, Question> roomToCurrentQuestion, ConcurrentDictionary<string, Room> Rooms, int questionTime, ConcurrentDictionary<string, string> UserRoomMapping)  
@@ -1077,7 +924,7 @@ public async Task SendingQuestionsMode4(
                         team = p.team
                     });
 
-                await _hubContext.Clients.Group(roomId).SendAsync("gameEndMode4", new
+                await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
                 {
                     winner,
                     stats = participantsData
@@ -1098,8 +945,297 @@ public async Task SendingQuestionsMode4(
 
     
 
+public async Task SendingCustomQuestions(
+    string token,
+    string roomId,
+    ConcurrentDictionary<string, List<Question>> roomToQuestions,
+    ConcurrentDictionary<string, Question> roomToCurrentQuestion,
+    ConcurrentDictionary<string, Room> Rooms,
+    int questionTime,
+    ConcurrentDictionary<string, string> UserRoomMapping
+)
+{
+    string winner = "";
+
+    if (!Rooms.TryGetValue(roomId, out var room))
+    {
+        await _hubContext.Clients.Group(roomId).SendAsync("Error", "Room does not exist.");
+        return;
+    }
+
+    try
+    {
+        if (!roomToQuestions.TryGetValue(roomId, out var questions) || questions == null || questions.Count == 0)
+        {
+            await _hubContext.Clients.Group(roomId).SendAsync("Error", "No questions available for this room.");
+            return;
+        }
+
+        for (int i = 0; i < questions.Count; i++)
+        {
+            room.answersCount = 0;
+            foreach (var participant in room.Participants)
+                participant.answered = false;
+
+            var currentQuestion = questions[i];
+            roomToCurrentQuestion.AddOrUpdate(roomId, currentQuestion, (_, __) => currentQuestion);
+
+            var rng = new Random();
+            var answers = currentQuestion.answers.OrderBy(a => rng.Next()).ToList();
+
+            await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new
+            {
+                subCategory = currentQuestion.subCategory,
+                questionTitle = currentQuestion.questionTitle,
+                answers = answers
+            });
+
+            for (int j = questionTime; j >= 0; j--)
+            {
+                await _hubContext.Clients.Group(roomId).SendAsync("timer", new { timer = j });
+
+                if (room.answersCount == room.Participants.Count)
+                    break;
+
+                await Task.Delay(1000);
+            }
+
+            var blueTeam = room.Participants
+                .Where(p => p.team == "Blue")
+                .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                .ToList();
+
+            var redTeam = room.Participants
+                .Where(p => p.team == "Red")
+                .Select(p => new { userId = p.userId, profileName = p.profileName, gameScore = p.gameScore })
+                .ToList();
+
+            string roundWinner = "";
+            if (room.blueTeamRoundScore > room.redTeamRoundScore)
+            {
+                room.blueTeamScore += 100;
+                roundWinner = "blue";
+            }
+            else if (room.blueTeamRoundScore < room.redTeamRoundScore)
+            {
+                room.redTeamScore += 100;
+                roundWinner = "red";
+            }
+            else if (room.blueTeamRoundScore == 0 && room.redTeamRoundScore == 0)
+            {
+                roundWinner = "NegativeDraw";
+            }
+            else
+            {
+                room.redTeamScore += 100;
+                room.blueTeamScore += 100;
+                roundWinner = "PositiveDraw";
+            }
+
+            room.blueTeamRoundScore = 0;
+            room.redTeamRoundScore = 0;
+
+            await _hubContext.Clients.Group(roomId).SendAsync("countDownComplete", new
+            {
+                questioIndex = i + 1,
+                correctAnswer = currentQuestion.correctAnswer,
+                blueTeam,
+                redTeam,
+                blueTeamScore = room.blueTeamScore,
+                redTeamScore = room.redTeamScore,
+                roundWinner
+            });
+
+            await Task.Delay(1000);
+            roomToCurrentQuestion.TryRemove(roomId, out _);
+        }
+
+        // ✅ Final Winner
+        if (room.blueTeamScore > room.redTeamScore)
+            winner = "Blue";
+        else if (room.blueTeamScore < room.redTeamScore)
+            winner = "Red";
+        else
+            winner = "Draw";
+
+        // ✅ Scale and update participant scores like SendingQuestions
+        int totalWindow = Math.Max(1, questions.Count * questionTime);
+
+        foreach (var participant in room.Participants)
+        {
+            int scaledBonus = (int)Math.Round(10.0 * participant.gameScore / totalWindow);
+
+            if (winner == "Red")
+            {
+                if (participant.team == "Red")
+                {
+                    participant.gameScore += 10;
+                }
+                else
+                {
+                    participant.gameScore -= 10;
+
+                }
+            }
+            else if (winner == "Blue")
+            {
+                if (participant.team == "Blue")
+                {
+
+                    participant.gameScore += 10;
+                }
+                else
+                {
+                    participant.gameScore -= 10;
+
+                }
+            }
+            else // Draw
+            {
+                participant.gameScore += 5;
+            }
+        }
+
+        var participantsData = room.Participants.ToDictionary(
+            p => Convert.ToInt32(p.userId),
+            p => new
+            {
+                gameScore = p.gameScore,
+                score = p.score,
+                team = p.team,
+                profileName=p.profileName
+            });
+
+        await _hubContext.Clients.Group(roomId).SendAsync("gameEnd", new
+        {
+            winner,
+            stats = participantsData
+        });
+
+        // ✅ Build team info for DB
+        var teamsInfo = new List<object>
+        {
+            new
+            {
+                Red = new List<object>
+                {
+                    new
+                    {
+                        users = room.Participants
+                            .Where(player => player.team == "Red")
+                            .Select(player => new
+                            {
+                                user_id = player.userId,
+                                user_score = player.score
+                            }).ToList()
+                    },
+                    new { team_score = room.redTeamScore }
+                }
+            },
+            new
+            {
+                Blue = new List<object>
+                {
+                    new
+                    {
+                        users = room.Participants
+                            .Where(player => player.team == "Blue")
+                            .Select(player => new
+                            {
+                                user_id = player.userId,
+                                user_score = player.score
+                            }).ToList()
+                    },
+                    new { team_score = room.blueTeamScore }
+                }
+            }
+        };
 
 
-    
+
+
+
+            TimeZoneInfo kuwaitTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Arab Standard Time");
+            DateTime kuwaitTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, kuwaitTimeZone);
+            string createdAt = kuwaitTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+            bool saveResult = await saveGameCustom(
+                token: token,
+                isPublic: "True",
+                createdAt: createdAt,
+                teamsInfo: teamsInfo,
+                subCategories: new List<string> { "custom" }
+            );
+
+            Console.WriteLine("Entered save custom game");
+
+            // Ensure removal happens only after saving is completed successfully
+            if (saveResult)
+            {
+                Console.WriteLine("Custom game saved successfully. Now removing room...");
+                await _achievementService.DetectAchievementsForRoom(roomId);
+                roomToQuestions.TryRemove(roomId, out _);
+                Rooms.TryRemove(roomId, out _);
+                UserRoomMapping.TryRemove(room.Host.userId, out _);
+                Console.WriteLine($"Room {roomId} removed.");
+            }
+            else
+            {
+                Console.WriteLine("Custom game save failed. Room will not be removed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in SendingCustomQuestions: {ex.Message}");
+            await _hubContext.Clients.Group(roomId).SendAsync("Error", "An error occurred during the custom game.");
+        }
+    }
+
+    public async Task<bool> saveGameCustom(string token, string isPublic, string createdAt, List<object> teamsInfo, List<string> subCategories)
+    {
+        var databaseServerUrl = "http://localhost:8004/api/custom-rooms/game/";
+        var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
+
+        var jsonPayload = JsonSerializer.Serialize(new 
+        { 
+            is_public = isPublic,
+            created_at = createdAt,
+            sub_categories = subCategories,
+            teams_info = teamsInfo
+        });
+        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+        try
+        {
+            // Send the request
+            requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            requestMessage.Content = content;
+            var databaseResponse = await _httpClient.SendAsync(requestMessage);
+
+            if (databaseResponse.IsSuccessStatusCode)
+            {
+                var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+                Console.WriteLine($"Successfully saved custom game: {responseContent}");
+                return true;
+            }
+            else
+            {
+                var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error from database: {errorContent}");
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception occurred while saving custom game: {ex.Message}");
+            return false;
+        }
+    }
+
+
+    ///
+    /// 
+    /// getting achivments after 
+
     }
 }

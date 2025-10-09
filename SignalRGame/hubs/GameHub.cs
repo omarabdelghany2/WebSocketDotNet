@@ -12,12 +12,12 @@ namespace SignalRGame.Hubs
 {
     public partial  class GameHub : Hub
     {
-        private static readonly ConcurrentDictionary<string, Room> Rooms = new();
+        public  static readonly ConcurrentDictionary<string, Room> Rooms = new();
         private static readonly Dictionary <string ,Room> LoginRooms = new();
         private static readonly ConcurrentDictionary<string, string> UserRoomMapping = new();
         private static readonly ConcurrentDictionary<string, string> ParticipantRoomMapping = new();
-        private static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
-        private static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); // UserId to ConnectionId mapping
+        public  static readonly Dictionary<string, string> TokenToUserId = new(); // Token to UserId mapping
+        public  static readonly ConcurrentDictionary<string, string> UserIdToConnectionId = new(); // UserId to ConnectionId mapping
         private static readonly ConcurrentDictionary<string, string> LoginRoomMapping = new(); // Separate mapping for login rooms
         private static readonly ConcurrentDictionary<string,List<Question>> RoomToQuestions =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
         private static readonly ConcurrentDictionary<string,List<QuestionMillionaire>> RoomToQuestionsModeTwo =new();//saves the Question in it with the Room Key When You Recieve it from Database in iT
@@ -37,28 +37,33 @@ namespace SignalRGame.Hubs
         private readonly afkPlayerService _afkPlayerService;
         private readonly CustomRoomsService _customRoomsService;
         private readonly GuestRoomService _guestRoomService;
+        private readonly AchievementService _achievementService;
+
+        private readonly Mode4Service _mode4Service;
 
         string globalNews="";
         
         private static  string recentNewsLetter;
         //add the variables of questions
         private readonly HttpClient _httpClient;
-        public GameHub(GameService gameService ,getQuestionsService getQuestions ,userIdFromTokenService userIdFromToken ,FriendsService friendsService , userProfileFromTokenService userProfile ,GetFriendsByIdService userFriendsById ,userIdFromProfileNameService userIdfromProfile,isSubscribedService IsSubscribedService, afkPlayerService AfkPlayerService, CustomRoomsService customRoomsService,GuestRoomService guestRoomService)
+        public GameHub(GameService gameService, getQuestionsService getQuestions, userIdFromTokenService userIdFromToken, FriendsService friendsService, userProfileFromTokenService userProfile, GetFriendsByIdService userFriendsById, userIdFromProfileNameService userIdfromProfile, isSubscribedService IsSubscribedService, afkPlayerService AfkPlayerService, CustomRoomsService customRoomsService, GuestRoomService guestRoomService, AchievementService achievementService, Mode4Service mode4Service)
         {
-                    // Add questions directly to the dictionary
+            // Add questions directly to the dictionary
 
             _gameService = gameService;
-            _GetQuestions =getQuestions;
-            _userIdFromTokenService=userIdFromToken;
-            _FriendsService=friendsService;
-            _userProfileFromTokenService=userProfile;
-            _GetFriendsByIdService=userFriendsById;
-            _userIdFromProfileNameService=userIdfromProfile;
-            _isSubscribedService=IsSubscribedService;
-            _afkPlayerService=AfkPlayerService;
-            _customRoomsService=customRoomsService;
+            _GetQuestions = getQuestions;
+            _userIdFromTokenService = userIdFromToken;
+            _FriendsService = friendsService;
+            _userProfileFromTokenService = userProfile;
+            _GetFriendsByIdService = userFriendsById;
+            _userIdFromProfileNameService = userIdfromProfile;
+            _isSubscribedService = IsSubscribedService;
+            _afkPlayerService = AfkPlayerService;
+            _customRoomsService = customRoomsService;
 
-            _guestRoomService=guestRoomService;
+            _guestRoomService = guestRoomService;
+            _achievementService = achievementService;
+            _mode4Service = mode4Service;
         }
 
 

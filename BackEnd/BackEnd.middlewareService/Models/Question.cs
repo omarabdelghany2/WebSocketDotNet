@@ -5,7 +5,7 @@ namespace BackEnd.middlewareService.Models
     public class Question
     {
         [JsonPropertyName("sub_category")]
-        public string subCategory { get; set; }
+        public string? subCategory { get; set; }
 
         [JsonPropertyName("text")]
         public string questionTitle { get; set; }

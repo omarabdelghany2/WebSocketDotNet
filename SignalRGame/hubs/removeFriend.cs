@@ -25,6 +25,12 @@ namespace SignalRGame.Hubs
 
             // Get user profile from token
             string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(authorization);
+
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return false;
+            }
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
             int score = profile?.score ?? 0;

@@ -16,11 +16,18 @@ namespace SignalRGame.Hubs
                 await Clients.Caller.SendAsync("SwitchedPrivacyOfRoom", new{roomId ="" , error =true ,errorMessage="Error retrieving userId; something went wrong with the Token."});
                 return;
             }
+            
+
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
 
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await Clients.Caller.SendAsync("SwitchedPrivacyOfRoom", new{roomId ="" ,error =true ,errorMessage="Room does not exist."});
+                await Clients.Caller.SendAsync("SwitchedPrivacyOfRoom", new { roomId = "", error = true, errorMessage = "Room does not exist." });
                 return;
             }
 
@@ -75,6 +82,12 @@ namespace SignalRGame.Hubs
             if (userId == "error")
             {
                 await Clients.Caller.SendAsync("publicGames", new{roomId ="" , error =true ,errorMessage="Error retrieving userId; something went wrong with the Token."});
+                return;
+            }
+
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
                 return;
             }
 

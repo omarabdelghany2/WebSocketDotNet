@@ -25,9 +25,10 @@ namespace BackEnd.middlewareService.Controllers
         private readonly numberOfSubscriptionsFromTokenService _numberOfSubscriptionsFromTokenService;
 
         private readonly insertQuestionsSerivce _insertQuestionsSerivce;
+             private readonly ParagraphUploadService _uploadService;
 
         public DashboardController(TokenValidator tokenValidator, ILogger<DashboardController> logger,
-            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe, numberOfSubscriptionsFromTokenService subscriptions, insertQuestionsSerivce insertQuestions)
+            numberOfUsersFromTokenService numberOfUsers, getMonthsSubscriptionsService monthlySubscribe, numberOfSubscriptionsFromTokenService subscriptions, insertQuestionsSerivce insertQuestions,ParagraphUploadService uploadService)
         {
             _TokenValidator = tokenValidator;
             _logger = logger;
@@ -35,6 +36,7 @@ namespace BackEnd.middlewareService.Controllers
             _getMonthsSubscriptionsService = monthlySubscribe;
             _numberOfSubscriptionsFromTokenService = subscriptions;
             _insertQuestionsSerivce = insertQuestions;
+            _uploadService = uploadService;
             InitializeSignalRConnection(); // Initialize SignalR connection on controller creation
         }
 
@@ -162,40 +164,6 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
-        // [HttpPost("dashboard/send-news")]
-        // public async Task<IActionResult> SendNewsToWebSocket([FromHeader] string Authorization, [FromBody] string news)
-        // {
-        //     if (string.IsNullOrEmpty(Authorization))
-        //     {
-        //         return BadRequest("Refresh Token is required.");
-        //     }
-
-        //     var token = Authorization.Substring("Bearer ".Length).Trim();
-        //     string validationResult = await _TokenValidator.ValidateAdminAsync(token);
-
-        //     if (validationResult == "error")
-        //     {
-        //         return Unauthorized("You are not authorized to send news.");
-        //     }
-
-        //     if (_hubConnection.State != HubConnectionState.Connected)
-        //     {
-        //         return StatusCode(500, "SignalR connection is not established.");
-        //     }
-
-        //     try
-        //     {
-        //         await _hubConnection.SendAsync("updateNews", news);
-
-        //         return Ok(news);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "Error sending news to WebSocket.");
-        //         return StatusCode(500, "An error occurred while sending the news.");
-        //     }
-        // }
-
         [HttpPost("dashboard/send-news")]
         public async Task<IActionResult> SendNewsToWebSocket([FromHeader] string Authorization, [FromBody] newsRequest request)
         {
@@ -235,80 +203,7 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
-        // [HttpPost("dashboard/insert-question")]
-        // public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file)
-        // {
-        //     if (file == null || file.Length == 0)
-        //     {
-        //         return BadRequest("File is required.");
-        //     }
 
-        //     // Read the file content
-        //     using var reader = new StreamReader(file.OpenReadStream());
-        //     string fileContent = await reader.ReadToEndAsync();
-
-        //     // Print the received file content
-        //     Console.WriteLine($"Received file: {file.FileName}");
-        //     Console.WriteLine($"File content: {fileContent}");
-
-        //     return Ok(new
-        //     {
-        //         Message = "File received successfully",
-        //         FileName = file.FileName,
-        //         FileContent = fileContent // For debugging, remove in production
-        //     });
-        // }
-
-
-
-
-        // [HttpPost("dashboard/insert-question")]
-        // [Consumes("multipart/form-data")]
-        // public async Task<IActionResult> InsertQuestion([FromForm] IFormFile file, [FromHeader] string Authorization)
-        // {
-        //     if (string.IsNullOrWhiteSpace(Authorization) || !Authorization.StartsWith("Bearer "))
-        //     {
-        //         return BadRequest(new
-        //         {
-        //             Message = "Authorization header is missing or invalid.",
-        //             Status = "Error"
-        //         });
-        //     }
-
-        //     var token = Authorization.Substring("Bearer ".Length).Trim();
-        //     string validationResult = await _TokenValidator.ValidateTokenAsync(token);
-        //     Console.WriteLine(token);
-
-        //     if (validationResult == "error")
-        //     {
-        //         return Unauthorized(new
-        //         {
-        //             Message = "You are not authorized to get the accessToken list."
-
-        //         });
-        //     }
-
-        //     if (file == null || file.Length == 0)
-        //     {
-        //         return BadRequest(new
-        //         {
-        //             Message = "File is required."
-
-        //         });
-        //     }
-
-        //     // Call the function to send the file to another server
-        //     string response = await _insertQuestionsSerivce.insertQuestion(file, token);
-        //     if (response == "error")
-        //     {
-        //         return BadRequest(new { Message = "error from database." });
-        //     }
-        //     return Ok(new
-        //     {
-        //         Message = "File sent successfully."
-        //     });
-        // }
-        
 
         [HttpPost("dashboard/insert-question")]
         [Consumes("multipart/form-data")]
@@ -359,12 +254,60 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
+        [HttpPost("dashboard/upload-paragraph")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadParagraphQuestions([FromForm] ParagraphUploadRequest request)
+        {
+            if (request.File == null || request.File.Length == 0)
+            {
+                return BadRequest("No file uploaded");
+            }
 
+            if (string.IsNullOrWhiteSpace(request.paragraphText))
+            {
+                return BadRequest("Paragraph text is required");
+            }
 
+            // Get token from Authorization header
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+            {
+                return Unauthorized("No valid token provided");
+            }
 
+            var token = authHeader.Substring("Bearer ".Length).Trim();
 
-
+            try
+            {
+                var result = await _uploadService.UploadParagraphWithQuestionsAsync(token, request.File, request.paragraphText);
+                return Ok(new
+                {
+                    message = "Paragraph and questions uploaded successfully",
+                    data = result
+                });
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred", details = ex.Message });
+            }
+        }
     }
+
+    public class ParagraphUploadRequest
+    {
+        [FromForm(Name = "file")]
+        public IFormFile File { get; set; }
+        public string paragraphText { get; set; }
+    }
+
+
+
+
+   
 
     // Response models
     public class TotalUsersDashboardResponce

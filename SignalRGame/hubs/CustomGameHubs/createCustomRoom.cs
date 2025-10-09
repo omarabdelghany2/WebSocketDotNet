@@ -18,6 +18,12 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
+
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
 

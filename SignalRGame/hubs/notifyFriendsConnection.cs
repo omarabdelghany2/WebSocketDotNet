@@ -15,11 +15,17 @@ namespace SignalRGame.Hubs
         Console.WriteLine("entered Notify");
 
         string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+        
+        if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return null;
+            }
         if (userId == "error")
-        {
-            await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
-            return null;
-        }
+            {
+                await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
+                return null;
+            }
 
         Console.WriteLine(userId);
 

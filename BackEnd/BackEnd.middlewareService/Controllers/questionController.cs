@@ -12,15 +12,13 @@ namespace BackEnd.middlewareService.Controllers
     [Route("api/")]
     public class QuestionsController : ControllerBase
     {
-        // Define the array of categories
-        private static readonly string[] Categories = { "sports", "history", "mechanics" };
-        private readonly TokenValidator  _TokenValidator;
+        private readonly TokenValidator _TokenValidator;
         private readonly getSubCategoriesService _getSubCategoriesService;
 
         public QuestionsController(TokenValidator tokenvalid, getSubCategoriesService getSubcateogry)
         {
-            _TokenValidator =tokenvalid;
-            _getSubCategoriesService=getSubcateogry;
+            _TokenValidator = tokenvalid;
+            _getSubCategoriesService = getSubcateogry;
         }
 
         [HttpGet("get-categories")]
@@ -37,18 +35,20 @@ namespace BackEnd.middlewareService.Controllers
                  return Unauthorized("You are not authorized to get the accessToken list.");
             }
 
-            // Assume Authorization is valid and skip token verification logic for simplicity
-            // Normally, validate the token and authenticate the user.
-
-            // Return the array of categories
-            return Ok(new
+            try
             {
-                Categories = Categories
-            });
+                var token = Authorization.Substring("Bearer ".Length).Trim();
+                var categories = await _getSubCategoriesService.GetParentCategoriesAsync(token);
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Failed to fetch categories", Error = ex.Message });
+            }
         }
 
-        [HttpGet("get-sub-categories")]
-        public async Task<IActionResult> getSubCategories([FromHeader] string Authorization, [FromQuery] string categoryName)
+        [HttpGet("get-sub-categories/{categoryId}")]
+        public async Task<IActionResult> getSubCategories([FromHeader] string Authorization, int categoryId)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
@@ -61,35 +61,14 @@ namespace BackEnd.middlewareService.Controllers
                 return Unauthorized("You are not authorized to access the categories.");
             }
 
-            if (string.IsNullOrEmpty(categoryName))
-            {
-                return BadRequest("Category name is required.");
-            }
-
             try
             {
-                // Fetch subcategories
-                string responseContent = await _getSubCategoriesService.GetSubCategoriesAsync(token, categoryName);
-
-                // Check if the response is valid JSON and parse it
-                try
+                var categoryDetails = await _getSubCategoriesService.GetCategoryDetailsAsync(token, categoryId);
+                return Ok(new
                 {
-                    var subCategories = JsonSerializer.Deserialize<object>(responseContent);
-                    return Ok(new
-                    {
-                        Message = "Subcategories list fetched successfully",
-                        Data = subCategories
-                    });
-                }
-                catch (JsonException)
-                {
-                    // Handle invalid JSON (indicates an error from the service)
-                    return BadRequest(new
-                    {
-                        Message = "Failed to parse subcategories data",
-                        Error = responseContent
-                    });
-                }
+                    Message = "Category details fetched successfully",
+                    Data = categoryDetails
+                });
             }
             catch (Exception ex)
             {
@@ -106,9 +85,5 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
-    public class categoryRequest
-    {
-        public string categoryName { get; set; }
 
-    }
 }

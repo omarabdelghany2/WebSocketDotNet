@@ -26,6 +26,12 @@ namespace SignalRGame.Hubs
                 
             }
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
+
             //check if the user is Subscribed first
             bool subscriptionResponce = await _isSubscribedService.isSubscribedAsync(Authorization);
 
@@ -50,21 +56,33 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+
+            var inviterPlayer = new Player
+            {
+                userId = userId.ToString(),
+                profileName = profile?.profileName ?? "",
+                profileScore = profile?.score ?? 0,
+                team = "Blue" // or whichever team is appropriate
+            };
+            
+
             // Check if the invited user is connected (i.e., is in the login room)
             if (LoginRoomMapping.TryGetValue(invitedUserId.ToString(), out var loginRoomConnectionId))
             {
                 // Send an invitation to the invited user's login room (using their user ID or token)
-                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new {
+                await Clients.Group(loginRoomConnectionId).SendAsync("roomInvitation", new
+                {
                     roomId = roomId,
                     inviterUserId = userId,
                     profileName = profileName,
+                    rank = inviterPlayer.rank,
                     mode = room.Mode // 👈 include Mode from the Room model
                 });
             }
             else
             {
-                
-                await Clients.Caller.SendAsync("invitationSent", new{invitedUserId = invitedUserId,error=true,errorMessage="The invited user is not connected."});
+
+                await Clients.Caller.SendAsync("invitationSent", new { invitedUserId = invitedUserId, error = true, errorMessage = "The invited user is not connected." });
                 return;
             }
 

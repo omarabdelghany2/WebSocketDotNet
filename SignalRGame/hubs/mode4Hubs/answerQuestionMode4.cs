@@ -69,7 +69,7 @@ namespace SignalRGame.Hubs
             }
 
             // 🔹 Notify all clients in room
-            await Clients.Group(roomId).SendAsync("SuccessfullyAnswered", new
+            await Clients.Group(roomId).SendAsync("successfullyAnswered", new
             {
                 profileName = participant.profileName,
                 userId = Convert.ToInt32(participant.userId),

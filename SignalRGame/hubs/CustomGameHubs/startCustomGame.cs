@@ -42,6 +42,15 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+
+            
+            // // 🔹 Check participants count
+            // if (room.Participants == null || room.Participants.Count < 2)
+            // {
+            //     await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "At least 2 players are required to start the game." });
+            //     return;
+            // }
+
             bool subscriptionResponse = await _isSubscribedService.isSubscribedAsync(token);
             if (!subscriptionResponse)
             {

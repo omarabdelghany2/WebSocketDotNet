@@ -36,17 +36,28 @@ namespace SignalRGame.Hubs
                     new { error = true, errorMessage = "Error retrieving user ID; something went wrong with the token." });
                 return false;
             }
+            
+            // Build a temporary Player object from the inviter's profile
+            var inviterPlayer = new Player
+            {
+                userId = userId.ToString(),
+                profileName = profile?.profileName ?? "",
+                profileScore = profile?.score ?? 0,
+                team = "Blue" // or whichever team is appropriate
+            };
+
+
 
             // Check if the invited user is connected (i.e., in the login room)
             if (LoginRoomMapping.TryGetValue(friendId.ToString(), out var loginRoomConnectionId))
             {
                 // Send an invitation to the invited user's login room
-                await Clients.Group(loginRoomConnectionId).SendAsync("receivedAddFriendRequest", 
-                    new { userId = userId, profileName = profile?.profileName, score = score });
+                await Clients.Group(loginRoomConnectionId).SendAsync("receivedAddFriendRequest",
+                    new { userId = userId, profileName = profile?.profileName, score = score,  rank = inviterPlayer.rank, });
             }
             else
             {
-                await Clients.Caller.SendAsync("addFriendRequestFailed", 
+                await Clients.Caller.SendAsync("addFriendRequestFailed",
                     new { error = true, errorMessage = "The invited user is not connected." });
                 return false;
             }

@@ -28,7 +28,11 @@ namespace SignalRGame.Hubs
             await Clients.Caller.SendAsync("roomCreated", new { roomId = "", team = "", error = true, errorMessage = "Error retrieving userId; something went wrong with the Token." });
         }
 
-
+        if (serverResponse == "unauthorized")
+        {
+            await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+            return;
+        }
 
         //check if the user is Subscribed first
 
@@ -97,7 +101,7 @@ namespace SignalRGame.Hubs
 
         // Notify the caller that the room has been created
         Console.WriteLine(roomId);
-        await Clients.Caller.SendAsync("roomCreated", new { roomId = roomId, team = "Blue", error = false, errorMessage = "" });
+        await Clients.Caller.SendAsync("roomCreated", new { roomId = roomId, rank = room.Host.rank   , team = "Blue", error = false, errorMessage = "" });
     }
 
     }

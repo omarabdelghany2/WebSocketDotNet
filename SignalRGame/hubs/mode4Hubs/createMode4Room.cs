@@ -19,6 +19,12 @@ namespace SignalRGame.Hubs
 
             string serverResponse = await _userProfileFromTokenService.GetUserProfileAsync(Authorization);
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
+
             if (serverResponse == "error")
             {
                 await Clients.Caller.SendAsync("mode4RoomCreated", new
@@ -65,7 +71,7 @@ namespace SignalRGame.Hubs
                 Host = hostPlayer,
                 Participants = new List<Player> { hostPlayer },
                 publicRoom = false, // default private, since only friends can join
-                Mode = "Mode4"
+                Mode = "mode4"
             };
 
             // 4. Save and map

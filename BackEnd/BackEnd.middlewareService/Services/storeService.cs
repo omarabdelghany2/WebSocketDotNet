@@ -201,7 +201,7 @@ namespace BackEnd.middlewareService.Services
 
         public async Task<bool> ChangeAvatarAsync(string token, int avatarId)
         {
-            var url = "http://104.248.35.179:8004/api/user/edit/profile/";
+            var url = "http://localhost:8004/api/user/edit/profile/";
 
             // ✅ match API expected payload
             var payload = JsonSerializer.Serialize(new { default_avatar_id = avatarId });
@@ -300,7 +300,8 @@ public class UserProfile
     public bool Is_Subscribed { get; set; }
     public string Coins { get; set; } = "0.00";
     public string Default_Avatar { get; set; } = "";
-    public int Default_Avatar_Id { get; set; }
+    public int? Default_Avatar_Id { get; set; }
+
 
     public List<UserAvatar> Avatar { get; set; } = new();
 }

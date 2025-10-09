@@ -33,6 +33,13 @@ namespace BackEnd.middlewareService.Controllers
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
+            // Check if user already has a custom room
+            bool hasRoom = await _customRoomService.CheckIfUserHasCustomRoomAsync(request.userId, token);
+            if (hasRoom)
+            {
+                return BadRequest(new { Message = "You already have a custom room. Maximum limit is 1 room per user." });
+            }
+
             bool created = await _customRoomService.CreateCustomRoomAsync(request.userId, token);
 
             if (created)
@@ -43,20 +50,25 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
-        public class DeleteRoomRequest
-        {
-            public int userId { get; set; }
-            public int roomId { get; set; }
-        }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteCustomRoom([FromHeader] string Authorization,[FromBody] DeleteRoomRequest request){
+
+
+
+        [HttpDelete("delete/{userId}/{roomId}")]
+        public async Task<IActionResult> DeleteCustomRoom(
+            [FromHeader] string Authorization,
+            int userId,
+            int roomId)
+        {
+
+    
+
             if (string.IsNullOrEmpty(Authorization))
                 return BadRequest("Token is required.");
-
+    
             var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            bool deleted = await _customRoomService.DeleteCustomRoomAsync(request.userId, request.roomId, token);
+            bool deleted = await _customRoomService.DeleteCustomRoomAsync(userId, roomId, token);
 
             if (deleted)
                 return Ok(new { Message = "Custom room deleted successfully." });
@@ -141,7 +153,9 @@ namespace BackEnd.middlewareService.Controllers
 
 
         [HttpPost("save")]
-        public async Task<IActionResult> SaveCustomRoom([FromHeader] string Authorization,[FromBody] SaveRoomRequest request)
+        public async Task<IActionResult> SaveCustomRoom(
+            [FromHeader] string Authorization,
+            [FromBody] SaveRoomRequest request)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
@@ -149,6 +163,27 @@ namespace BackEnd.middlewareService.Controllers
             }
 
             var token = Authorization.Substring("Bearer ".Length).Trim();
+            // ✅ Ensure the question list exists
+            if (request.Questions == null || request.Questions.Count == 0)
+            {
+                    return BadRequest("At least one question is required.");
+            }
+
+                // ✅ Enforce maximum 300 questions
+            if (request.Questions.Count > 300)
+            {
+                    return BadRequest("You can only submit up to 300 questions in a custom room.");
+            }
+
+
+            // ✅ Ensure subCategory defaults to "science" if not provided
+            foreach (var question in request.Questions)
+            {
+                if (string.IsNullOrWhiteSpace(question.subCategory))
+                {
+                    question.subCategory = "science";
+                }
+            }
 
             bool success = await _customRoomService.AddQuestionsToCustomRoomAsync(
                 request.userId,
@@ -166,6 +201,7 @@ namespace BackEnd.middlewareService.Controllers
                 return BadRequest(new { Message = "Failed to update custom room." });
             }
         }
+
 
 
 

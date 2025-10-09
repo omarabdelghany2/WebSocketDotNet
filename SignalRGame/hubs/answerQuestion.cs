@@ -21,7 +21,11 @@ namespace SignalRGame.Hubs
                 return;
             }
 
-
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
@@ -120,7 +124,7 @@ namespace SignalRGame.Hubs
 
             }
             
-            await Clients.Group(roomId).SendAsync("succefullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=Convert.ToInt32(room.Participants[participantIndex].userId) ,team =room.Participants[participantIndex].team});
+            await Clients.Group(roomId).SendAsync("successfullyAnswered", new{profileName=room.Participants[participantIndex].profileName,userId=Convert.ToInt32(room.Participants[participantIndex].userId) ,team =room.Participants[participantIndex].team});
 
         }
 
@@ -131,6 +135,14 @@ namespace SignalRGame.Hubs
             string answer=request.answer;
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
             Console.WriteLine(userId);
+
+
+            if (userId == "unauthorized")
+            {
+                    await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                    return;
+            }
+            
             if (userId == "error")
             {
                 await Clients.Caller.SendAsync("Error", "Invalid token.");

@@ -43,13 +43,19 @@ namespace SignalRGame.Services
                 // Return the response content (e.g., a list of friends in JSON format)
                 return await databaseResponse.Content.ReadAsStringAsync();
             }
-            else
-            {
-                // Capture and print the error response
-                var errorContent = await databaseResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error from database: {errorContent}");
-                return "error";
-            }
+
+                else if (databaseResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    // Special case for expired/invalid token
+                    return "unauthorized";
+                }
+                else
+                {
+                    // Capture and print the error response
+                    var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error from database: {errorContent}");
+                    return "error";
+                }
         }
         catch (Exception ex)
         {

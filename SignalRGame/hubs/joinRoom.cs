@@ -17,6 +17,11 @@ namespace SignalRGame.Hubs
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return null;
+            }
 
             if (serverResponse == "error")
             {
@@ -67,6 +72,10 @@ namespace SignalRGame.Hubs
             // Assign the user to a team (blue if fewer blue players, red otherwise)
             string team = room.Participants.Count(p => p.team == "Blue") < room.Participants.Count(p => p.team == "Red") ? "Blue" : "Red";
             
+
+
+            // Now inviterPlayer.rank will be calculated automatically
+
             // Add the user to the room
             var newPlayer = new Player { userId = userId.ToString(), team = team,profileName=profile?.profileName,score=profile?.score ?? 0 };
             room.Participants.Add(newPlayer);
@@ -74,11 +83,24 @@ namespace SignalRGame.Hubs
             ParticipantRoomMapping[userId.ToString()] = roomId;
 
             // Send to all group members except the caller
-            await Clients.GroupExcept(roomId, Context.ConnectionId).SendAsync("playerJoined", new 
+            
+            // Build a temporary Player object from the inviter's profile
+            var inviterPlayer = new Player
+            {
+                userId = userId.ToString(),
+                profileName = profile?.profileName ?? "",
+                profileScore = profile?.score ?? 0,
+                team = "Blue" // or whichever team is appropriate
+            };
+
+
+
+            await Clients.GroupExcept(roomId, Context.ConnectionId).SendAsync("playerJoined", new
             {
                 userId = Convert.ToInt32(userId),
                 team = team,
                 profileName = profile?.profileName,
+                rank = inviterPlayer.rank,
                 score = profile?.score
             });
 
@@ -94,7 +116,8 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.score,
+                        score = p.score,
+                        rank = p.rank,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
                 blue = room.Participants
@@ -104,12 +127,14 @@ namespace SignalRGame.Hubs
                         userId = Convert.ToInt32(p.userId),
                         profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
                         isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                        score=p.score,
+                        score = p.score,
+                        rank = p.rank,
                         isMe = p.userId == userId.ToString() // Check if this player is the caller
                     }),
-                roomId=roomId,    
+                roomId = roomId,
                 error = false,
-                errorMessage = ""
+                errorMessage = "",
+                mode=room.Mode
             });
             return "joined Room succesfully";
 

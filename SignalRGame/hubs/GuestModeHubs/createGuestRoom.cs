@@ -35,7 +35,7 @@ namespace SignalRGame.Hubs
             Host = guestPlayer,
             Participants = new List<Player> { guestPlayer, bot1, bot2, bot3 },
             publicRoom = false,
-            Mode= "mode4",
+            Mode= "guest",
         };
 
         Rooms[roomId] = room;

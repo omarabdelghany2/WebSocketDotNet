@@ -52,7 +52,6 @@ namespace SignalRGame.Hubs
             {
                 // Send an invitation to the invited user's login room (using their user ID or token)
 
-                Console.WriteLine("ENTERED HERE");
                 await Clients.Group(loginRoomConnectionId).SendAsync("acceptedFriendRequest", new{userId=userId, profileName = profile?.profileName,score=score,error = false, errorMessage=""});
 
             }

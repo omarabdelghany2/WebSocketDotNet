@@ -17,19 +17,28 @@ namespace SignalRGame.Hubs
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
 
+
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return null;
+            }
+
+
             if (serverResponse == "error")
             {
                 await Clients.Caller.SendAsync("playerLeftGame", new
                 {
 
                     roomId = roomId,
-                    userId=0,
-                    profileName="",
+                    userId = 0,
+                    profileName = "",
                     error = true,
                     errorMessage = "Error retrieving userId; something went wrong with the Token."
                 });
                 return "Error: Invalid Token";
             }
+            
 
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
@@ -38,8 +47,8 @@ namespace SignalRGame.Hubs
                 {
 
                     roomId = roomId,
-                    userId=userId,
-                    profileName=profile?.profileName,
+                    userId = userId,
+                    profileName = profile?.profileName,
                     error = true,
                     errorMessage = "room doesnt Exist."
                 });
@@ -73,7 +82,10 @@ namespace SignalRGame.Hubs
             bool isHost = room.Host.userId == userId.ToString();
 
 
-            if (isHost){
+            if (isHost)
+            {
+                // Remove old host mapping
+                UserRoomMapping.TryRemove(player.userId, out _);
 
                 room.Host = null; // Remove host
                 if (room.Participants.Count > 0)
@@ -81,8 +93,15 @@ namespace SignalRGame.Hubs
                     // Assign a new host from participants
                     room.Host = room.Participants.First();
                     UserRoomMapping[room.Host.userId] = roomId;
+
                     Console.WriteLine($"Host left; reassigned new host: {room.Host.userId}");
-                    await Clients.Group(roomId).SendAsync("hostLeft", new { hostId=Convert.ToInt32(player.userId),team=player.team,newHostId = Convert.ToInt32(room.Host.userId)});
+
+                    await Clients.Group(roomId).SendAsync("hostLeft", new
+                    {
+                        hostId = Convert.ToInt32(player.userId),
+                        team = player.team,
+                        newHostId = Convert.ToInt32(room.Host.userId)
+                    });
                 }
                 else
                 {
@@ -91,8 +110,8 @@ namespace SignalRGame.Hubs
                     Console.WriteLine("Room deleted as the host and participants left.");
                     await Clients.Group(roomId).SendAsync("roomDeleted");
                 }
-
             }
+
 
             else{
 

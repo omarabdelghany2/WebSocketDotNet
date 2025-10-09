@@ -18,6 +18,11 @@ namespace SignalRGame.Hubs
             var profile = JsonSerializer.Deserialize<UserProfile>(serverResponse);
             int userId = profile?.id ?? 0;
 
+            if (serverResponse == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return null;
+            }
 
             if (serverResponse == "error")
             {
@@ -72,9 +77,10 @@ namespace SignalRGame.Hubs
                         {
                             userId = Convert.ToInt32(p.userId),
                             profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
+                            rank = p?.rank,
                             isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                            score=p.score,
-                            gameScore=p.gameScore,
+                            score = p.score,
+                            gameScore = p.gameScore,
                             isMe = p.userId == userId.ToString() // Check if this player is the caller
                         }),
                     blue = room.Participants
@@ -83,17 +89,19 @@ namespace SignalRGame.Hubs
                         {
                             userId = Convert.ToInt32(p.userId),
                             profileName = p.profileName,  // Assuming `p.Score` exists for the player's score
+                            rank = p?.rank,
                             isHost = p.userId == room.Host.userId,// Checking if the participant is the host
-                            score=p.score,
-                            gameScore=p.gameScore,
+                            score = p.score,
+                            gameScore = p.gameScore,
                             isMe = p.userId == userId.ToString() // Check if this player is the caller
                         }),
-                    roomId=roomId,    
-                    blueScore=room.blueTeamScore,
-                    redScore=room.redTeamScore,
+                    roomId = roomId,
+                    blueScore = room.blueTeamScore,
+                    redScore = room.redTeamScore,
                     error = false,
                     errorMessage = "",
-                    gameTeam = room.Participants.FirstOrDefault(p => p.userId == userId.ToString())?.team ?? "Unassigned"
+                    gameTeam = room.Participants.FirstOrDefault(p => p.userId == userId.ToString())?.team ?? "Unassigned",
+                    mode = room.Mode
 
 
                 });

@@ -18,13 +18,23 @@ namespace SignalRGame.Hubs
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(token);
             if (userId == "error")
             {
-                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Invalid token." });
+                Console.WriteLine("down in userId");
+                        await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Invalid token." });
+                        return;
+            }
+            
+
+
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
                 return;
             }
 
             // 🔹 Validate room
             if (!Rooms.TryGetValue(roomId, out var room))
             {
+                Console.WriteLine("down in room");
                 await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Room does not exist." });
                 return;
             }
@@ -32,6 +42,7 @@ namespace SignalRGame.Hubs
             // 🔹 Check if caller is the host
             if (room.Host.userId != userId)
             {
+		Console.WriteLine("down in host");
                 await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Only the host can start the game." });
                 return;
             }
@@ -58,78 +69,8 @@ namespace SignalRGame.Hubs
                 player.inGame = true;
             }
 
-            // 🔹 Hardcoded Mode4 questions (for now)
-            var comprehensionPassage = "Ali went to the market to buy some fruits. He bought apples, bananas, and oranges. After shopping, he met his friend and they went home together.";
-
-            List<Question> questions = new List<Question>
-            {
-                new Question {
-                    questionTitle = "What did Ali go to buy from the market?",
-                    answers = new List<Answer>
-                    {
-                        new Answer { answerText = "Clothes", is_correct = false },
-                        new Answer { answerText = "Fruits", is_correct = true },
-                        new Answer { answerText = "Books", is_correct = false },
-                        new Answer { answerText = "Shoes", is_correct = false }
-                    }
-                },
-                new Question {
-                    questionTitle = "Which fruits did Ali buy?",
-                    answers = new List<Answer>
-                    {
-                        new Answer { answerText = "Apples, Bananas, Oranges", is_correct = true },
-                        new Answer { answerText = "Grapes, Mangoes, Apples", is_correct = false },
-                        new Answer { answerText = "Bananas, Grapes, Pears", is_correct = false },
-                        new Answer { answerText = "None of the above", is_correct = false }
-                    }
-                },
-                new Question {
-                    questionTitle = "Who did Ali meet after shopping?",
-                    answers = new List<Answer>
-                    {
-                        new Answer { answerText = "His teacher", is_correct = false },
-                        new Answer { answerText = "His friend", is_correct = true },
-                        new Answer { answerText = "His father", is_correct = false },
-                        new Answer { answerText = "A shopkeeper", is_correct = false }
-                    }
-                },
-                new Question {
-                    questionTitle = "What did Ali do after meeting his friend?",
-                    answers = new List<Answer>
-                    {
-                        new Answer { answerText = "Went home together", is_correct = true },
-                        new Answer { answerText = "Went back to the market", is_correct = false },
-                        new Answer { answerText = "Played football", is_correct = false },
-                        new Answer { answerText = "Went to school", is_correct = false }
-                    }
-                },
-                new Question {
-                    questionTitle = "What is the main idea of the passage?",
-                    answers = new List<Answer>
-                    {
-                        new Answer { answerText = "Ali went shopping and met his friend", is_correct = true },
-                        new Answer { answerText = "Ali was studying at home", is_correct = false },
-                        new Answer { answerText = "Ali bought new clothes", is_correct = false },
-                        new Answer { answerText = "Ali traveled to another city", is_correct = false }
-                    }
-                }
-            };
-
-
-            // 🔹 Set correctAnswer & hide is_correct
-            foreach (var q in questions)
-            {
-                var correctAnswer = q.answers.FirstOrDefault(a => a.is_correct);
-                if (correctAnswer != null)
-                {
-                    q.correctAnswer = correctAnswer.answerText;
-                }
-
-                foreach (var a in q.answers)
-                {
-                    a.is_correct = false; // hide correctness
-                }
-            }
+            // Get paragraph and questions from the service
+            var (comprehensionPassage, questions) = await _mode4Service.GetParagraphAndQuestionsAsync(token);
 
             // 🔹 Save to dictionary
             RoomToQuestions[roomId] = questions;

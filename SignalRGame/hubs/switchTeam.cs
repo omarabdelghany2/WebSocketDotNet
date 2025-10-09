@@ -17,10 +17,17 @@ namespace SignalRGame.Hubs
                 return;
             }
 
+
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
+            
             // Check if the room exists
             if (!Rooms.TryGetValue(roomId, out var room))
             {
-                await Clients.Caller.SendAsync("playerTeamChanged", new{team ="" , userId=0 ,error =true ,errorMessage="Room does not exist."});
+                await Clients.Caller.SendAsync("playerTeamChanged", new { team = "", userId = 0, error = true, errorMessage = "Room does not exist." });
                 return;
             }
 

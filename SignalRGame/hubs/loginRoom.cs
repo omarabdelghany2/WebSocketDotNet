@@ -164,13 +164,24 @@ namespace SignalRGame.Hubs
             // Get userId from token
 
             string userId = await _userIdFromTokenService.GetUserIdFromTokenAsync(Authorization);
+
+            if (userId == "unauthorized")
+            {
+                await Clients.Caller.SendAsync("refresh"); // 👈 channel refresh event
+                return;
+            }
+
+
             if (userId == "error")
             {
                 await Clients.Caller.SendAsync("Error", "Error retrieving userId; something went wrong with the Token.");
                 Console.WriteLine("the error is hereee careee");
                 return;
             }
-
+            // ✅ Save or update token → userId mapping
+            TokenToUserId[Authorization] = userId;
+            Console.WriteLine($"[LoginRoom] Token mapped for user {userId}");
+            
             string roomId;
 
             if (LoginRoomMapping.TryGetValue(userId, out var existingRoomId))
@@ -233,7 +244,7 @@ namespace SignalRGame.Hubs
                     var player = hostRoom.Participants.FirstOrDefault(p => p.userId == userId);
                     if (player != null && player.inGame)
                     {
-                        await Clients.Caller.SendAsync("inGame", new { roomId = hostRoomId });
+                        await Clients.Caller.SendAsync("inGame", new { roomId = hostRoomId,mode=hostRoom.Mode });
                         Console.WriteLine("User is in game as host.");
                         return;
                     }
@@ -248,7 +259,7 @@ namespace SignalRGame.Hubs
                     var player = partRoom.Participants.FirstOrDefault(p => p.userId == userId);
                     if (player != null && player.inGame)
                     {
-                        await Clients.Caller.SendAsync("inGame", new { roomId = participantRoomId });
+                        await Clients.Caller.SendAsync("inGame", new { roomId = participantRoomId,mode=partRoom.Mode });
                         Console.WriteLine("User is in game as participant.");
                     }
                 }
@@ -311,8 +322,6 @@ namespace SignalRGame.Hubs
                             friendId = friend.friendId,
                             profileName = friend.profileName
                         });
-                        Console.WriteLine("i have good gerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-                        Console.WriteLine(friend.profileName);
                     }
                 }
 

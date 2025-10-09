@@ -1,6 +1,5 @@
 
 using SignalRGame.Services;
-
 using SignalRGame.Hubs;    // Add the correct namespace for GameHub
 
 
@@ -25,7 +24,9 @@ builder.Services.AddSingleton<isSubscribedService>();
 builder.Services.AddSingleton<afkPlayerService>(); 
 builder.Services.AddSingleton<CustomRoomsService>();
 builder.Services.AddSingleton<GuestRoomService>();
-
+builder.Services.AddHttpClient<UserProfileService>();
+builder.Services.AddSingleton<AchievementService>();
+builder.Services.AddHttpClient<Mode4Service>();
 
 
 
