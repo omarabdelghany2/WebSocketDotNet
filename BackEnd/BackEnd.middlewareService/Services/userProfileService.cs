@@ -172,5 +172,36 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
+
+
+        public async Task<string> GetUserParagraphGameHistoryAsync(string token)
+        {
+            var databaseServerUrl = "http://localhost:8004/api/paragraph/game/";
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);
+            requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            try
+            {
+                var databaseResponse = await _httpClient.SendAsync(requestMessage);
+
+                if (databaseResponse.IsSuccessStatusCode)
+                {
+                    return await databaseResponse.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error from database: {errorContent}");
+                    return $"Error: {errorContent}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return $"Exception: {ex.Message}";
+            }
+        }
+
     }
 }

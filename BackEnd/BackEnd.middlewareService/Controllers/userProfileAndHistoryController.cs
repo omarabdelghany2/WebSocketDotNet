@@ -341,91 +341,243 @@ namespace BackEnd.middlewareService.Controllers
             public int Player { get; set; }
         }
 
-        [HttpGet("combined-history")]
-        public async Task<IActionResult> GetCombinedHistory([FromHeader] string Authorization)
+
+        // public async Task<IActionResult> GetCombinedHistory([FromHeader] string Authorization)
+        // {
+        //     if (string.IsNullOrEmpty(Authorization))
+        //     {
+        //         return BadRequest("Token is required.");
+        //     }
+        //     var token = Authorization.Substring("Bearer ".Length).Trim();
+
+        //     try
+        //     {
+        //         // Get all histories in parallel
+        //         var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
+        //         var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
+        //         var customTask = _userProfileService.GetUserCustomGameHistoryAsync(token);
+
+        //         await Task.WhenAll(classicTask, millionaireTask, customTask);
+
+        //         var classicGames = JsonSerializer.Deserialize<ClassicGame>(await classicTask);
+        //         var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(await millionaireTask);
+        //         var customGames = JsonSerializer.Deserialize<ClassicGame>(await customTask); // Using same model as classic games
+
+        //         // Combine all games into one response
+        //         var combinedGames = new List<object>();
+
+        //         // Add classic games
+        //         foreach (var game in classicGames.Results)
+        //         {
+        //             combinedGames.Add(new
+        //             {
+        //                 type = "classic",
+        //                 game
+        //             });
+        //         }
+
+        //         // Add millionaire games
+        //         foreach (var game in millionaireGames.Results)
+        //         {
+        //             combinedGames.Add(new
+        //             {
+        //                 type = "millionaire",
+        //                 game
+        //             });
+        //         }
+
+        //         // Add custom games
+        //         foreach (var game in customGames.Results)
+        //         {
+        //             combinedGames.Add(new
+        //             {
+        //                 type = "custom",
+        //                 game
+        //             });
+        //         }
+
+        //         // Sort all games by creation date, newest first
+        //         var sortedGames = combinedGames.OrderByDescending(g =>
+        //         {
+        //             if (g.GetType().GetProperty("game").GetValue(g) is Result r)
+        //                 return r.CreatedAt;
+        //             if (g.GetType().GetProperty("game").GetValue(g) is MillionaireGameResult m)
+        //                 return m.CreatedAt;
+        //             return DateTime.MinValue;
+        //         }).ToList();
+
+        //         return Ok(new
+        //         {
+        //             Message = "Combined game history fetched successfully",
+        //             Data = new
+        //             {
+        //                 count = sortedGames.Count,
+        //                 next = (string)null,
+        //                 previous = (string)null,
+        //                 results = sortedGames
+        //             }
+        //         });
+        //     }
+        //     catch (JsonException ex)
+        //     {
+        //         return StatusCode(500, new { Message = "Error parsing game history", Exception = ex.Message });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { Message = "Error fetching game history", Exception = ex.Message });
+        //     }
+        // }
+        
+
+
+
+        public class ParagraphGame
+{
+    [JsonPropertyName("count")]
+    public int Count { get; set; }
+
+    [JsonPropertyName("next")]
+    public string Next { get; set; }
+
+    [JsonPropertyName("previous")]
+    public string Previous { get; set; }
+
+    [JsonPropertyName("results")]
+    public List<ParagraphGameResult> Results { get; set; }
+}
+
+public class ParagraphGameResult
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("host")]
+    public int Host { get; set; }
+
+    [JsonPropertyName("created_at")]
+    public DateTime CreatedAt { get; set; }
+
+    [JsonPropertyName("host_name")]
+    public string HostName { get; set; }
+
+    [JsonPropertyName("players")]
+    public List<ParagraphPlayer> Players { get; set; }
+}
+
+public class ParagraphPlayer
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("player")]
+    public int Player { get; set; }
+
+    [JsonPropertyName("score")]
+    public int Score { get; set; }
+
+    [JsonPropertyName("player_name")]
+    public string PlayerName { get; set; }
+}
+
+
+
+
+    [HttpGet("combined-history")]
+    public async Task<IActionResult> GetCombinedHistory([FromHeader] string Authorization)
+    {
+        if (string.IsNullOrEmpty(Authorization))
+            return BadRequest("Token is required.");
+
+        var token = Authorization.Substring("Bearer ".Length).Trim();
+
+        try
         {
-            if (string.IsNullOrEmpty(Authorization))
+            // Fetch all histories in parallel (✅ added paragraph)
+            var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
+            var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
+            var customTask = _userProfileService.GetUserCustomGameHistoryAsync(token);
+            var paragraphTask = _userProfileService.GetUserParagraphGameHistoryAsync(token);
+
+            await Task.WhenAll(classicTask, millionaireTask, customTask, paragraphTask);
+
+            // Deserialize responses
+            var classicGames = JsonSerializer.Deserialize<ClassicGame>(await classicTask);
+            var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(await millionaireTask);
+            var customGames = JsonSerializer.Deserialize<ClassicGame>(await customTask);
+            var paragraphGames = JsonSerializer.Deserialize<ParagraphGame>(await paragraphTask);
+
+            // Combine all games into a single list
+            var combinedGames = new List<object>();
+
+            if (classicGames?.Results != null)
             {
-                return BadRequest("Token is required.");
+                combinedGames.AddRange(classicGames.Results.Select(game => new
+                {
+                    type = "classic",
+                    game
+                }));
             }
-            var token = Authorization.Substring("Bearer ".Length).Trim();
 
-            try
+            if (millionaireGames?.Results != null)
             {
-                // Get all histories in parallel
-                var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
-                var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
-                var customTask = _userProfileService.GetUserCustomGameHistoryAsync(token);
-
-                await Task.WhenAll(classicTask, millionaireTask, customTask);
-
-                var classicGames = JsonSerializer.Deserialize<ClassicGame>(await classicTask);
-                var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(await millionaireTask);
-                var customGames = JsonSerializer.Deserialize<ClassicGame>(await customTask); // Using same model as classic games
-
-                // Combine all games into one response
-                var combinedGames = new List<object>();
-
-                // Add classic games
-                foreach (var game in classicGames.Results)
+                combinedGames.AddRange(millionaireGames.Results.Select(game => new
                 {
-                    combinedGames.Add(new
-                    {
-                        type = "classic",
-                        game
-                    });
-                }
-
-                // Add millionaire games
-                foreach (var game in millionaireGames.Results)
-                {
-                    combinedGames.Add(new
-                    {
-                        type = "millionaire",
-                        game
-                    });
-                }
-
-                // Add custom games
-                foreach (var game in customGames.Results)
-                {
-                    combinedGames.Add(new
-                    {
-                        type = "custom",
-                        game
-                    });
-                }
-
-                // Sort all games by creation date, newest first
-                var sortedGames = combinedGames.OrderByDescending(g => 
-                {
-                    if (g.GetType().GetProperty("game").GetValue(g) is Result r)
-                        return r.CreatedAt;
-                    if (g.GetType().GetProperty("game").GetValue(g) is MillionaireGameResult m)
-                        return m.CreatedAt;
-                    return DateTime.MinValue;
-                }).ToList();
-
-                return Ok(new
-                {
-                    Message = "Combined game history fetched successfully",
-                    Data = new
-                    {
-                        count = sortedGames.Count,
-                        next = (string)null,
-                        previous = (string)null,
-                        results = sortedGames
-                    }
-                });
+                    type = "millionaire",
+                    game
+                }));
             }
-            catch (JsonException ex)
+
+            if (customGames?.Results != null)
             {
-                return StatusCode(500, new { Message = "Error parsing game history", Exception = ex.Message });
+                combinedGames.AddRange(customGames.Results.Select(game => new
+                {
+                    type = "custom",
+                    game
+                }));
             }
-            catch (Exception ex)
+
+            if (paragraphGames?.Results != null)
             {
-                return StatusCode(500, new { Message = "Error fetching game history", Exception = ex.Message });
+                combinedGames.AddRange(paragraphGames.Results.Select(game => new
+                {
+                    type = "paragraph",
+                    game
+                }));
             }
+
+            // Sort all games by creation date, newest first
+            var sortedGames = combinedGames.OrderByDescending(g =>
+            {
+                var game = g.GetType().GetProperty("game")?.GetValue(g);
+                return game switch
+                {
+                    Result r => r.CreatedAt,
+                    MillionaireGameResult m => m.CreatedAt,
+                    ParagraphGameResult p => p.CreatedAt,
+                    _ => DateTime.MinValue
+                };
+            }).ToList();
+
+            return Ok(new
+            {
+                Message = "Combined game history fetched successfully",
+                Data = sortedGames
+            });
         }
+        catch (JsonException ex)
+        {
+            return StatusCode(500, new { Message = "Error parsing game history", Exception = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "Error fetching game history", Exception = ex.Message });
+        }
+    }
+
+
+
+
+
+
     }
 }

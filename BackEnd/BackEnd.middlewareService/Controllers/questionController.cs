@@ -22,30 +22,28 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         [HttpGet("get-categories")]
-        public async Task<IActionResult> getCategories([FromHeader] string Authorization )
+        public async Task<IActionResult> GetCategories([FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
-            {
-                return BadRequest("Refresh Token is required.");
-            }
-            string result = await _TokenValidator.ValidateTokenAsync(Authorization);
+                return BadRequest("Authorization token is required.");
 
+            string token = Authorization.StartsWith("Bearer ") ? Authorization.Substring(7).Trim() : Authorization;
+
+            string result = await _TokenValidator.ValidateTokenAsync(token);
             if (result == "error")
-            {
-                 return Unauthorized("You are not authorized to get the accessToken list.");
-            }
+                return Unauthorized("You are not authorized to get the accessToken list.");
 
             try
             {
-                var token = Authorization.Substring("Bearer ".Length).Trim();
                 var categories = await _getSubCategoriesService.GetParentCategoriesAsync(token);
-                return Ok(categories);
+                return Ok(new { Message = "Categories fetched successfully", Data = categories });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { Message = "Failed to fetch categories", Error = ex.Message });
             }
         }
+
 
         [HttpGet("get-sub-categories/{categoryId}")]
         public async Task<IActionResult> getSubCategories([FromHeader] string Authorization, int categoryId)

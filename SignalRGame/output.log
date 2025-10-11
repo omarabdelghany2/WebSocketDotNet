@@ -15,24 +15,42 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 70.5228ms - 200
+      Received HTTP response headers after 60.2109ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 92.1335ms - 200
+      End processing HTTP request after 74.3477ms - 200
 [LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 64.1882ms - 200
+      Received HTTP response headers after 81.5099ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 65.2039ms - 200
+      End processing HTTP request after 81.8266ms - 200
 sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 61.161ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 61.3441ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 77.865ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 78.014ms - 200
 Removed user 10 from UserIdToConnectionId map successfully.
 Removed user 10 from their login room successfully.
 User 10 was not Host of any room.
@@ -42,73 +60,59 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 75.4436ms - 200
+      Received HTTP response headers after 31.6082ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 78.0012ms - 200
-10
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 171.9194ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 172.8042ms - 200
+      End processing HTTP request after 31.765ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
-Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 275.8703ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 276.3253ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 28.8314ms - 200
+      Received HTTP response headers after 17.9467ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 29.0555ms - 200
+      End processing HTTP request after 18.15ms - 200
 [LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 139.709ms - 200
+      Received HTTP response headers after 75.8803ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 139.9764ms - 200
+      End processing HTTP request after 76.2246ms - 200
 sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
-10
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 67.1433ms - 200
+      Received HTTP response headers after 59.1116ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 67.3813ms - 200
+      End processing HTTP request after 59.5497ms - 200
+10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 95.5902ms - 200
+      Received HTTP response headers after 74.9414ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 95.7545ms - 200
+      End processing HTTP request after 75.193ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
 Removed user 10 from UserIdToConnectionId map successfully.
 Removed user 10 from their login room successfully.
 User 10 was not Host of any room.
@@ -118,22 +122,578 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 123.9389ms - 200
+      Received HTTP response headers after 45.8034ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 124.1405ms - 200
+      End processing HTTP request after 46.52ms - 200
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 64.0761ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 64.2397ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.8021ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 76.2616ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+[LoginRoom] Token mapped for user 4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 76.2873ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 76.691ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 115.7996ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 115.9598ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.0564ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.2956ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.4903ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.7115ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.1697ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.4867ms - 200
+[LoginRoom] Token mapped for user 4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 94.2753ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 94.5852ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.3122ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.479ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 91.4402ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 91.7569ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 10, Profile Name: aaaa, Score: 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.7341ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 33.0069ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+[LoginRoom] Token mapped for user 4
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 17.0846ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 17.2449ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 73.8037ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 74.0494ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 62.9213ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.2499ms - 200
+4
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 75.6004ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 75.9008ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 10, Profile Name: aaaa, Score: 200
+Removed user 4 from UserIdToConnectionId map successfully.
+Removed user 4 from their login room successfully.
+User 4 was not Host of any room.
+User 4 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 35.5661ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 35.8621ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+[LoginRoom] Token mapped for user 15
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 17.1892ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 17.3673ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 68.2823ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 68.3794ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.3998ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5001ms - 200
+15
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.7962ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.8997ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+Removed user 15 from UserIdToConnectionId map successfully.
+Removed user 15 from their login room successfully.
+User 15 was not Host of any room.
+User 15 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 23.1715ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 23.3172ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 16.2079ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 16.5029ms - 200
+[LoginRoom] Token mapped for user 15
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 70.0055ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 70.4099ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.2017ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.4239ms - 200
+15
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.5679ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.8076ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+Removed user 15 from UserIdToConnectionId map successfully.
+Removed user 15 from their login room successfully.
+User 15 was not Host of any room.
+User 15 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 27.8172ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 27.9026ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.063ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.1494ms - 200
+[LoginRoom] Token mapped for user 15
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 70.8516ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 70.969ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.437ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.5152ms - 200
+15
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.9456ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 68.0113ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+Removed user 15 from UserIdToConnectionId map successfully.
+Removed user 15 from their login room successfully.
+User 15 was not Host of any room.
+User 15 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/15/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 25.7909ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 25.9692ms - 200
+Friend ID: 5, Profile Name: a_neklawi, Score: 102
+Friend ID: 10, Profile Name: aaaa, Score: 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+[LoginRoom] Token mapped for user 5
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.121ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.2117ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 68.191ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 68.2536ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+5
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.6042ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.6665ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 71.7515ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 71.8311ms - 200
+Removed user 5 from UserIdToConnectionId map successfully.
+Removed user 5 from their login room successfully.
+User 5 was not Host of any room.
+User 5 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/5/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/5/
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.2753ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 31.3604ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 16.4582ms - 200
+[LoginRoom] Token mapped for user 5
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 16.5993ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 69.1745ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 69.2422ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+5
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.6739ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.7367ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.904ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.9762ms - 200
+Removed user 5 from UserIdToConnectionId map successfully.
+Removed user 5 from their login room successfully.
+User 5 was not Host of any room.
+User 5 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/5/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/5/
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.5477ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 31.6393ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+[LoginRoom] Token mapped for user 5
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 17.9736ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.1056ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+sent empty online friends
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 80.9899ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 81.0651ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 27.3595ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 27.4878ms - 200
+[LoginRoom] Token mapped for user 10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 163.5355ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 163.6547ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.084ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.3562ms - 200
+10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 83.7097ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 83.9423ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 21.6256ms - 200
+      Received HTTP response headers after 59.5421ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 22.0974ms - 200
+      End processing HTTP request after 59.8046ms - 200
+[LoginRoom] Token mapped for user 10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 78.7989ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.1102ms - 200
+sent empty online friends
+entered Notify
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 66.8732ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.0009ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 76.014ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 76.141ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 49.015ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 49.1288ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 25.6288ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 25.8889ms - 200
 [LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
@@ -142,1191 +702,622 @@ info: System.Net.Http.HttpClient.Default.ClientHandler[100]
 sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 84.2779ms - 200
+      Received HTTP response headers after 79.8625ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 84.6733ms - 200
+      End processing HTTP request after 79.9596ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 75.1216ms - 200
+      Received HTTP response headers after 59.576ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 75.3319ms - 200
+      End processing HTTP request after 59.8049ms - 200
 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 111.3246ms - 200
+      Received HTTP response headers after 75.5714ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 111.5679ms - 200
+      End processing HTTP request after 75.6387ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 42.1073ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 42.3416ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 23.0731ms - 200
+      Received HTTP response headers after 21.7166ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 23.2446ms - 200
-[LoginRoom] Token mapped for user 4
+      End processing HTTP request after 22.1855ms - 200
+[LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 96.187ms - 200
+      Received HTTP response headers after 86.3816ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 96.341ms - 200
-sent online friends
+      End processing HTTP request after 86.6469ms - 200
+sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 61.5678ms - 200
+      Received HTTP response headers after 62.6553ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 61.7157ms - 200
-4
+      End processing HTTP request after 62.886ms - 200
+10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 79.3875ms - 200
+      Received HTTP response headers after 87.7918ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 79.5149ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
+      End processing HTTP request after 88.0118ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 49.744ms - 200
+      Received HTTP response headers after 38.9381ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 50.0214ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
+      End processing HTTP request after 39.3198ms - 200
+UserId: 10, Team: Blue, Score: 200
+6695ed80-1c50-4c97-b9fe-ee4c7f9b319a
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 63.2017ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 63.4162ms - 200
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+UserId: 10, Team: Blue, Score: 200
+fa6e0548-7976-46dc-940f-ae132052d406
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 42.1894ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 42.2706ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 68.4675ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 68.5499ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.798ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.2068ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+Room deleted as the host and participants left.
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.8068ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.9196ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 34.6986ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 34.7729ms - 200
+UserId: 10, Team: Blue, Score: 200
+ab4a9978-828a-4f0f-a660-82099c6a029a
+StartGame method called.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://127.0.0.1:8004/api/millionaire/questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://127.0.0.1:8004/api/millionaire/questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 53.442ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 53.7015ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 24.2931ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 24.586ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 21.444ms - 200
+      Received HTTP response headers after 17.9234ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 21.6255ms - 200
-[LoginRoom] Token mapped for user 4
+      End processing HTTP request after 18.1906ms - 200
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 21.8398ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 22.0275ms - 200
+10
+ab4a9978-828a-4f0f-a660-82099c6a029a
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 60.8056ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 60.8794ms - 200
+10
+ab4a9978-828a-4f0f-a660-82099c6a029a
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request POST http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.9323ms - 201
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 33.1733ms - 201
+entered save game
+Game saved successfully. Now removing room...
+[Achievements] DetectAchievementsForRoom called for room ab4a9978-828a-4f0f-a660-82099c6a029a
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/achievements/user-achievements/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/achievements/user-achievements/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 45.655ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.0099ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[101]
+      Received HTTP response headers after 4.1276ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[101]
+      End processing HTTP request after 4.3984ms - 401
+[UserProfileService] Error from API: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[101]
+      Received HTTP response headers after 45.5159ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[101]
+      End processing HTTP request after 45.6865ms - 401
+[UserProfileService] Error from API: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+[Achievements] Error for 10: 'E' is an invalid start of a value. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+Room ab4a9978-828a-4f0f-a660-82099c6a029a removed.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+UserId: 10, Team: Blue, Score: 200
+6dbf2489-c9d5-4796-9296-924b452648f1
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 32.9679ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 33.0635ms - 200
+StartGame method called.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://127.0.0.1:8004/api/millionaire/questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://127.0.0.1:8004/api/millionaire/questions/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 89.1579ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 89.5907ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8005/api/subscription/status/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 38.1337ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 38.6211ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 27.9911ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 28.051ms - 200
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.2458ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.4611ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 67.5001ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 67.8436ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 19.2656ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 19.3515ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 65.185ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 65.2685ms - 200
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.2999ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.509ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 61.4674ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 61.7047ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.2467ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.3154ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 61.9811ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 62.0459ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 17.3706ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 17.4919ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 60.0812ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 60.382ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 18.1625ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 18.3487ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+entered answer 
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 60.4321ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 60.6432ms - 200
+10
+6dbf2489-c9d5-4796-9296-924b452648f1
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request POST http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 31.8441ms - 201
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 32.2319ms - 201
+entered save game
+Game saved successfully. Now removing room...
+[Achievements] DetectAchievementsForRoom called for room 6dbf2489-c9d5-4796-9296-924b452648f1
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/achievements/user-achievements/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/achievements/user-achievements/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 47.7857ms - 401
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 48.0574ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[101]
+      Received HTTP response headers after 2.6575ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[101]
+      End processing HTTP request after 2.879ms - 401
+[UserProfileService] Error from API: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.UserProfileService.ClientHandler[101]
+      Received HTTP response headers after 44.6953ms - 401
+info: System.Net.Http.HttpClient.UserProfileService.LogicalHandler[101]
+      End processing HTTP request after 44.9187ms - 401
+[UserProfileService] Error from API: {"detail":"Given token not valid for any token type","code":"token_not_valid","messages":[{"token_class":"AccessToken","token_type":"access","message":"Token is invalid or expired"}]}
+[Achievements] Error for 10: 'E' is an invalid start of a value. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+Room 6dbf2489-c9d5-4796-9296-924b452648f1 removed.
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 39.8286ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 39.9011ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 20.7521ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 20.9246ms - 200
+[LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-sent online friends
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.6815ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.879ms - 200
+sent empty online friends
 entered Notify
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 92.9183ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 93.4609ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
-4
+10
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 87.2674ms - 200
+      Received HTTP response headers after 67.4105ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 87.6028ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 83.4998ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 83.6078ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 54.4233ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 54.7786ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 22.2598ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 22.3962ms - 200
-[LoginRoom] Token mapped for user 4
+      End processing HTTP request after 67.5251ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 90.8838ms - 200
+      Received HTTP response headers after 91.832ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 91.0342ms - 200
-sent online friends
+      End processing HTTP request after 91.911ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 43.6512ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 43.724ms - 200
+Friend ID: 11, Profile Name: cccc, Score: 2
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/id/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 46.4062ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 46.8429ms - 200
+[LoginRoom] Token mapped for user 10
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 93.444ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 93.7745ms - 200
+sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.3095ms - 200
+      Received HTTP response headers after 59.3508ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.4802ms - 200
-4
+      End processing HTTP request after 59.5207ms - 200
+10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 87.5371ms - 200
+      Received HTTP response headers after 83.7623ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 87.7206ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
+      End processing HTTP request after 83.9821ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
+Friend ID: 15, Profile Name: aymoon, Score: 392
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
+Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+Removed user 10 from UserIdToConnectionId map successfully.
+Removed user 10 from their login room successfully.
+User 10 was not Host of any room.
+User 10 was not particpant of any room.
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 43.5457ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 43.6938ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 30.4215ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 30.6116ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 78.4249ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 78.5187ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.2956ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.412ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 79.8266ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 79.9597ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 38.8804ms - 200
+      Received HTTP response headers after 39.131ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
       End processing HTTP request after 39.2115ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 21.7361ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 21.9211ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 89.5348ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 89.6979ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.1694ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 63.2966ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 87.7152ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 87.8002ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 39.5996ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 39.7564ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 36.3828ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 36.4699ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 99.8339ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 100.1336ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 65.2086ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 65.5278ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 93.243ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 93.6387ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 35.8226ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 35.8946ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 24.5843ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 24.7708ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 93.3965ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 94.1791ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 66.6799ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 66.9365ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 107.3417ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 107.7812ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 42.497ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 42.707ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 27.2197ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 27.3153ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 90.3042ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 90.3972ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 67.0963ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 67.1772ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 151.7709ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 151.8583ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 36.3933ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 36.4898ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 25.1454ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 25.244ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 77.3118ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 77.5372ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.6098ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.73ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 42.2891ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 42.3765ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 79.3762ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 79.4321ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 18.1062ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 18.4303ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 72.8542ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 72.9276ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 67.3902ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 67.4686ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 83.8187ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 83.8814ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 42.0162ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 42.1003ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 26.2188ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 27.1632ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 85.7887ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 85.87ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 67.3777ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 67.4571ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 76.6116ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 76.6862ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 40.7691ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 40.9606ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 29.4324ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 29.5285ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 108.8631ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 108.937ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.5449ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 63.604ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 95.8443ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 95.9025ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 39.622ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 39.7896ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 38.0695ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 38.1832ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 105.4038ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 105.4888ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 67.5943ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 67.8053ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 83.5968ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 83.8785ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 31.4258ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 31.5017ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 18.3285ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 18.4088ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 81.3436ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 81.5329ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.4894ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 63.5685ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.7473ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.8464ms - 200
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 37.8456ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 38.1068ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 18.4538ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 18.5257ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 81.6553ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 81.7149ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.5232ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.5744ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 75.964ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 76.022ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 31.7942ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 32.063ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 18.3234ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 18.3957ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 83.456ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 83.5202ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.8488ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.9311ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 83.4542ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 83.5388ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 29.7832ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 29.8638ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 17.616ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 17.9234ms - 200
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 78.9299ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 79.1464ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.3299ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.5558ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.7137ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.9056ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 38.6732ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 38.9142ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 19.9626ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 20.0662ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 78.5499ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 78.7305ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.1192ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 63.3216ms - 200
-4
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 87.4757ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 87.7112ms - 200
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 41.66ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 41.9669ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-[LoginRoom] Token mapped for user 4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 17.8568ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 17.9221ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 74.9845ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 75.0333ms - 200
-sent online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-4
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 63.6428ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 63.7607ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.8041ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.8599ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-Removed user 4 from UserIdToConnectionId map successfully.
-Removed user 4 from their login room successfully.
-User 4 was not Host of any room.
-User 4 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/4/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/4/
-Friend ID: 5, Profile Name: a_neklawi, Score: 2
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 10, Profile Name: aaaa, Score: 200
-Friend aaaa is online, roomId: login-dee7d09c-e655-4531-8ba7-aad917d6eff9
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 35.3098ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 35.4298ms - 200
-Removed user 10 from UserIdToConnectionId map successfully.
-Removed user 10 from their login room successfully.
-User 10 was not Host of any room.
-User 10 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 47.7525ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 47.832ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 17.7764ms - 200
+      Received HTTP response headers after 18.8841ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 17.8915ms - 200
+      End processing HTTP request after 19.1941ms - 200
 [LoginRoom] Token mapped for user 10
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 79.78ms - 200
+      Received HTTP response headers after 76.9974ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 80.0939ms - 200
+      End processing HTTP request after 77.2649ms - 200
 sent empty online friends
 entered Notify
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/id/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.2547ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.4986ms - 200
 10
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 59.6925ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 59.7555ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
       Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.7347ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.9196ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 79.7495ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 79.8508ms - 200
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
 Removed user 10 from UserIdToConnectionId map successfully.
 Removed user 10 from their login room successfully.
 User 10 was not Host of any room.
@@ -1336,69 +1327,11 @@ info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
 info: System.Net.Http.HttpClient.Default.ClientHandler[100]
       Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
 info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 29.554ms - 200
+      Received HTTP response headers after 136.6109ms - 200
 info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 29.7523ms - 200
+      End processing HTTP request after 136.722ms - 200
 Friend ID: 11, Profile Name: cccc, Score: 2
 Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
-Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 15.7004ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 16.0269ms - 200
-[LoginRoom] Token mapped for user 10
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 74.0307ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 74.3048ms - 200
-sent empty online friends
-entered Notify
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/id/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 59.2733ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 59.4723ms - 200
-10
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 71.7221ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 71.9173ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
-Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0
-Removed user 10 from UserIdToConnectionId map successfully.
-Removed user 10 from their login room successfully.
-User 10 was not Host of any room.
-User 10 was not particpant of any room.
-info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
-      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/10/
-info: System.Net.Http.HttpClient.Default.ClientHandler[100]
-      Sending HTTP request GET http://localhost:8004/api/user/friends/list/10/
-info: System.Net.Http.HttpClient.Default.ClientHandler[101]
-      Received HTTP response headers after 32.9711ms - 200
-info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
-      End processing HTTP request after 33.1649ms - 200
-Friend ID: 11, Profile Name: cccc, Score: 2
-Friend ID: 15, Profile Name: aymoon, Score: 392
-Friend ID: 6, Profile Name: omarillo, Score: 0
-Friend ID: 4, Profile Name: Markizz0, Score: 3
+Friend ID: 6, Profile Name: omarillo, Score: 100
+Friend ID: 4, Profile Name: Markizz0, Score: 103
 Friend ID: 27, Profile Name: Ahmed ElNeklawi, Score: 0

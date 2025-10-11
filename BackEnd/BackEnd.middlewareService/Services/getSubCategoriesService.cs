@@ -31,18 +31,10 @@ namespace BackEnd.middlewareService.Services
 
     public class CategoryResponse
     {
-        [JsonPropertyName("count")]
-        public int Count { get; set; }
-
-        [JsonPropertyName("next")]
-        public string? Next { get; set; }
-
-        [JsonPropertyName("previous")]
-        public string? Previous { get; set; }
-
         [JsonPropertyName("results")]
         public List<CategoryDetails> Results { get; set; } = new List<CategoryDetails>();
     }
+
     public class getSubCategoriesService
     {
         private readonly HttpClient _httpClient;
@@ -53,14 +45,10 @@ namespace BackEnd.middlewareService.Services
             _httpClient = httpClient;
         }
 
-        public async Task<CategoryResponse> GetParentCategoriesAsync(string token)
+        public async Task<List<CategoryDetails>> GetParentCategoriesAsync(string token)
         {
-            // Validate token
             if (string.IsNullOrWhiteSpace(token))
-            {
-                Console.WriteLine("Invalid token provided.");
                 throw new ArgumentException("Authorization token cannot be null or empty.", nameof(token));
-            }
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/categories/parent/");
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -72,9 +60,14 @@ namespace BackEnd.middlewareService.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"Parent categories retrieved successfully");
-                    return JsonSerializer.Deserialize<CategoryResponse>(responseContent) 
-                           ?? throw new JsonException("Failed to deserialize the response");
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                    // Deserialize to CategoryResponse, then extract Results
+                    var categoryResponse = JsonSerializer.Deserialize<CategoryResponse>(responseContent, options);
+                    if (categoryResponse?.Results != null)
+                        return categoryResponse.Results;
+
+                    return new List<CategoryDetails>();
                 }
                 else
                 {
@@ -82,82 +75,51 @@ namespace BackEnd.middlewareService.Services
                     throw new HttpRequestException($"Failed to get parent categories. Status code: {response.StatusCode}");
                 }
             }
-            catch (HttpRequestException httpEx)
-            {
-                Console.WriteLine($"HTTP Request Exception: {httpEx.Message}");
-                throw;
-            }
-            catch (JsonException jsonEx)
-            {
-                Console.WriteLine($"JSON Parsing Exception: {jsonEx.Message}");
-                throw;
-            }
             catch (Exception ex)
             {
-                Console.WriteLine($"General Exception: {ex.Message}");
+                Console.WriteLine($"Exception: {ex.Message}");
                 throw;
             }
         }
 
 
 
+        public async Task<List<SubCategory>> GetSubCategoriesAsync(string token, string category)
+{
+    if (string.IsNullOrWhiteSpace(token))
+        throw new ArgumentException("Authorization token cannot be null or empty.", nameof(token));
 
+    var encodedCategory = Uri.EscapeDataString(category.Trim());
+    var fullUrl = $"{_baseUrl}/categories/subcategories/list/?categories={encodedCategory}";
+    Console.WriteLine($"Request URL: {fullUrl}");
 
-    public async Task<string> GetSubCategoriesAsync(string token, string category)
+    var requestMessage = new HttpRequestMessage(HttpMethod.Get, fullUrl);
+    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+    try
     {
-        // Construct the subcategories URL
-        var databaseServerUrl = $"{_baseUrl}/categories/subcategories/list/";
+        var response = await _httpClient.SendAsync(requestMessage);
+        var responseContent = await response.Content.ReadAsStringAsync();
 
-        // Trim and encode the category to ensure proper URL formatting
-        var trimmedCategory = category.Trim(); // Remove any leading or trailing whitespace/newlines
-        var encodedCategory = Uri.EscapeDataString(trimmedCategory);
-
-        // Construct the full URL
-        var fullUrl = $"{databaseServerUrl}?categories={encodedCategory}";
-        Console.WriteLine($"Request URL: {fullUrl}"); // Optional debugging log
-
-        // Validate token
-        if (string.IsNullOrWhiteSpace(token))
+        if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine("Invalid token provided.");
-            throw new ArgumentException("Authorization token cannot be null or empty.", nameof(token));
+            Console.WriteLine("Subcategories retrieved successfully");
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            return JsonSerializer.Deserialize<List<SubCategory>>(responseContent, options)
+                   ?? new List<SubCategory>();
         }
-
-        // Prepare the GET request
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, fullUrl);
-        requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-        try
+        else
         {
-            // Send the request
-            var databaseResponse = await _httpClient.SendAsync(requestMessage);
-
-            // Process the response
-            if (databaseResponse.IsSuccessStatusCode)
-            {
-                var responseContent = await databaseResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Response: {responseContent}"); // Log success
-                return responseContent;
-            }
-            else
-            {
-                var errorContent = await databaseResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error from server: {errorContent}"); // Log error
-                return errorContent;
-            }
+            Console.WriteLine($"Error retrieving subcategories: {responseContent}");
+            throw new HttpRequestException($"Failed to get subcategories. Status code: {response.StatusCode}");
         }
-        catch (HttpRequestException httpEx)
-        {
-            Console.WriteLine($"HTTP Request Exception: {httpEx.Message}");
-            throw;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"General Exception: {ex.Message}");
-                throw;
-            }
-        }
-
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Exception: {ex.Message}");
+        throw;
+    }
+}
         public async Task<CategoryDetails> GetCategoryDetailsAsync(string token, int categoryId)
         {
             if (string.IsNullOrWhiteSpace(token))
