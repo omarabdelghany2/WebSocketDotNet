@@ -22,46 +22,46 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         [HttpPost]
-    public async Task<IActionResult> register([FromBody] UserRegistrationInput input)
-    {
-        // Log the received input
-        Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
-
-  
-        // Validate email format and domain
-        if (string.IsNullOrWhiteSpace(input.Email) || 
-            !Regex.IsMatch(input.Email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase))
+        public async Task<IActionResult> register([FromBody] UserRegistrationInput input)
         {
-            return BadRequest(new { Message = "Invalid email. Please provide a valid Gmail address." });
-        }
+            // Log the received input
+            Console.WriteLine($"Received Input: {JsonSerializer.Serialize(input)}");
 
+            // Validate email format and supported domains
+            var emailPattern = @"^[a-zA-Z0-9._%+-]+@(gmail\.com|(outlook|hotmail|live)\.[a-z.]+|office365\.com)$";
 
-        var databaseServerUrl = "http://localhost:8004/api/user/auth/register/";
-
-        try
-        {
-            var jsonInput = JsonSerializer.Serialize(input);
-            var content = new StringContent(jsonInput, Encoding.UTF8, "application/json");
-
-            var databaseResponse = await _httpClient.PostAsync(databaseServerUrl, content);
-
-            if (databaseResponse.IsSuccessStatusCode)
+            if (string.IsNullOrWhiteSpace(input.Email) || 
+                !Regex.IsMatch(input.Email, emailPattern, RegexOptions.IgnoreCase))
             {
-                var result = await databaseResponse.Content.ReadAsStringAsync();
-                return Ok(new { Message = "Registration successful", Details = result });
+                return BadRequest(new { Message = "Invalid email. Please provide a valid Gmail, Outlook, Hotmail, Live, or Office365 address." });
             }
-            else
+
+            var databaseServerUrl = "http://localhost:8004/api/user/auth/register/";
+
+            try
             {
-                var error = await databaseResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Database server error: {error}");
-                return StatusCode((int)databaseResponse.StatusCode, new { Message = "Database server error", Error = error });
+                var jsonInput = JsonSerializer.Serialize(input);
+                var content = new StringContent(jsonInput, Encoding.UTF8, "application/json");
+
+                var databaseResponse = await _httpClient.PostAsync(databaseServerUrl, content);
+
+                if (databaseResponse.IsSuccessStatusCode)
+                {
+                    var result = await databaseResponse.Content.ReadAsStringAsync();
+                    return Ok(new { Message = "Registration successful", Details = result });
+                }
+                else
+                {
+                    var error = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Database server error: {error}");
+                    return StatusCode((int)databaseResponse.StatusCode, new { Message = "Database server error", Error = error });
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
             }
         }
-        catch (HttpRequestException ex)
-        {
-            return StatusCode(500, new { Message = "Error communicating with the database server", Exception = ex.Message });
-        }
-    }
 
             // MX record checker for domain
     private async Task<bool> DomainHasMxRecords(string domain)

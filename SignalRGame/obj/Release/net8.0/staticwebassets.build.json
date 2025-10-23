@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "YjsJgjvcrb3v0ue24nsk8rnAKUPIZOUFKQvK/Pd8j0o=",
+  "Source": "SignalRGame",
+  "BasePath": "_content/SignalRGame",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "SignalRGame/wwwroot",
+      "Source": "SignalRGame",
+      "ContentRoot": "/root/BackEnd/WebSocketDotNet/SignalRGame/wwwroot/",
+      "BasePath": "_content/SignalRGame",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/root/BackEnd/WebSocketDotNet/SignalRGame/wwwroot/index.html",
+      "SourceId": "SignalRGame",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/BackEnd/WebSocketDotNet/SignalRGame/wwwroot/",
+      "BasePath": "_content/SignalRGame",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/index.html"
+    }
+  ]
+}

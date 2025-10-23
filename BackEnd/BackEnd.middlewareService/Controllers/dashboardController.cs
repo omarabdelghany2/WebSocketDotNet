@@ -246,6 +246,56 @@ namespace BackEnd.middlewareService.Controllers
             return Ok(new { Message = "File sent successfully." });
         }
 
+        [HttpDelete("dashboard/question/{questionId}")]
+        public async Task<IActionResult> DeleteQuestion([FromRoute] int questionId)
+        {
+            var authorization = HttpContext.Request.Headers["Authorization"].ToString();
+            if (string.IsNullOrWhiteSpace(authorization) || !authorization.StartsWith("Bearer "))
+            {
+                return Unauthorized(new { message = "No valid token provided" });
+            }
+            var token = authorization.Substring("Bearer ".Length).Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+            if (validationResult == "error")
+            {
+                return Unauthorized(new { message = "You are not authorized to delete questions." });
+            }
+            bool result = await _insertQuestionsSerivce.DeleteQuestionAsync(questionId, token);
+            if (result)
+            {
+                return Ok(new { message = $"Question {questionId} deleted successfully." });
+            }
+            else
+            {
+                return StatusCode(500, new { message = $"Failed to delete question {questionId}." });
+            }
+        }
+
+        [HttpPatch("dashboard/question/{questionId}")]
+        public async Task<IActionResult> UpdateQuestion([FromRoute] int questionId, [FromBody] object updateBody)
+        {
+            var authorization = HttpContext.Request.Headers["Authorization"].ToString();
+            if (string.IsNullOrWhiteSpace(authorization) || !authorization.StartsWith("Bearer "))
+            {
+                return Unauthorized(new { message = "No valid token provided" });
+            }
+            var token = authorization.Substring("Bearer ".Length).Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+            if (validationResult == "error")
+            {
+                return Unauthorized(new { message = "You are not authorized to update questions." });
+            }
+            bool result = await _insertQuestionsSerivce.UpdateQuestionAsync(questionId, token, updateBody);
+            if (result)
+            {
+                return Ok(new { message = $"Question {questionId} updated successfully." });
+            }
+            else
+            {
+                return StatusCode(500, new { message = $"Failed to update question {questionId}." });
+            }
+        }
+
 
         public class InsertQuestionRequest
         {
@@ -295,6 +345,153 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { error = "An unexpected error occurred", details = ex.Message });
             }
         }
+
+
+
+
+
+
+
+
+
+        [HttpGet("dashboard/classic-questions")]
+        public async Task<IActionResult> GetClassicQuestions(
+            [FromHeader] string Authorization,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+                return BadRequest("Authorization token is required.");
+
+            var token = Authorization.Replace("Bearer ", "").Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+
+            if (validationResult == "error")
+                return Unauthorized("You are not authorized to access this resource.");
+
+            try
+            {
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                // 🔹 Using localhost instead of the public IP
+                var response = await client.GetAsync("http://localhost:8004/api/questions/?subcategory=Description");
+                if (!response.IsSuccessStatusCode)
+                    return StatusCode((int)response.StatusCode, "Failed to fetch classic questions from server.");
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var questions = JsonSerializer.Deserialize<List<BackEnd.middlewareService.Models.Question>>(jsonString,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                foreach (var q in questions)
+                {
+                    var correct = q.answers.FirstOrDefault(a => a.is_correct);
+                    q.correctAnswer = correct?.answerText ?? "";
+                }
+
+                // 🔹 Pagination
+                int totalItems = questions.Count;
+                var paginatedQuestions = questions
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                string baseUrl = $"http://localhost:5038/api/dashboard/classic-questions";
+                string? next = (page * pageSize < totalItems)
+                    ? $"{baseUrl}?page={page + 1}&pageSize={pageSize}"
+                    : null;
+                string? previous = (page > 1)
+                    ? $"{baseUrl}?page={page - 1}&pageSize={pageSize}"
+                    : null;
+
+                var result = new
+                {
+                    count = totalItems,
+                    next,
+                    previous,
+                    results = paginatedQuestions
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching classic questions.");
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
+
+        [HttpGet("dashboard/millionaire-questions")]
+        public async Task<IActionResult> GetMillionaireQuestions(
+            [FromHeader] string Authorization,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+                return BadRequest("Authorization token is required.");
+
+            var token = Authorization.Replace("Bearer ", "").Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+
+            if (validationResult == "error")
+                return Unauthorized("You are not authorized to access this resource.");
+
+            try
+            {
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                // 🔹 Using localhost instead of the public IP
+                var response = await client.GetAsync("http://localhost:8004/api/millionaire/questions/");
+                if (!response.IsSuccessStatusCode)
+                    return StatusCode((int)response.StatusCode, "Failed to fetch millionaire questions from server.");
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var questions = JsonSerializer.Deserialize<List<BackEnd.middlewareService.Models.Question>>(jsonString,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                foreach (var q in questions)
+                {
+                    var correct = q.answers.FirstOrDefault(a => a.is_correct);
+                    q.correctAnswer = correct?.answerText ?? "";
+                }
+
+                // 🔹 Pagination
+                int totalItems = questions.Count;
+                var paginatedQuestions = questions
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                string baseUrl = $"http://localhost:5038/api/dashboard/millionaire-questions";
+                string? next = (page * pageSize < totalItems)
+                    ? $"{baseUrl}?page={page + 1}&pageSize={pageSize}"
+                    : null;
+                string? previous = (page > 1)
+                    ? $"{baseUrl}?page={page - 1}&pageSize={pageSize}"
+                    : null;
+
+                var result = new
+                {
+                    count = totalItems,
+                    next,
+                    previous,
+                    results = paginatedQuestions
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching millionaire questions.");
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
     }
 
     public class ParagraphUploadRequest

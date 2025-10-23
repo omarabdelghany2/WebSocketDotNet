@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackEnd.middlewareService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6e9639fc1911905938fec40b0db5f8bd8ab2fd1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30264bed25bceb6429354102afb1d0643e7cc420")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackEnd.middlewareService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackEnd.middlewareService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

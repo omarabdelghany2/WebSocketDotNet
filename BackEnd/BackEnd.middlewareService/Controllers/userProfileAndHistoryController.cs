@@ -90,25 +90,26 @@ namespace BackEnd.middlewareService.Controllers
                     .ToHashSet();
 
             
-                // Predefined achievements (now with description)
+                // Unified achievement names and iconUrls as in achievementService
                 var allAchievements = new List<object>
                 {
-                    new { name = "First Classic Match", iconUrl = "/images/achievements/first_classic.png", description = "Play your very first Classic mode match." },
-                    new { name = "Classic Winner x10", iconUrl = "/images/achievements/classic_winner_10.png", description = "Win 10 Classic matches." },
-                    new { name = "Classic Winner x30", iconUrl = "/images/achievements/classic_winner_30.png", description = "Win 30 Classic matches." },
-                    new { name = "Classic Winner x60", iconUrl = "/images/achievements/classic_winner_60.png", description = "Win 60 Classic matches." },
-                    new { name = "Classic Winner x90", iconUrl = "/images/achievements/classic_winner_90.png", description = "Win 90 Classic matches." },
-                    new { name = "Classic Winner 3 Consecutive", iconUrl = "/images/achievements/classic_winner_3.png", description = "Win 3 Classic matches in a row." },
-                    new { name = "Classic Winner 5 Consecutive", iconUrl = "/images/achievements/classic_winner_5.png", description = "Win 5 Classic matches in a row." },
-                    new { name = "Classic Winner 7 Consecutive", iconUrl = "/images/achievements/classic_winner_7.png", description = "Win 7 Classic matches in a row." },
-                    new { name = "First Millionaire Match", iconUrl = "/images/achievements/first_millionaire.png", description = "Play your very first Millionaire mode match." },
-                    new { name = "Millionaire Winner x10", iconUrl = "/images/achievements/millionaire_winner_10.png", description = "Win 10 Millionaire matches." },
-                    new { name = "Millionaire Winner x30", iconUrl = "/images/achievements/millionaire_winner_30.png", description = "Win 30 Millionaire matches." },
-                    new { name = "Millionaire Winner x60", iconUrl = "/images/achievements/millionaire_winner_60.png", description = "Win 60 Millionaire matches." },
-                    new { name = "Millionaire Winner x90", iconUrl = "/images/achievements/millionaire_winner_90.png", description = "Win 90 Millionaire matches." },
-                    new { name = "Millionaire Winner 3 Consecutive", iconUrl = "/images/achievements/millionaire_winner_3.png", description = "Win 3 Millionaire matches in a row." },
-                    new { name = "Millionaire Winner 5 Consecutive", iconUrl = "/images/achievements/millionaire_winner_5.png", description = "Win 5 Millionaire matches in a row." },
-                    new { name = "Millionaire Winner 7 Consecutive", iconUrl = "/images/achievements/millionaire_winner_7.png", description = "Win 7 Millionaire matches in a row." }
+                    new { name = "Classic First Game", iconUrl = "/images/achievements/classic_first.png", description = "Play your very first Classic mode match." },
+                    new { name = "Classic Win 10", iconUrl = "/images/achievements/classic_win_10.png", description = "Win 10 Classic matches." },
+                    new { name = "Classic Win 30", iconUrl = "/images/achievements/classic_win_30.png", description = "Win 30 Classic matches." },
+                    new { name = "Classic Win 60", iconUrl = "/images/achievements/classic_win_60.png", description = "Win 60 Classic matches." },
+                    new { name = "Classic Win 90", iconUrl = "/images/achievements/classic_win_90.png", description = "Win 90 Classic matches." },
+                    new { name = "Classic Win 3 Consecutive", iconUrl = "/images/achievements/classic_win_3.png", description = "Win 3 Classic matches in a row." },
+                    new { name = "Classic Win 5 Consecutive", iconUrl = "/images/achievements/classic_win_5.png", description = "Win 5 Classic matches in a row." },
+                    new { name = "Classic Win 7 Consecutive", iconUrl = "/images/achievements/classic_win_7.png", description = "Win 7 Classic matches in a row." },
+
+                    new { name = "Millionaire First Game", iconUrl = "/images/achievements/millionaire_first.png", description = "Play your very first Millionaire mode match." },
+                    new { name = "Millionaire Win 10", iconUrl = "/images/achievements/millionaire_win_10.png", description = "Win 10 Millionaire matches." },
+                    new { name = "Millionaire Win 30", iconUrl = "/images/achievements/millionaire_win_30.png", description = "Win 30 Millionaire matches." },
+                    new { name = "Millionaire Win 60", iconUrl = "/images/achievements/millionaire_win_60.png", description = "Win 60 Millionaire matches." },
+                    new { name = "Millionaire Win 90", iconUrl = "/images/achievements/millionaire_win_90.png", description = "Win 90 Millionaire matches." },
+                    new { name = "Millionaire Win 3 Consecutive", iconUrl = "/images/achievements/millionaire_win_3.png", description = "Win 3 Millionaire matches in a row." },
+                    new { name = "Millionaire Win 5 Consecutive", iconUrl = "/images/achievements/millionaire_win_5.png", description = "Win 5 Millionaire matches in a row." },
+                    new { name = "Millionaire Win 7 Consecutive", iconUrl = "/images/achievements/millionaire_win_7.png", description = "Win 7 Millionaire matches in a row." }
                 };
 
                 // Merge with ownership
@@ -143,78 +144,6 @@ namespace BackEnd.middlewareService.Controllers
 
 
 
-        // [HttpGet("classic-mode-history")]
-        // public async Task<IActionResult> GetUserClassicModeHistory([FromHeader] string Authorization)
-        // {
-        //     if (string.IsNullOrEmpty(Authorization))
-        //     {
-        //         return BadRequest("Token is required.");
-        //     }
-        //     var token = Authorization.Substring("Bearer ".Length).Trim();
-
-        //     // Call the GetUserProfileAsync function to fetch the friends list
-        //     string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
-
-        //     if (result == "error")
-        //     {
-        //         return BadRequest("Error retrieving friends list.");
-        //     }
-
-        //     try
-        //     {
-        //         // Parse the JSON response into a more readable format
-        //         var profile = JsonSerializer.Deserialize<ClassicGame>(result);
-
-        //         return Ok(new
-        //         {
-        //             Message = "profile classic mode history fetched successfully",
-        //             Data = profile // Return the friends list as parsed JSON
-        //         });
-        //     }
-        //     catch (JsonException ex)
-        //     {
-        //         return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
-        //     }
-        // }
-
-
-
-
-
-        // [HttpGet("millionaire-mode-history")]
-        // public async Task<IActionResult> GetUserMillionaireModeHistory([FromHeader] string Authorization)
-        // {
-        //     if (string.IsNullOrEmpty(Authorization))
-        //     {
-        //         return BadRequest("Token is required.");
-        //     }
-        //     var token = Authorization.Substring("Bearer ".Length).Trim();
-
-        //     // Call the GetUserProfileAsync function to fetch the friends list
-        //     string result = await _userProfileService.GetUserClassicModeHistoryAsync(token);
-
-        //     if (result == "error")
-        //     {
-        //         return BadRequest("Error retrieving friends list.");
-        //     }
-
-        //     try
-        //     {
-        //         // Parse the JSON response into a more readable format
-        //         var profile = JsonSerializer.Deserialize<MillionaireGame>(result);
-
-        //         return Ok(new
-        //         {
-        //             Message = "profile classic mode history fetched successfully",
-        //             Data = profile // Return the friends list as parsed JSON
-        //         });
-        //     }
-        //     catch (JsonException ex)
-        //     {
-        //         return StatusCode(500, new { Message = "Error parsing profile JSON", Exception = ex.Message });
-        //     }
-        // }
- 
 
 
 
@@ -342,92 +271,7 @@ namespace BackEnd.middlewareService.Controllers
         }
 
 
-        // public async Task<IActionResult> GetCombinedHistory([FromHeader] string Authorization)
-        // {
-        //     if (string.IsNullOrEmpty(Authorization))
-        //     {
-        //         return BadRequest("Token is required.");
-        //     }
-        //     var token = Authorization.Substring("Bearer ".Length).Trim();
 
-        //     try
-        //     {
-        //         // Get all histories in parallel
-        //         var classicTask = _userProfileService.GetUserClassicModeHistoryAsync(token);
-        //         var millionaireTask = _userProfileService.GetUserMillionaireModeHistoryAsync(token);
-        //         var customTask = _userProfileService.GetUserCustomGameHistoryAsync(token);
-
-        //         await Task.WhenAll(classicTask, millionaireTask, customTask);
-
-        //         var classicGames = JsonSerializer.Deserialize<ClassicGame>(await classicTask);
-        //         var millionaireGames = JsonSerializer.Deserialize<MillionaireGame>(await millionaireTask);
-        //         var customGames = JsonSerializer.Deserialize<ClassicGame>(await customTask); // Using same model as classic games
-
-        //         // Combine all games into one response
-        //         var combinedGames = new List<object>();
-
-        //         // Add classic games
-        //         foreach (var game in classicGames.Results)
-        //         {
-        //             combinedGames.Add(new
-        //             {
-        //                 type = "classic",
-        //                 game
-        //             });
-        //         }
-
-        //         // Add millionaire games
-        //         foreach (var game in millionaireGames.Results)
-        //         {
-        //             combinedGames.Add(new
-        //             {
-        //                 type = "millionaire",
-        //                 game
-        //             });
-        //         }
-
-        //         // Add custom games
-        //         foreach (var game in customGames.Results)
-        //         {
-        //             combinedGames.Add(new
-        //             {
-        //                 type = "custom",
-        //                 game
-        //             });
-        //         }
-
-        //         // Sort all games by creation date, newest first
-        //         var sortedGames = combinedGames.OrderByDescending(g =>
-        //         {
-        //             if (g.GetType().GetProperty("game").GetValue(g) is Result r)
-        //                 return r.CreatedAt;
-        //             if (g.GetType().GetProperty("game").GetValue(g) is MillionaireGameResult m)
-        //                 return m.CreatedAt;
-        //             return DateTime.MinValue;
-        //         }).ToList();
-
-        //         return Ok(new
-        //         {
-        //             Message = "Combined game history fetched successfully",
-        //             Data = new
-        //             {
-        //                 count = sortedGames.Count,
-        //                 next = (string)null,
-        //                 previous = (string)null,
-        //                 results = sortedGames
-        //             }
-        //         });
-        //     }
-        //     catch (JsonException ex)
-        //     {
-        //         return StatusCode(500, new { Message = "Error parsing game history", Exception = ex.Message });
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, new { Message = "Error fetching game history", Exception = ex.Message });
-        //     }
-        // }
-        
 
 
 
@@ -479,7 +323,30 @@ public class ParagraphPlayer
     public string PlayerName { get; set; }
 }
 
+        public class EditProfileNameRequest
+        {
+            [JsonPropertyName("profile_name")]
+            public string ProfileName { get; set; }
+        }
 
+        [HttpPatch("edit-name")]
+        public async Task<IActionResult> EditProfileName([FromHeader] string Authorization, [FromBody] EditProfileNameRequest request)
+        {
+            if (string.IsNullOrEmpty(Authorization) || request == null || string.IsNullOrWhiteSpace(request.ProfileName))
+            {
+                return BadRequest("Token and profile name are required.");
+            }
+            var token = Authorization.Substring("Bearer ".Length).Trim();
+            bool result = await _userProfileService.ChangeProfileNameAsync(token, request.ProfileName);
+            if (result)
+            {
+                return Ok(new { Message = "Profile name updated successfully." });
+            }
+            else
+            {
+                return StatusCode(500, new { Message = "Failed to update profile name." });
+            }
+        }
 
 
     [HttpGet("combined-history")]
@@ -536,27 +403,75 @@ public class ParagraphPlayer
                 }));
             }
 
-            if (paragraphGames?.Results != null)
-            {
-                combinedGames.AddRange(paragraphGames.Results.Select(game => new
+                // if (paragraphGames?.Results != null)
+                // {
+                //     combinedGames.AddRange(paragraphGames.Results.Select(game => new
+                //     {
+                //         type = "paragraph",
+                //         game
+                //     }));
+                // }
+                if (paragraphGames?.Results != null)
                 {
-                    type = "paragraph",
-                    game
-                }));
-            }
+                    var transformedParagraphGames = paragraphGames.Results.Select(game =>
+                    {
+                        // Find the highest score
+                        var winner = game.Players.OrderByDescending(p => p.Score).FirstOrDefault();
+
+                        // Map players to "teams" to match other types
+                        var teams = game.Players.Select(p => new
+                        {
+                            id = p.Id,
+                            color = (string)null,
+                            score = p.Score,
+                            number_of_members = 1,
+                            members = new[]
+                            {
+                                new
+                                {
+                                    user = new
+                                    {
+                                        id = p.Player,
+                                        profile_name = p.PlayerName,
+                                        score = p.Score
+                                    }
+                                }
+                            }
+                        }).ToList();
+
+                        var winnerTeam = teams.FirstOrDefault(t => t.score == winner?.Score);
+
+                        return new
+                        {
+                            type = "paragraph",
+                            game = new
+                            {
+                                id = game.Id,
+                                host = game.Host,
+                                host_name = game.HostName,
+                                created_at = game.CreatedAt,
+                                winner_team = winnerTeam,
+                                winner_score = winner?.Score ?? 0,
+                                teams = teams
+                            }
+                        };
+                    });
+
+                    combinedGames.AddRange(transformedParagraphGames);
+                }
 
             // Sort all games by creation date, newest first
-            var sortedGames = combinedGames.OrderByDescending(g =>
-            {
-                var game = g.GetType().GetProperty("game")?.GetValue(g);
-                return game switch
+            var sortedGames = combinedGames
+                .OrderByDescending(g =>
                 {
-                    Result r => r.CreatedAt,
-                    MillionaireGameResult m => m.CreatedAt,
-                    ParagraphGameResult p => p.CreatedAt,
-                    _ => DateTime.MinValue
-                };
-            }).ToList();
+                    var game = g.GetType().GetProperty("game")?.GetValue(g);
+                    var createdAtProp = game?.GetType().GetProperty("CreatedAt") ?? game?.GetType().GetProperty("created_at");
+                    var createdAtValue = createdAtProp?.GetValue(game);
+
+                    return createdAtValue is DateTime dt ? dt : DateTime.MinValue;
+                })
+                .ToList();
+
 
             return Ok(new
             {

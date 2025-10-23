@@ -176,7 +176,7 @@ namespace BackEnd.middlewareService.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<ActionResult<ReportListResponse>> GetAllReports()
+        public async Task<ActionResult<ReportListResponse>> GetAllReports([FromQuery] int? page = null, [FromQuery] string type = null)
         {
             try
             {
@@ -184,7 +184,7 @@ namespace BackEnd.middlewareService.Controllers
                 if (string.IsNullOrEmpty(token))
                     return Unauthorized(new { message = "Token is required" });
 
-                var reports = await _reportService.GetAllReportsAsync(token);
+                var reports = await _reportService.GetAllReportsAsync(token, page, type);
                 return Ok(reports);
             }
             catch (UnauthorizedAccessException)

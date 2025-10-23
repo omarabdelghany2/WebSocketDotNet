@@ -306,16 +306,28 @@ namespace SignalRGame.Services
                 string createdAt = kuwaitTime.ToString("yyyy-MM-dd HH:mm:ss");
 
 
+                // bool saveResult = await saveGameClassic(
+                //     token = token,
+                //     isPublic: "True",
+                //     createdAt: createdAt,
+                //     subCategories: subCategories,
+                //     mood: "mood1",
+                //     hostId: room.Host.userId,
+                //     teamInfo: teamsInfo,
+                //     subCategories: subCategories
+                // );
+
                 bool saveResult = await saveGameClassic(
-                    token = token,
+                    token: token,
                     isPublic: "True",
                     createdAt: createdAt,
-                    categories: subCategories,
-                    mood: "mood1",
-                    hostId: room.Host.userId,
+                    subCategories: subCategories,
                     teamInfo: teamsInfo,
-                    subCategories: subCategories
+                    winnerTeam: winner   // ✅ Added winner here
                 );
+
+
+
 
                 Console.WriteLine("entered save game");
 
@@ -350,55 +362,108 @@ namespace SignalRGame.Services
 
 
 
-
-
-
-
-
-
-        public async Task<bool> saveGameClassic(string token, string isPublic, string createdAt, List<string> categories, string mood, string hostId, List<object> teamInfo, List<string> subCategories)
+        public async Task<bool> saveGameClassic(
+            string token,
+            string isPublic,
+            string createdAt,
+            List<string> subCategories,
+            List<object> teamInfo,
+            string winnerTeam   // ✅ Added winnerTeam
+        )
         {
-
-            var databaseServerUrl = $"http://localhost:8004/api/game/";
-
+            var databaseServerUrl = "http://localhost:8004/api/game/";
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
 
-            var jsonPayload = JsonSerializer.Serialize(new { is_public = isPublic, created_at = createdAt, sub_categories = subCategories, mood = mood, host_id = hostId, teams_info = teamInfo });
+            // ✅ JSON body updated
+            var jsonPayload = JsonSerializer.Serialize(new
+            {
+                is_public = isPublic,
+                created_at = createdAt,
+                sub_categories = subCategories,
+                teams_info = teamInfo,
+                winner_team = winnerTeam   // ✅ Include in request body
+            });
+
             var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
             try
             {
-                // Send the request
-                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                requestMessage.Headers.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 requestMessage.Content = content;
+
                 var databaseResponse = await _httpClient.SendAsync(requestMessage);
 
                 if (databaseResponse.IsSuccessStatusCode)
                 {
-                    // Read the response content as a string
                     var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Game saved successfully: {responseContent}");
                     return true;
                 }
-
-
-
-
                 else
                 {
-                    // Log the error response
                     var errorContent = await databaseResponse.Content.ReadAsStringAsync();
                     Console.WriteLine($"Error from database: {errorContent}");
-                    return false; // Return false for non-success status codes
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                // Log any exceptions that occurred during the HTTP request
                 Console.WriteLine($"Exception occurred: {ex.Message}");
-                return false; // Return false if an exception occurs
+                return false;
             }
-
         }
+
+
+
+
+
+
+
+        // public async Task<bool> saveGameClassic(string token, string isPublic, string createdAt, List<string> categories, string mood, string hostId, List<object> teamInfo, List<string> subCategories)
+        // {
+
+        //     var databaseServerUrl = $"http://localhost:8004/api/game/";
+
+        //     var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
+
+        //     // var jsonPayload = JsonSerializer.Serialize(new { is_public = isPublic, created_at = createdAt, sub_categories = subCategories, mood = mood, host_id = hostId, teams_info = teamInfo });
+
+        //     var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+        //     try
+        //     {
+        //         // Send the request
+        //         requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        //         requestMessage.Content = content;
+        //         var databaseResponse = await _httpClient.SendAsync(requestMessage);
+
+        //         if (databaseResponse.IsSuccessStatusCode)
+        //         {
+        //             // Read the response content as a string
+        //             var responseContent = await databaseResponse.Content.ReadAsStringAsync();
+        //             return true;
+        //         }
+
+
+
+
+        //         else
+        //         {
+        //             // Log the error response
+        //             var errorContent = await databaseResponse.Content.ReadAsStringAsync();
+        //             Console.WriteLine($"Error from database: {errorContent}");
+        //             return false; // Return false for non-success status codes
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         // Log any exceptions that occurred during the HTTP request
+        //         Console.WriteLine($"Exception occurred: {ex.Message}");
+        //         return false; // Return false if an exception occurs
+        //     }
+
+        // }
 
 
 
@@ -743,7 +808,7 @@ namespace SignalRGame.Services
 
         public async Task<bool> saveGameParagraph(string token, object players)
         {
-            var apiUrl = "http://localhost:8000/api/paragraph/game/";
+            var apiUrl = "http://localhost:8004/api/paragraph/game/";
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, apiUrl);
 
             var jsonPayload = JsonSerializer.Serialize(new { players });
@@ -1106,7 +1171,7 @@ namespace SignalRGame.Services
                 else if (room.blueTeamScore < room.redTeamScore)
                     winner = "Red";
                 else
-                    winner = "Draw";
+                    winner = "Blue";
 
                 // ✅ Scale and update participant scores like SendingQuestions
                 int totalWindow = Math.Max(1, questions.Count * questionTime);
@@ -1244,22 +1309,53 @@ namespace SignalRGame.Services
     public async Task<bool> saveGameCustom(string token, string isPublic, string createdAt, List<object> teamsInfo, List<string> subCategories)
     {
         var databaseServerUrl = "http://localhost:8004/api/custom-rooms/game/";
-        var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
+        var formattedTeamsInfo = new List<object>();
+
+        // Ensure teamsInfo is formatted correctly (Red/Blue team as key, 
+        // value is a list of {users}, {team_score} dictionary)
+        foreach (var teamObj in teamsInfo)
+        {
+            if (teamObj is Dictionary<string, object> dict)
+            {
+                var formattedTeamDict = new Dictionary<string, object>();
+                foreach (var kv in dict)
+                {
+                    // Value should be an array of objects ({users: [...]}, {team_score: ...})
+                    if (kv.Value is IEnumerable<object> array)
+                    {
+                        formattedTeamDict[kv.Key] = array.ToList();
+                    }
+                    else
+                    {
+                        formattedTeamDict[kv.Key] = kv.Value;
+                    }
+                }
+                formattedTeamsInfo.Add(formattedTeamDict);
+            }
+            else
+            {
+                // if it's already Dictionary<string, List<object>> style, just add directly
+                formattedTeamsInfo.Add(teamObj);
+            }
+        }
 
         var jsonPayload = JsonSerializer.Serialize(new 
         { 
             is_public = isPublic,
             created_at = createdAt,
             sub_categories = subCategories,
-            teams_info = teamsInfo
+            teams_info = formattedTeamsInfo
         });
         var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
+        var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl)
+        {
+            Content = content
+        };
+
         try
         {
-            // Send the request
             requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-            requestMessage.Content = content;
             var databaseResponse = await _httpClient.SendAsync(requestMessage);
 
             if (databaseResponse.IsSuccessStatusCode)

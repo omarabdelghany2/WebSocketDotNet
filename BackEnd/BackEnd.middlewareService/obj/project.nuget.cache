@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YUvtB5oL8uw=",
+  "dgSpecHash": "SZKH3DUI9Po=",
   "success": true,
   "projectFilePath": "/root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/BackEnd.middlewareService.csproj",
   "expectedPackageFiles": [
@@ -35,9 +35,9 @@
     "/root/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512",
     "/root/.nuget/packages/system.management/7.0.2/system.management.7.0.2.nupkg.sha512",
     "/root/.nuget/packages/system.threading.channels/5.0.0/system.threading.channels.5.0.0.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.netcore.app.ref/8.0.17/microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.17/microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
-    "/root/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.17/microsoft.netcore.app.host.linux-x64.8.0.17.nupkg.sha512"
+    "/root/.nuget/packages/microsoft.netcore.app.ref/8.0.21/microsoft.netcore.app.ref.8.0.21.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.21/microsoft.aspnetcore.app.ref.8.0.21.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.21/microsoft.netcore.app.host.linux-x64.8.0.21.nupkg.sha512"
   ],
   "logs": [
     {

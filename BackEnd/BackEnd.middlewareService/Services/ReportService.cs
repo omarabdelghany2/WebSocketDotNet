@@ -58,9 +58,16 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
-        public async Task<ReportListResponse> GetAllReportsAsync(string token)
+        public async Task<ReportListResponse> GetAllReportsAsync(string token, int? page = null, string type = null)
         {
             var databaseServerUrl = "http://localhost:8004/api/reports/list/";
+            var queryParams = new List<string>();
+            if (page.HasValue)
+                queryParams.Add($"page={page.Value}");
+            if (!string.IsNullOrEmpty(type))
+                queryParams.Add($"type={Uri.EscapeDataString(type)}");
+            if (queryParams.Count > 0)
+                databaseServerUrl += "?" + string.Join("&", queryParams);
 
             // Prepare the request message with GET
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, databaseServerUrl);

@@ -34,18 +34,20 @@ namespace BackEnd.middlewareService.Controllers
             string code = GenerateRandomCode();
             bool saved = await _forgetPasswordService.SaveCode(request.OldEmail, code);
 
+            Console.WriteLine($"Generated code for {request.OldEmail}: {code}"); // For debugging
+
             if (!saved)
                 return BadRequest(new { message = "Error saving verification code." });
 
             try
             {
-                SendEmail(
-                    "Change Email Verification Code",
-                    $"Your verification code is: {code}",
-                    "support@t3arff.com",
-                    "T3arff@1ASF",
-                    request.OldEmail
-                );
+                // SendEmail(
+                //     "Change Email Verification Code",
+                //     $"Your verification code is: {code}",
+                //     "support@t3arff.com",
+                //     "T3arff@1ASF",
+                //     request.OldEmail
+                // );
 
                 return Ok(new { message = "Verification code sent to old email." });
             }
@@ -93,7 +95,7 @@ namespace BackEnd.middlewareService.Controllers
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             var dbUrl = "http://localhost:8004/api/user/auth/change-email/";
-            var response = await _httpClient.PutAsync(dbUrl, content);
+            var response = await _httpClient.PostAsync(dbUrl, content);
 
             if (response.IsSuccessStatusCode)
                 return Ok(new { message = "Email changed successfully." });

@@ -203,5 +203,24 @@ namespace BackEnd.middlewareService.Services
             }
         }
 
+        public async Task<bool> ChangeProfileNameAsync(string token, string newProfileName)
+        {
+            var url = "http://localhost:8004/api/user/edit/profile/";
+            var payload = JsonSerializer.Serialize(new { profile_name = newProfileName });
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage(HttpMethod.Patch, url);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            request.Content = content;
+            try
+            {
+                var response = await _httpClient.SendAsync(request);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception changing profile name: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

@@ -256,6 +256,93 @@ namespace BackEnd.middlewareService.Controllers
                 return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
             }
         }
+
+
+
+
+        [HttpPost("paypal-webhook")]
+        public async Task<IActionResult> PaypalWebhook()
+        {
+            try
+            {
+                // Read body
+                using var reader = new StreamReader(Request.Body);
+                var body = await reader.ReadToEndAsync();
+
+                _logger.LogInformation("🔔 PayPal Webhook received:\n{Body}", body);
+
+                // Parse JSON
+                var json = JsonDocument.Parse(body);
+                var eventType = json.RootElement.GetProperty("event_type").GetString();
+                _logger.LogInformation("Event type: {EventType}", eventType);
+
+                // Extract resource
+                if (json.RootElement.TryGetProperty("resource", out var resource))
+                {
+                    // Get PayPal transaction info
+                    string transactionId = resource.TryGetProperty("id", out var idProp) ? idProp.GetString() : "N/A";
+                    string amount = "N/A";
+
+                    if (resource.TryGetProperty("amount", out var amountProp))
+                    {
+                        amount = amountProp.TryGetProperty("value", out var valProp) ? valProp.GetString() : "N/A";
+                    }
+
+                    // Get custom user ID (we’ll hardcode 900 in HTML)
+                    string customId = resource.TryGetProperty("custom_id", out var customProp)
+                        ? customProp.GetString()
+                        : "N/A";
+
+                    _logger.LogInformation("💰 Transaction ID: {TransactionId}, Amount: {Amount}, Custom ID: {CustomId}", transactionId, amount, customId);
+
+                    // Optionally, you can process it only when payment completed
+                    if (eventType == "PAYMENT.CAPTURE.COMPLETED")
+                    {
+                        _logger.LogInformation("✅ Payment captured successfully for User {CustomId}", customId);
+                        // Optionally call your database service
+                        // await _paypalDatabaseServices.MarkPaymentReceivedAsync(customId, transactionId, amount);
+                    }
+                }
+
+                // Return OK to PayPal
+                return Ok(new { message = "Webhook received" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "❌ Error processing PayPal webhook");
+                return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+            }
+        }
+
+
+
+
+            [HttpGet("get-packages")]
+            public IActionResult GetPackages()
+            {
+                try
+                {
+                    var packages = new List<object>
+                    {
+                        new { name = "Package 1", price = 10, coins = 10 * 10 },
+                        new { name = "Package 2", price = 20, coins = 20 * 10 },
+                        new { name = "Package 3", price = 30, coins = 30 * 10 }
+                    };
+
+                    return Ok(new
+                    {
+                        message = "Success",
+                        data = packages
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error returning packages");
+                    return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+                }
+            }
+
+
     }
 
 }

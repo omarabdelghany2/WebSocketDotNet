@@ -18,6 +18,9 @@ namespace BackEnd.middlewareService.Models
 
         [JsonPropertyName("correctAnswer")]
         public string correctAnswer { get; set; } = string.Empty;
+
+
+        
     }
 
     public class Answer

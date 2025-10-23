@@ -1,0 +1,104 @@
+{
+  "friends" : {
+    "title" : "Friends",
+    "online": "Online",
+    "add" : "Add friend",
+    "request" : "Friend requests",
+    "pending" : "No Pending friend requests",
+    "more": "add more friends",
+    "placeholder": "Search for friends"
+  },
+  "invitations" : {
+    "title" : "Invitations",
+    "pending" : "No Pending invitations",
+    "more": "add more invitations",
+    "placeholder": "Search for invitations"
+  },
+  "news" : {
+    "title" : "News",
+    "pending" : "No Pending news",
+    "more": "add more news",
+    "placeholder": "Search for news"
+  },
+  "ranked": {
+    "title": "Ranked top",
+    "pending": "No Pending ranked",
+    "more": "add more ranked",
+    "placeholder": "Search for ranked"
+  },
+  "modes": {
+    "mode-1": {
+      "title": "Mode 1",
+      "description": "The Future Of Virtual Reality is increasingly multisensory, allowing users to experience the metaverse with all their senses. The more realistic the virtual world, the more immersive the experiences."
+    },
+    "mode-2": {
+      "title": "Mode 2",
+      "description": "Coming soon"
+    },
+    "mode-3": {
+      "title": "Mode 3",
+      "description": "Coming soon"
+    },
+    "play": "Play Now"
+  },
+  "room": {
+      "create": "Create room",
+      "joinroom": "Join room",
+      "categories": "Categories",
+      "sub-categories": "Sub Categories",
+      "question-time": "Question Time",
+      "name": "Room Id",
+      "team-1": "Team 1",
+      "team-2": "Team 2",
+      "join": "Join Here",
+      "start": "Start Game",
+      "leave": "Leave",
+      "me": "Me"
+  },
+  "dashboard": {
+    "users": "Users",
+    "subscriptions": "Subscriptions",
+    "online": "Online users",
+    "offline": "Offline users",
+    "monthly": "Monthly subscriptions",
+    "date": "Date",
+    "amount": "Total Amount"
+  },
+  "404": {
+    "message": "404 Page not found"
+  },
+  "home": {
+    "description": "Every Question opens new horizon.",
+    "sub-description" : "A chill game for the crew, no matter the age! We've got like 35+ questions vibes-pick your poison and let the chaos begin!"
+  },
+  "login": {
+    "title": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "submit": "login",
+    "remember": "remember me",
+    "forgot": "Forgot Password?",
+    "or": "or",
+    "register": "create an account",
+    "error": "wrong credentials"
+  },
+  "register": {
+    "title": "Hello in T3arff",
+    "description": "Step into our world",
+    "first": "First Name",
+    "last": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign up",
+    "username": "Username",
+    "country": "Country",
+    "renter": "Re-enter Password",
+    "or": "or",
+    "account": "Already have an account?"
+  },
+  "payment": {
+    "success": "Payment Completed",
+    "failed": "Payment Failed",
+    "back": "Go Back"
+  }
+}

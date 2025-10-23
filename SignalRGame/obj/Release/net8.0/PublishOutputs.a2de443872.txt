@@ -1,0 +1,14 @@
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/SignalRGame
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/appsettings.Development.json
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/appsettings.json
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/SignalRGame.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/SignalRGame.deps.json
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/SignalRGame.runtimeconfig.json
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/SignalRGame.pdb
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Microsoft.AspNetCore.OpenApi.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Microsoft.OpenApi.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Newtonsoft.Json.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Swashbuckle.AspNetCore.Swagger.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Swashbuckle.AspNetCore.SwaggerGen.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/Swashbuckle.AspNetCore.SwaggerUI.dll
+/root/BackEnd/WebSocketDotNet/SignalRGame/bin/Release/net8.0/publish/System.Net.WebSockets.WebSocketProtocol.dll
