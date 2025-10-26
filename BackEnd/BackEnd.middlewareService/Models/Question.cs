@@ -19,12 +19,16 @@ namespace BackEnd.middlewareService.Models
         [JsonPropertyName("correctAnswer")]
         public string correctAnswer { get; set; } = string.Empty;
 
-
+    [JsonPropertyName("id")]
+    public int Id { get; set; }  // ✅ add this
         
     }
 
     public class Answer
     {
+            [JsonPropertyName("id")]
+            public int Id { get; set; }  // ✅ add this
+
         [JsonPropertyName("text")]
         public string answerText { get; set; } = string.Empty;
 

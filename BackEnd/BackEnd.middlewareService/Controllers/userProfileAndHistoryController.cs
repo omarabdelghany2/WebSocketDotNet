@@ -260,14 +260,17 @@ namespace BackEnd.middlewareService.Controllers
             [JsonPropertyName("id")]
             public int Id { get; set; }
 
+            [JsonPropertyName("host")]
+            public int Host { get; set; } // ✅ Matches API field
+
+            [JsonPropertyName("host_name")]
+            public string HostName { get; set; } // ✅ Matches API field
+
             [JsonPropertyName("created_at")]
             public DateTime CreatedAt { get; set; }
 
-            [JsonPropertyName("score")]
-            public int Score { get; set; }
-
-            [JsonPropertyName("player")]
-            public int Player { get; set; }
+            [JsonPropertyName("game_score")]
+            public int GameScore { get; set; } // ✅ Matches API field
         }
 
 
@@ -387,12 +390,25 @@ public class ParagraphPlayer
 
             if (millionaireGames?.Results != null)
             {
-                combinedGames.AddRange(millionaireGames.Results.Select(game => new
+                var transformedMillionaireGames = millionaireGames.Results.Select(game => new
                 {
                     type = "millionaire",
-                    game
-                }));
+                    game = new
+                    {
+                        id = game.Id,
+                        host = game.HostName,        // ✅ Use string host name for display
+                        host_id = game.Host,         // ✅ Keep numeric ID if you still need it
+                        host_name = game.HostName,   // ✅ Same as other game types
+                        created_at = game.CreatedAt,
+                        score = game.GameScore,   // ✅ Correct field mapping
+                        player = game.Host        // ✅ Use host as player for single-player mode
+                    }
+                });
+
+                combinedGames.AddRange(transformedMillionaireGames);
             }
+
+
 
             if (customGames?.Results != null)
             {

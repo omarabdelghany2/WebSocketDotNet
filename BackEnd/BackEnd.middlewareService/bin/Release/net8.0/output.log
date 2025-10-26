@@ -1,0 +1,267 @@
+nohup: ignoring input
+warn: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[16]
+      The WebRootPath was not found: /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Release/net8.0/wwwroot. Static files may be unavailable.
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:5038
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /root/BackEnd/WebSocketDotNet/BackEnd/BackEnd.middlewareService/bin/Release/net8.0
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 102.3571ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 126.567ms - 200
+info: System.Net.Http.HttpClient.ReportService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/reports/list/?page=1
+info: System.Net.Http.HttpClient.ReportService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/reports/list/?page=1
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.ReportService.ClientHandler[101]
+      Received HTTP response headers after 96.1098ms - 200
+info: System.Net.Http.HttpClient.ReportService.LogicalHandler[101]
+      End processing HTTP request after 96.8896ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/auth/admin/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[101]
+      Received HTTP response headers after 74.9099ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[101]
+      End processing HTTP request after 75.6787ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[101]
+      Received HTTP response headers after 140.1512ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[101]
+      End processing HTTP request after 141.0634ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[101]
+      Received HTTP response headers after 141.7642ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[101]
+      End processing HTTP request after 142.1235ms - 200
+info: BackEnd.middlewareService.Controllers.DashboardController[0]
+      SignalR connection started successfully.
+info: BackEnd.middlewareService.Controllers.DashboardController[0]
+      SignalR connection started successfully.
+info: BackEnd.middlewareService.Controllers.DashboardController[0]
+      SignalR connection started successfully.
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 86.064ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 86.2612ms - 200
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 99.3311ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 99.5831ms - 200
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 83.0894ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 83.3429ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[101]
+      Received HTTP response headers after 125.6885ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[101]
+      End processing HTTP request after 126.1618ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/game/
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/millionaire/game/
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/custom-rooms/game/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/custom-rooms/game/
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/paragraph/game/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/paragraph/game/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 142.8316ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 143.0261ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 228.3746ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 228.9273ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 283.9389ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 284.7141ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 288.8286ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 292.0275ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 391.4663ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 392.2122ms - 200
+Received Input: {"email":"mark@admin.com","password":"Keymetal5252"}
+Sending to database: {"email":"mark@admin.com","password":"Keymetal5252"}
+info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:8004/api/user/auth/login/
+info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+      Sending HTTP request POST http://localhost:8004/api/user/auth/login/
+info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+      Received HTTP response headers after 680.2191ms - 200
+info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+      End processing HTTP request after 680.4438ms - 200
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Date: Sun, 26 Oct 2025 21:05:49 GMT
+  Server: WSGIServer/0.2 CPython/3.12.11
+  Vary: Accept, origin
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Type: application/json
+  Allow: POST, OPTIONS
+  Content-Length: 717
+}
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 61.4969ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 61.7248ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 18.7549ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 19.0947ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 45.5635ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 45.7745ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[101]
+      Received HTTP response headers after 54.6929ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[101]
+      End processing HTTP request after 54.8688ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 89.0876ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 92.7934ms - 200
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 120.0815ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 120.7548ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 136.9154ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 137.9683ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[101]
+      Received HTTP response headers after 131.9929ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[101]
+      End processing HTTP request after 132.5954ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/profile/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/leaderboard/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/list/
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/friends/pending/list/
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 33.1821ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 33.3149ms - 200
+info: System.Net.Http.HttpClient.userProfileService.ClientHandler[101]
+      Received HTTP response headers after 137.4679ms - 200
+info: System.Net.Http.HttpClient.userProfileService.LogicalHandler[101]
+      End processing HTTP request after 138.5454ms - 200
+info: System.Net.Http.HttpClient.FriendsService.ClientHandler[101]
+      Received HTTP response headers after 138.9443ms - 200
+info: System.Net.Http.HttpClient.FriendsService.LogicalHandler[101]
+      End processing HTTP request after 139.1109ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.ClientHandler[101]
+      Received HTTP response headers after 155.543ms - 200
+info: System.Net.Http.HttpClient.leaderBoardSerivce.LogicalHandler[101]
+      End processing HTTP request after 156.2138ms - 200
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[100]
+      Start processing HTTP request GET http://localhost:8004/api/user/auth/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[100]
+      Sending HTTP request GET http://localhost:8004/api/user/auth/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[101]
+      Received HTTP response headers after 6.1494ms - 401
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[101]
+      End processing HTTP request after 6.8768ms - 401
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[100]
+      Start processing HTTP request POST http://localhost:8004/api/token/refresh/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[100]
+      Sending HTTP request POST http://localhost:8004/api/token/refresh/
+info: System.Net.Http.HttpClient.TokenValidator.ClientHandler[101]
+      Received HTTP response headers after 45.8274ms - 401
+info: System.Net.Http.HttpClient.TokenValidator.LogicalHandler[101]
+      End processing HTTP request after 46.0362ms - 401
+Error refreshing access token. Status code: Unauthorized. Response: {"detail":"Token is invalid or expired","code":"token_not_valid"}
