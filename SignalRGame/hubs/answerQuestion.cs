@@ -193,14 +193,14 @@ namespace SignalRGame.Hubs
                         return;
                 }
             }
-            else
-            {
-                if(userId == room.Host.userId) // so its the answer of the host
-                {
-                    room.Host.gameScore-=10;
-                }
+            // else
+            // {
+            //     if(userId == room.Host.userId) // so its the answer of the host
+            //     {
+            //         room.Host.gameScore-=10;
+            //     }
 
-            }
+            // }
             
             await Clients.Group(roomId).SendAsync("succefullyAnsweredModeTwo", new{profileName=room.Host.profileName,userId=Convert.ToInt32(room.Host.userId) });
 

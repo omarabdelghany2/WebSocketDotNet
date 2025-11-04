@@ -1042,8 +1042,7 @@ namespace BackEnd.middlewareService.Controllers
         [HttpGet("dashboard/classic-questions")]
         public async Task<IActionResult> GetClassicQuestions(
             [FromHeader] string Authorization,
-            [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 10)
+            [FromQuery] int page = 1)
         {
             if (string.IsNullOrEmpty(Authorization))
                 return BadRequest("Authorization token is required.");
@@ -1060,42 +1059,34 @@ namespace BackEnd.middlewareService.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                // 🔹 Using localhost instead of the public IP
-                var response = await client.GetAsync("http://localhost:8004/api/questions/?subcategory=Description");
+                // 🔹 Call the backend with page param (no manual pageSize logic)
+                var response = await client.GetAsync($"http://localhost:8004/api/questions/list-create/?page={page}");
                 if (!response.IsSuccessStatusCode)
                     return StatusCode((int)response.StatusCode, "Failed to fetch classic questions from server.");
 
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var questions = JsonSerializer.Deserialize<List<BackEnd.middlewareService.Models.Question>>(jsonString,
+
+                var paginated = JsonSerializer.Deserialize<PaginatedResponse<BackEnd.middlewareService.Models.Question>>(
+                    jsonString,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                foreach (var q in questions)
+                if (paginated == null)
+                    return StatusCode(500, "Invalid response format from question service.");
+
+                // 🔹 Add correctAnswer field for each question
+                foreach (var q in paginated.Results)
                 {
                     var correct = q.answers.FirstOrDefault(a => a.is_correct);
                     q.correctAnswer = correct?.answerText ?? "";
                 }
 
-                // 🔹 Pagination
-                int totalItems = questions.Count;
-                var paginatedQuestions = questions
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                string baseUrl = $"http://localhost:5038/api/dashboard/classic-questions";
-                string? next = (page * pageSize < totalItems)
-                    ? $"{baseUrl}?page={page + 1}&pageSize={pageSize}"
-                    : null;
-                string? previous = (page > 1)
-                    ? $"{baseUrl}?page={page - 1}&pageSize={pageSize}"
-                    : null;
-
+                // 🔹 Return the exact same structure (already paginated)
                 var result = new
                 {
-                    count = totalItems,
-                    next,
-                    previous,
-                    results = paginatedQuestions
+                    count = paginated.Count,
+                    next = paginated.Next,
+                    previous = paginated.Previous,
+                    results = paginated.Results
                 };
 
                 return Ok(result);
@@ -1105,6 +1096,14 @@ namespace BackEnd.middlewareService.Controllers
                 _logger.LogError(ex, "Error fetching classic questions.");
                 return StatusCode(500, new { error = ex.Message });
             }
+        }
+
+        public class PaginatedResponse<T>
+        {
+            public int Count { get; set; }
+            public string? Next { get; set; }
+            public string? Previous { get; set; }
+            public List<T> Results { get; set; } = new();
         }
 
 
@@ -1131,13 +1130,23 @@ namespace BackEnd.middlewareService.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 // 🔹 Using localhost instead of the public IP
-                var response = await client.GetAsync("http://localhost:8004/api/millionaire/questions/");
+                var response = await client.GetAsync($"http://localhost:8004/api/questions/list-create/?page={page}");
                 if (!response.IsSuccessStatusCode)
                     return StatusCode((int)response.StatusCode, "Failed to fetch millionaire questions from server.");
 
+                // var jsonString = await response.Content.ReadAsStringAsync();
+                // var questions = JsonSerializer.Deserialize<List<BackEnd.middlewareService.Models.Question>>(jsonString,
+                //     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+
+
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var questions = JsonSerializer.Deserialize<List<BackEnd.middlewareService.Models.Question>>(jsonString,
+
+                var paginated = JsonSerializer.Deserialize<PaginatedResponse<BackEnd.middlewareService.Models.Question>>(
+                    jsonString,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                var questions = paginated?.Results ?? new List<BackEnd.middlewareService.Models.Question>();
 
                 foreach (var q in questions)
                 {

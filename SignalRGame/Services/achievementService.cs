@@ -49,72 +49,255 @@ namespace SignalRGame.Services
             _httpClient = httpClient;
         }
 
+        // public async Task DetectAchievementsForRoom(string roomId)
+        // {
+        //     Console.WriteLine($"[Achievements] DetectAchievementsForRoom called for room {roomId}");
+
+        //     if (!GameHub.Rooms.TryGetValue(roomId, out var room))
+        //     {
+        //         Console.WriteLine($"[Achievements] No room found with ID {roomId}");
+        //         return;
+        //     }
+
+        //     foreach (var player in room.Participants)
+        //     {
+        //         try
+        //         {
+        //             var token = GameHub.TokenToUserId.FirstOrDefault(x => x.Value == player.userId).Key;
+        //             if (string.IsNullOrEmpty(token)) continue;
+
+        //             // Get owned achievements
+        //             _httpClient.DefaultRequestHeaders.Clear();
+        //             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        //             var existingResp = await _httpClient.GetAsync("http://localhost:8004/api/achievements/user-achievements/");
+        //             var existingJson = await existingResp.Content.ReadAsStringAsync();
+        //             var existingApiResult = JsonSerializer.Deserialize<ApiResult<UserAchievement>>(existingJson, _jsonOptions);
+        //             var existingAchievements = existingApiResult?.Results ?? new List<UserAchievement>();
+
+        //             var ownedNames = existingAchievements
+        //                 .Select(e => e.Name.Trim().ToLowerInvariant())
+        //                 .ToHashSet();
+
+        //             // Get histories
+        //             var classicJson = await _profileService.GetUserClassicModeHistoryAsync(token);
+        //             var millionaireJson = await _profileService.GetUserMillionaireModeHistoryAsync(token);
+
+        //             var classicApiResult = JsonSerializer.Deserialize<ApiResult<ClassicGameHistory>>(classicJson, _jsonOptions);
+        //             var classicHistory = classicApiResult?.Results ?? new List<ClassicGameHistory>();
+
+        //             var millionaireApiResult = JsonSerializer.Deserialize<ApiResult<MillionaireGameHistory>>(millionaireJson, _jsonOptions);
+        //             var millionaireHistory = millionaireApiResult?.Results ?? new List<MillionaireGameHistory>();
+
+        //             // Resolve achievements
+        //             var unlocked = new List<string>();
+        //             unlocked.AddRange(CheckWins("Classic", classicHistory.Select(h => h.PlayerWon).ToList()));
+        //             unlocked.AddRange(CheckWins("Millionaire", millionaireHistory.Select(h => h.PlayerWon).ToList()));
+
+        //             var newAchievements = AllAchievements
+        //                 .Where(a => unlocked.Contains(a.Name) && !ownedNames.Contains(a.Name.Trim().ToLowerInvariant()))
+        //                 .ToList();
+
+        //             if (newAchievements.Any() && GameHub.UserIdToConnectionId.TryGetValue(player.userId, out var connId))
+        //             {
+        //                 await _hubContext.Clients.Client(connId).SendAsync("achievementsUnlocked", new { achievements = newAchievements });
+
+        //                 foreach (var ach in newAchievements)
+        //                 {
+        //                     var body = JsonSerializer.Serialize(new { name = ach.Name, description = "Unlocked achievement" });
+        //                     var content = new StringContent(body, Encoding.UTF8, "application/json");
+        //                     await _httpClient.PostAsync("http://localhost:8004/api/achievements/user-achievements/", content);
+        //                 }
+        //             }
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             Console.WriteLine($"[Achievements] Error for {player.userId}: {ex.Message}");
+        //         }
+        //     }
+        // }
+
+
         public async Task DetectAchievementsForRoom(string roomId)
         {
             Console.WriteLine($"[Achievements] DetectAchievementsForRoom called for room {roomId}");
 
-            if (!GameHub.Rooms.TryGetValue(roomId, out var room))
+            if (string.IsNullOrEmpty(roomId))
+            {
+                Console.WriteLine("[Achievements] Invalid roomId (null or empty)");
+                return;
+            }
+
+            if (!GameHub.Rooms.TryGetValue(roomId, out var room) || room == null)
             {
                 Console.WriteLine($"[Achievements] No room found with ID {roomId}");
                 return;
             }
 
+            if (room.Participants == null || !room.Participants.Any())
+            {
+                Console.WriteLine($"[Achievements] Room {roomId} has no participants");
+                return;
+            }
+
             foreach (var player in room.Participants)
             {
+                if (player == null || string.IsNullOrEmpty(player.userId))
+                {
+                    Console.WriteLine("[Achievements] Skipping player: invalid user data");
+                    continue;
+                }
+
                 try
                 {
                     var token = GameHub.TokenToUserId.FirstOrDefault(x => x.Value == player.userId).Key;
-                    if (string.IsNullOrEmpty(token)) continue;
+                    if (string.IsNullOrEmpty(token))
+                    {
+                        Console.WriteLine($"[Achievements] No token found for user {player.userId}");
+                        continue;
+                    }
 
-                    // Get owned achievements
+                    // Fetch owned achievements
                     _httpClient.DefaultRequestHeaders.Clear();
                     _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-                    var existingResp = await _httpClient.GetAsync("http://localhost:8004/api/achievements/user-achievements/");
-                    var existingJson = await existingResp.Content.ReadAsStringAsync();
-                    var existingApiResult = JsonSerializer.Deserialize<ApiResult<UserAchievement>>(existingJson, _jsonOptions);
-                    var existingAchievements = existingApiResult?.Results ?? new List<UserAchievement>();
 
+                    HttpResponseMessage existingResp;
+                    try
+                    {
+                        existingResp = await _httpClient.GetAsync("http://localhost:8004/api/achievements/user-achievements/");
+                    }
+                    catch (HttpRequestException hre)
+                    {
+                        Console.WriteLine($"[Achievements] HTTP error fetching achievements for {player.userId}: {hre.Message}");
+                        continue;
+                    }
+
+                    if (!existingResp.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"[Achievements] Failed to fetch achievements for {player.userId}, status: {existingResp.StatusCode}");
+                        continue;
+                    }
+
+                    var existingJson = await existingResp.Content.ReadAsStringAsync();
+                    ApiResult<UserAchievement>? existingApiResult = null;
+
+                    try
+                    {
+                        existingApiResult = JsonSerializer.Deserialize<ApiResult<UserAchievement>>(existingJson, _jsonOptions);
+                    }
+                    catch (JsonException je)
+                    {
+                        Console.WriteLine($"[Achievements] JSON deserialization failed for achievements ({player.userId}): {je.Message}");
+                        continue;
+                    }
+
+                    var existingAchievements = existingApiResult?.Results ?? new List<UserAchievement>();
                     var ownedNames = existingAchievements
+                        .Where(e => e?.Name != null)
                         .Select(e => e.Name.Trim().ToLowerInvariant())
                         .ToHashSet();
 
-                    // Get histories
-                    var classicJson = await _profileService.GetUserClassicModeHistoryAsync(token);
-                    var millionaireJson = await _profileService.GetUserMillionaireModeHistoryAsync(token);
+                    // Fetch histories
+                    string? classicJson = null, millionaireJson = null;
+                    try
+                    {
+                        classicJson = await _profileService.GetUserClassicModeHistoryAsync(token);
+                        millionaireJson = await _profileService.GetUserMillionaireModeHistoryAsync(token);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Achievements] Error fetching histories for {player.userId}: {ex.Message}");
+                        continue;
+                    }
 
-                    var classicApiResult = JsonSerializer.Deserialize<ApiResult<ClassicGameHistory>>(classicJson, _jsonOptions);
-                    var classicHistory = classicApiResult?.Results ?? new List<ClassicGameHistory>();
+                    List<ClassicGameHistory> classicHistory = new();
+                    List<MillionaireGameHistory> millionaireHistory = new();
 
-                    var millionaireApiResult = JsonSerializer.Deserialize<ApiResult<MillionaireGameHistory>>(millionaireJson, _jsonOptions);
-                    var millionaireHistory = millionaireApiResult?.Results ?? new List<MillionaireGameHistory>();
+                    try
+                    {
+                        var classicApiResult = JsonSerializer.Deserialize<ApiResult<ClassicGameHistory>>(classicJson, _jsonOptions);
+                        classicHistory = classicApiResult?.Results ?? new List<ClassicGameHistory>();
+                    }
+                    catch (JsonException)
+                    {
+                        Console.WriteLine($"[Achievements] Failed to parse Classic history for {player.userId}");
+                    }
+
+                    try
+                    {
+                        var millionaireApiResult = JsonSerializer.Deserialize<ApiResult<MillionaireGameHistory>>(millionaireJson, _jsonOptions);
+                        millionaireHistory = millionaireApiResult?.Results ?? new List<MillionaireGameHistory>();
+                    }
+                    catch (JsonException)
+                    {
+                        Console.WriteLine($"[Achievements] Failed to parse Millionaire history for {player.userId}");
+                    }
 
                     // Resolve achievements
                     var unlocked = new List<string>();
-                    unlocked.AddRange(CheckWins("Classic", classicHistory.Select(h => h.PlayerWon).ToList()));
-                    unlocked.AddRange(CheckWins("Millionaire", millionaireHistory.Select(h => h.PlayerWon).ToList()));
+                    try
+                    {
+                        unlocked.AddRange(CheckWins("Classic", classicHistory.Select(h => h.PlayerWon).ToList()));
+                        unlocked.AddRange(CheckWins("Millionaire", millionaireHistory.Select(h => h.PlayerWon).ToList()));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Achievements] Error checking wins for {player.userId}: {ex.Message}");
+                        continue;
+                    }
 
                     var newAchievements = AllAchievements
-                        .Where(a => unlocked.Contains(a.Name) && !ownedNames.Contains(a.Name.Trim().ToLowerInvariant()))
+                        .Where(a => a?.Name != null && unlocked.Contains(a.Name) &&
+                                    !ownedNames.Contains(a.Name.Trim().ToLowerInvariant()))
                         .ToList();
 
-                    if (newAchievements.Any() && GameHub.UserIdToConnectionId.TryGetValue(player.userId, out var connId))
+                    if (!newAchievements.Any())
+                    {
+                        Console.WriteLine($"[Achievements] No new achievements for {player.userId}");
+                        continue;
+                    }
+
+                    if (!GameHub.UserIdToConnectionId.TryGetValue(player.userId, out var connId))
+                    {
+                        Console.WriteLine($"[Achievements] No connection ID found for user {player.userId}");
+                        continue;
+                    }
+
+                    // Send achievements to client
+                    try
                     {
                         await _hubContext.Clients.Client(connId).SendAsync("achievementsUnlocked", new { achievements = newAchievements });
+                        Console.WriteLine($"[Achievements] Sent {newAchievements.Count} achievements to {player.userId}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Achievements] Error sending to client {player.userId}: {ex.Message}");
+                    }
 
-                        foreach (var ach in newAchievements)
+                    // Save achievements
+                    foreach (var ach in newAchievements)
+                    {
+                        try
                         {
                             var body = JsonSerializer.Serialize(new { name = ach.Name, description = "Unlocked achievement" });
                             var content = new StringContent(body, Encoding.UTF8, "application/json");
-                            await _httpClient.PostAsync("http://localhost:8004/api/achievements/user-achievements/", content);
+                            var postResp = await _httpClient.PostAsync("http://localhost:8004/api/achievements/user-achievements/", content);
+
+                            if (!postResp.IsSuccessStatusCode)
+                                Console.WriteLine($"[Achievements] Failed to post achievement {ach.Name} for {player.userId}: {postResp.StatusCode}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[Achievements] Error posting achievement {ach.Name} for {player.userId}: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[Achievements] Error for {player.userId}: {ex.Message}");
+                    Console.WriteLine($"[Achievements] Fatal error for {player.userId}: {ex}");
                 }
             }
         }
+
 
         // ✅ New universal check for wins + consecutive wins
         private static List<string> CheckWins(string mode, List<bool> gameResults)

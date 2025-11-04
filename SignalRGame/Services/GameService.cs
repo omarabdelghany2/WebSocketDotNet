@@ -525,11 +525,13 @@ namespace SignalRGame.Services
                     }
 
 
-
+                    double questionIndex = ((i + 1) / (double)questions.Count) * 100.0;
+                    Console.WriteLine("questionIndex: " + questionIndex);
 
                     await _hubContext.Clients.Group(roomId).SendAsync("countDownCompleteModeTwo", new
                     {
                         questionIndex = ((i + 1) / (double)questions.Count) * 100.0,
+
                         correctAnswer = currentQuestion.correctAnswer
 
                     });
@@ -556,6 +558,7 @@ namespace SignalRGame.Services
                 );
 
                 Console.WriteLine("entered save game");
+                Console.WriteLine(room.Host.gameScore);
 
 
                 // Ensure removal happens only after saving is completed successfully
