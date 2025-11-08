@@ -111,7 +111,15 @@ namespace SignalRGame.Hubs
             //game started
             room.inGame = true;
 
+            // Check that both teams have at least 1 player
+            if (blueTeamCount == 0 || redTeamCount == 0)
+            {
+                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Both teams must have at least 1 player to start the game." });
 
+                return;
+            }
+
+            // Check that teams have a maximum difference of 1 player
             if (Math.Abs(blueTeamCount - redTeamCount) > 1)
             {
                 await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Teams must have a maximum difference of 1 player to start the game." });
