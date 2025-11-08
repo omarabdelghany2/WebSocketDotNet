@@ -57,7 +57,7 @@ namespace BackEnd.middlewareService.Services
 
     public async Task<bool> subscribeAsync(string userId,string planId, string startTime,string subscriptionId)
     {
-        var databaseServerUrl = "http://localhost:8005/api/subscription/subscribe/";
+        var databaseServerUrl = "http://localhost:8005/api/subscription/";
 
         // Prepare the request message with PATCH method
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, databaseServerUrl);
