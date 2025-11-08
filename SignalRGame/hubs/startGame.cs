@@ -15,6 +15,29 @@ namespace SignalRGame.Hubs
             string roomId = request.roomId;
             List<string> subCategories = request.subCategories;
 
+            // Check if room exists first
+            if (!Rooms.TryGetValue(roomId, out var room))
+            {
+                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Room does not exist." });
+                return;
+            }
+
+            // Validate subcategories for mode 1
+            if (room.Mode == "mode1")
+            {
+                if (subCategories == null || subCategories.Count < 2)
+                {
+                    await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Mode 1 requires at least 2 subcategories." });
+                    return;
+                }
+
+                if (subCategories.Count > 6)
+                {
+                    await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Mode 1 cannot exceed 6 subcategories." });
+                    return;
+                }
+            }
+
             string result = await _GetQuestions.GetQuestionsResponseAsync(token, subCategories);
 
 
@@ -73,12 +96,7 @@ namespace SignalRGame.Hubs
                 return;
             }
 
-            if (!Rooms.TryGetValue(roomId, out var room))
-            {
-                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Room does not exist." });
-
-                return;
-            }
+            // Room already retrieved and validated earlier
 
             if (room.Host.userId != userId)
             {
@@ -94,9 +112,9 @@ namespace SignalRGame.Hubs
             room.inGame = true;
 
 
-            if (blueTeamCount != redTeamCount)
+            if (Math.Abs(blueTeamCount - redTeamCount) > 1)
             {
-                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Teams must have an equal number of players to start the game." });
+                await Clients.Caller.SendAsync("gameStarted", new { error = true, errorMessage = "Teams must have a maximum difference of 1 player to start the game." });
 
                 return;
             }
