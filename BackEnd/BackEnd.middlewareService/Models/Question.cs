@@ -22,9 +22,9 @@ namespace BackEnd.middlewareService.Models
         [JsonPropertyName("id")]
         public int Id { get; set; }  // ✅ add this
 
+        [JsonPropertyName("image_url")]
+        public string? ImageUrl { get; set; }  // ✅ Image URL for the question (nullable)
 
-        
-        
     }
 
     public class Answer

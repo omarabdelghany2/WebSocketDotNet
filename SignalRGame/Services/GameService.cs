@@ -74,7 +74,7 @@ namespace SignalRGame.Services
                     var rng = new Random();
                     answers = answers.OrderBy(a => rng.Next()).ToList();
 
-                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new { subCategory = currentQuestion.subCategory, questionTitle = currentQuestion.questionTitle, answers = answers });
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestion", new { subCategory = currentQuestion.subCategory, questionTitle = currentQuestion.questionTitle, answers = answers, imageUrl = currentQuestion.imageUrl });
                     //sendin the Timer Here 1 after every second
                     for (int j = questionTime; j >= 0; j--)
                     {
@@ -512,7 +512,7 @@ namespace SignalRGame.Services
                     var rng = new Random();
                     answers = answers.OrderBy(a => rng.Next()).ToList();
 
-                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestionModeTwo", new { questionTitle = currentQuestion.questionTitle, answers = answers });
+                    await _hubContext.Clients.Group(roomId).SendAsync("receiveQuestionModeTwo", new { questionTitle = currentQuestion.questionTitle, answers = answers, imageUrl = currentQuestion.imageUrl });
                     //sending the Timer Here 1 after every second
                     for (int j = 100; j >= 0; j--)
                     {
@@ -702,7 +702,8 @@ namespace SignalRGame.Services
                     var questionPayload = new
                     {
                         questionTitle = currentQuestion.questionTitle,
-                        answers = answers
+                        answers = answers,
+                        imageUrl = currentQuestion.imageUrl
                     };
 
                     Console.WriteLine($"[SEND] receiveQuestion => {System.Text.Json.JsonSerializer.Serialize(questionPayload)}");
@@ -881,7 +882,8 @@ namespace SignalRGame.Services
                     {
                         subCategory = currentQuestion.subCategory,
                         questionTitle = currentQuestion.questionTitle,
-                        answers = answers
+                        answers = answers,
+                        imageUrl = currentQuestion.imageUrl
                     });
 
                     for (int j = questionTime; j >= 0; j--)
@@ -1105,7 +1107,8 @@ namespace SignalRGame.Services
                     {
                         subCategory = currentQuestion.subCategory,
                         questionTitle = currentQuestion.questionTitle,
-                        answers = answers
+                        answers = answers,
+                        imageUrl = currentQuestion.imageUrl
                     });
 
                     for (int j = questionTime; j >= 0; j--)

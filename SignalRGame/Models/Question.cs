@@ -18,6 +18,9 @@ public class Question
     public List<Answer> answers { get; set; } = new List<Answer>(); // Updated to be a list of Answer objects
 
     public string correctAnswer { get; set; } = string.Empty; // The correct answer
+
+    [JsonPropertyName("image_url")] // Mapping snake_case to PascalCase
+    public string? imageUrl { get; set; } // Image URL for the question (nullable)
 }
 
 
@@ -41,6 +44,8 @@ public class QuestionMillionaire
     
     public string correctAnswer { get; set; } = string.Empty; // The correct answer
 
+    [JsonPropertyName("image_url")] // Mapping snake_case to PascalCase
+    public string? imageUrl { get; set; } // Image URL for the question (nullable)
 }
 public class Answer
 {
