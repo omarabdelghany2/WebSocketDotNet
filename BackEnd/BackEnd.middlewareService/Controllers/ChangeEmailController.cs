@@ -6,6 +6,12 @@ using System;
 using System.Text.Json.Serialization;
 using BackEnd.middlewareService.Services;
 
+
+
+using System;
+using System.Net;
+using System.Net.Mail;
+
 namespace BackEnd.middlewareService.Controllers
 {
     [ApiController]
@@ -48,7 +54,13 @@ namespace BackEnd.middlewareService.Controllers
                 //     "T3arff@1ASF",
                 //     request.OldEmail
                 // );
-
+                SendEmailSmtps(
+                    "Change Email Verification Code",
+                    $"Your verification code is: {code}",
+                    "support@t3arff.com",
+                    "T3arff@1ASF",
+                    request.OldEmail
+                );
                 return Ok(new { message = "Verification code sent to old email." });
             }
             catch (Exception ex)
@@ -147,6 +159,44 @@ namespace BackEnd.middlewareService.Controllers
                 throw;
             }
         }
+
+
+
+
+        private void SendEmailSmtps(string subject, string body, string senderEmail, string senderPassword, string receiverEmail)
+        {
+            try
+            {
+                // Use SMTPS (SSL from the start)
+                SmtpClient smtpClient = new SmtpClient("mail.privateemail.com", 465)
+                {
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true, // SSL/TLS is required for port 465
+                    DeliveryMethod = SmtpDeliveryMethod.Network
+                };
+
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = false
+                };
+
+                mailMessage.To.Add(receiverEmail);
+
+                smtpClient.Send(mailMessage);
+                Console.WriteLine("Email sent successfully over SMTPS!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
     }
 
     // ---------------------------
