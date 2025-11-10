@@ -1098,6 +1098,80 @@ namespace BackEnd.middlewareService.Controllers
             }
         }
 
+
+        [HttpGet("dashboard/question-by-title")]
+        public async Task<IActionResult> GetQuestionByTitle(
+            [FromHeader] string Authorization,
+            [FromQuery] string title)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+                return BadRequest("Authorization token is required.");
+
+            if (string.IsNullOrEmpty(title))
+                return BadRequest("Question title is required.");
+
+            var token = Authorization.Replace("Bearer ", "").Trim();
+            string validationResult = await _TokenValidator.ValidateAdminAsync(token);
+
+            if (validationResult == "error")
+                return Unauthorized("You are not authorized to access this resource.");
+
+            try
+            {
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                int currentPage = 1;
+                BackEnd.middlewareService.Models.Question? foundQuestion = null;
+
+                // Loop through all pages until we find the question or run out of pages
+                while (true)
+                {
+                    var response = await client.GetAsync($"http://localhost:8004/api/questions/list-create/?page={currentPage}");
+                    if (!response.IsSuccessStatusCode)
+                        return StatusCode((int)response.StatusCode, "Failed to fetch questions from server.");
+
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var paginated = JsonSerializer.Deserialize<PaginatedResponse<BackEnd.middlewareService.Models.Question>>(
+                        jsonString,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (paginated == null || paginated.Results.Count == 0)
+                        break; // No more results
+
+                    // Search for the question with matching title
+                    foundQuestion = paginated.Results.FirstOrDefault(q =>
+                        q.questionTitle.Equals(title, StringComparison.OrdinalIgnoreCase));
+
+                    if (foundQuestion != null)
+                    {
+                        // Add correctAnswer field
+                        var correct = foundQuestion.answers.FirstOrDefault(a => a.is_correct);
+                        foundQuestion.correctAnswer = correct?.answerText ?? "";
+                        break; // Found the question, exit the loop
+                    }
+
+                    // Check if there's a next page
+                    if (string.IsNullOrEmpty(paginated.Next))
+                        break; // No more pages
+
+                    currentPage++;
+                }
+
+                if (foundQuestion == null)
+                    return NotFound(new { message = $"No question found with title: {title}" });
+
+                return Ok(foundQuestion);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching question by title.");
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
         public class PaginatedResponse<T>
         {
             public int Count { get; set; }
