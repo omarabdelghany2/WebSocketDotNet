@@ -25,6 +25,12 @@ namespace BackEnd.middlewareService.Models
         [JsonPropertyName("image_url")]
         public string? ImageUrl { get; set; }  // ✅ Image URL for the question (nullable)
 
+        [JsonPropertyName("category")]
+        public string? Category { get; set; }
+
+        [JsonPropertyName("subsubcategory")]
+        public string? Subsubcategory { get; set; }
+
     }
 
     public class Answer
