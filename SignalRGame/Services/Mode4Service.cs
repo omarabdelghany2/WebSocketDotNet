@@ -15,81 +15,112 @@ namespace SignalRGame.Services
             _httpClient = httpClient;
         }
 
-        public async Task<(string passage, List<Question> questions)> GetParagraphAndQuestionsAsync(string token)
+        public async Task<(string passage, List<Question> questions)> GetParagraphAndQuestionsAsync(string token, int maxRetries = 3)
         {
-            try
+            int attempts = 0;
+
+            while (attempts < maxRetries)
             {
-                // Get random paragraph
-                var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/paragraph/random/");
-                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                attempts++;
 
-                var response = await _httpClient.SendAsync(requestMessage);
-                var paragraphResponse = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                try
                 {
-                    throw new HttpRequestException($"Failed to get random paragraph. Status code: {response.StatusCode}");
-                }
+                    Console.WriteLine($"[INFO] Attempting to fetch paragraph with questions (Attempt {attempts}/{maxRetries})");
 
-                // Deserialize paragraph
-                var paragraphData = System.Text.Json.JsonSerializer.Deserialize<ParagraphResponse>(paragraphResponse);
-                if (paragraphData == null)
-                {
-                    throw new Exception("Failed to deserialize paragraph data");
-                }
+                    // Get random paragraph
+                    var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/paragraph/random/");
+                    requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-                // Get questions for this paragraph
-                requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/paragraph/{paragraphData.id}/questions/");
-                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    var response = await _httpClient.SendAsync(requestMessage);
+                    var paragraphResponse = await response.Content.ReadAsStringAsync();
 
-                response = await _httpClient.SendAsync(requestMessage);
-                var questionsResponse = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException($"Failed to get questions. Status code: {response.StatusCode}");
-                }
-
-                // Deserialize questions
-                var questionsData = System.Text.Json.JsonSerializer.Deserialize<QuestionsResponse>(questionsResponse);
-                if (questionsData == null)
-                {
-                    throw new Exception("Failed to deserialize questions data");
-                }
-
-                // Convert API questions to your game Question format
-                var gameQuestions = questionsData.results.Select(q => new Question
-                {
-                    questionTitle = q.text,
-                    answers = q.answers.Select(a => new Answer
+                    if (!response.IsSuccessStatusCode)
                     {
-                        answerText = a.text,
-                        is_correct = a.is_correct
-                    }).ToList()
-                }).ToList();
-
-                // Set correct answers and hide is_correct flags
-                foreach (var q in gameQuestions)
-                {
-                    var correctAnswer = q.answers.FirstOrDefault(a => a.is_correct);
-                    if (correctAnswer != null)
-                    {
-                        q.correctAnswer = correctAnswer.answerText;
+                        throw new HttpRequestException($"Failed to get random paragraph. Status code: {response.StatusCode}");
                     }
 
-                    foreach (var a in q.answers)
+                    // Deserialize paragraph
+                    var paragraphData = System.Text.Json.JsonSerializer.Deserialize<ParagraphResponse>(paragraphResponse);
+                    if (paragraphData == null)
                     {
-                        a.is_correct = false; // hide correctness
+                        throw new Exception("Failed to deserialize paragraph data");
                     }
-                }
 
-                return (paragraphData.text, gameQuestions);
+                    Console.WriteLine($"[INFO] Fetched paragraph ID: {paragraphData.id}");
+
+                    // Get questions for this paragraph
+                    requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/paragraph/{paragraphData.id}/questions/");
+                    requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                    response = await _httpClient.SendAsync(requestMessage);
+                    var questionsResponse = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"Failed to get questions. Status code: {response.StatusCode}");
+                    }
+
+                    // Deserialize questions
+                    var questionsData = System.Text.Json.JsonSerializer.Deserialize<QuestionsResponse>(questionsResponse);
+                    if (questionsData == null)
+                    {
+                        throw new Exception("Failed to deserialize questions data");
+                    }
+
+                    // Check if paragraph has questions
+                    if (questionsData.results == null || questionsData.results.Count == 0)
+                    {
+                        Console.WriteLine($"[WARNING] Paragraph ID {paragraphData.id} has no questions. Retrying...");
+                        continue; // Try again with a new paragraph
+                    }
+
+                    Console.WriteLine($"[SUCCESS] Found paragraph with {questionsData.results.Count} questions");
+
+                    // Convert API questions to your game Question format
+                    var gameQuestions = questionsData.results.Select(q => new Question
+                    {
+                        questionTitle = q.text,
+                        answers = q.answers.Select(a => new Answer
+                        {
+                            answerText = a.text,
+                            is_correct = a.is_correct
+                        }).ToList()
+                    }).ToList();
+
+                    // Set correct answers and hide is_correct flags
+                    foreach (var q in gameQuestions)
+                    {
+                        var correctAnswer = q.answers.FirstOrDefault(a => a.is_correct);
+                        if (correctAnswer != null)
+                        {
+                            q.correctAnswer = correctAnswer.answerText;
+                        }
+
+                        foreach (var a in q.answers)
+                        {
+                            a.is_correct = false; // hide correctness
+                        }
+                    }
+
+                    return (paragraphData.text, gameQuestions);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Error in GetParagraphAndQuestionsAsync (Attempt {attempts}): {ex.Message}");
+
+                    // If it's the last attempt, throw the exception
+                    if (attempts >= maxRetries)
+                    {
+                        throw new Exception($"Failed to fetch paragraph with questions after {maxRetries} attempts", ex);
+                    }
+
+                    // Wait a bit before retrying to avoid hammering the API
+                    await Task.Delay(250);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetParagraphAndQuestionsAsync: {ex.Message}");
-                throw;
-            }
+
+            // This should never be reached, but just in case
+            throw new Exception($"Failed to fetch paragraph with questions after {maxRetries} attempts");
         }
 
         private class ParagraphResponse
